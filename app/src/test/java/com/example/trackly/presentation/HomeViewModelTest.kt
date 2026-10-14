@@ -35,7 +35,7 @@ class HomeViewModelTest {
     private val clock = Clock.fixed(Instant.parse("2026-10-14T10:00:00Z"), ZoneOffset.UTC)
 
     private fun viewModel(repo: FakeHabitRepository, premium: Boolean = false) =
-        HomeViewModel(repo, TodayProvider(clock), MutableStateFlow(PremiumPolicy(premium)))
+        mainDispatcher.track(HomeViewModel(repo, TodayProvider(clock), MutableStateFlow(PremiumPolicy(premium))))
 
     private suspend fun HomeViewModel.content(): HomeContent =
         (uiState.first { it is UiState.Content } as UiState.Content).data

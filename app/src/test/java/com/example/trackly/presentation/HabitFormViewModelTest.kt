@@ -33,13 +33,15 @@ class HabitFormViewModelTest {
     private val clock = Clock.fixed(Instant.parse("2026-10-14T10:00:00Z"), ZoneOffset.UTC)
     private val repo = FakeHabitRepository()
 
-    private fun viewModel(premium: Boolean = false, habitId: Long = 0) = HabitFormViewModel(
-        habitId = habitId,
-        habits = repo,
-        saveHabit = SaveHabitUseCase(repo),
-        settings = FakeSettingsRepository(),
-        policy = MutableStateFlow(PremiumPolicy(premium)),
-        todayProvider = TodayProvider(clock),
+    private fun viewModel(premium: Boolean = false, habitId: Long = 0) = mainDispatcher.track(
+        HabitFormViewModel(
+            habitId = habitId,
+            habits = repo,
+            saveHabit = SaveHabitUseCase(repo),
+            settings = FakeSettingsRepository(),
+            policy = MutableStateFlow(PremiumPolicy(premium)),
+            todayProvider = TodayProvider(clock),
+        ),
     )
 
     @Test

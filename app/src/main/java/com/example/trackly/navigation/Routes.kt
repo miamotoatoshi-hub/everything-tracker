@@ -41,7 +41,7 @@ object Routes {
 /** Destinations shown in the bottom navigation bar. */
 enum class TopLevelDestination(
     val route: String,
-    @StringRes val label: Int,
+    @param:StringRes val label: Int,
     val icon: ImageVector,
 ) {
     HOME(Routes.HOME, R.string.nav_home, Icons.Rounded.Home),

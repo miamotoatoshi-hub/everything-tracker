@@ -14,7 +14,7 @@ import java.time.LocalDate
 /** A ready-made habit offered during onboarding. */
 data class HabitTemplate(
     val key: String,
-    @StringRes val nameRes: Int,
+    @param:StringRes val nameRes: Int,
     val icon: String,
     val colorArgb: Int,
     val type: HabitType,

@@ -1,5 +1,13 @@
 name: Android CI
 
+# Builds the app exactly like a release: unit tests, lint, debug APK, instrumented-test APK and the
+# release Android App Bundle (.aab). Download the AAB from the run's "Artifacts" section.
+#
+# To get a SIGNED, upload-ready AAB, add these repository secrets (Settings > Secrets and variables > Actions):
+#   KEYSTORE_BASE64    your upload keystore, base64-encoded (e.g. `base64 -w0 upload-keystore.jks`)
+#   KEYSTORE_PASSWORD, KEY_ALIAS, KEY_PASSWORD
+# Without them the AAB is built unsigned (fine for verification, not for upload).
+
 on:
   push:
     branches: ["**"]
@@ -37,9 +45,20 @@ jobs:
       - name: Assemble debug APK + compile instrumented tests
         run: ./gradlew --console=plain assembleDebug assembleDebugAndroidTest
 
+      - name: Decode upload keystore (optional)
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: |
+          if [ -n "$KEYSTORE_BASE64" ]; then
+            echo "$KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/upload-keystore.jks"
+            echo "KEYSTORE_PATH=$RUNNER_TEMP/upload-keystore.jks" >> "$GITHUB_ENV"
+            echo "Signing with the configured upload keystore."
+          else
+            echo "No KEYSTORE_BASE64 secret: the AAB will be unsigned."
+          fi
+
       - name: Bundle release (AAB)
         env:
-          KEYSTORE_PATH: ${{ secrets.KEYSTORE_PATH }}
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
@@ -69,4 +88,5 @@ jobs:
           path: |
             app/build/reports/
             app/build/test-results/
+            app/schemas/
           if-no-files-found: ignore
