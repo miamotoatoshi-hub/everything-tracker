@@ -81,6 +81,9 @@ class PlayBillingRepository(
 
     @Volatile private var lastPersisted: PremiumEntitlement? = null
 
+    /** True once Google Play has answered in this session; from then on the offline cache is ignored. */
+    @Volatile private var verifiedThisSession = false
+
     init {
         // Start from the last Play-verified status so Premium works offline right after launch.
         scope.launch {
@@ -90,7 +93,7 @@ class PlayBillingRepository(
                 PremiumEntitlement.None
             }
             lastPersisted = cached
-            if (_entitlement.value.status == PremiumEntitlement.None.status) {
+            if (!verifiedThisSession) {
                 publish(EntitlementResolver.whenUnverifiable(cached, clock.millis()), persist = false)
             }
         }
@@ -388,6 +391,7 @@ class PlayBillingRepository(
     )
 
     private suspend fun publish(entitlement: PremiumEntitlement, persist: Boolean) {
+        if (persist) verifiedThisSession = true
         _entitlement.value = entitlement
         _isPremium.value = entitlement.isPremium
         if (!persist) return

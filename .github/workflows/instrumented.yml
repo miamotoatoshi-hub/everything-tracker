@@ -1,12 +1,12 @@
 name: Instrumented UI tests
 
 # Runs the Compose UI tests and the Room repository tests on an Android emulator.
-# Triggered manually (Actions tab > Instrumented UI tests > Run workflow) and on pushes to main.
+# Runs on every push (and can be started manually from the Actions tab).
 
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches: ["**"]
 
 concurrency:
   group: instrumented-${{ github.ref }}

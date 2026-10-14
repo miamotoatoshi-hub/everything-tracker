@@ -64,6 +64,15 @@ jobs:
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: ./gradlew --console=plain bundleRelease
 
+      - name: Inspect release (permissions, AAB size and checksum)
+        run: |
+          echo "== Permissions in the merged release manifest =="
+          find app/build/intermediates -path "*merged_manifest*" -path "*elease*" -name AndroidManifest.xml | head -1 | xargs -r grep -ho 'uses-permission[^>]*android:name="[^"]*"' | sed 's/.*android:name=//' | sort -u
+          echo "== AAB =="
+          ls -l app/build/outputs/bundle/release/*.aab
+          sha256sum app/build/outputs/bundle/release/*.aab
+          unzip -l app/build/outputs/bundle/release/*.aab | tail -n 3
+
       - name: Upload AAB
         if: always()
         uses: actions/upload-artifact@v4
