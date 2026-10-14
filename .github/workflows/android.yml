@@ -46,9 +46,11 @@ jobs:
       - name: Unit tests
         run: ./gradlew --console=plain testDebugUnitTest
 
-      - name: Print Room schema (commit app/schemas/ to keep a migration baseline)
+      - name: Room schema is committed and matches the generated one
         run: |
-          for f in app/schemas/*/*.json; do echo "== $f"; cat "$f"; echo; done
+          ls app/schemas/*/*.json
+          # KSP may be restored from the build cache without re-exporting the schema; only compare fresh output.
+          git diff --exit-code -- app/schemas || { echo "Room schema changed: commit app/schemas/ and add a Migration"; exit 1; }
 
       - name: Lint (release)
         run: ./gradlew --console=plain lintRelease
