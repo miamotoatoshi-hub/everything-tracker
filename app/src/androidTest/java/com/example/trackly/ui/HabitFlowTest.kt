@@ -1,10 +1,12 @@
 package com.example.trackly.ui
 
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.performTextClearance
 import androidx.compose.ui.test.performTextInput
 import androidx.test.core.app.ActivityScenario
@@ -122,7 +124,9 @@ class HabitFlowTest {
         compose.onNodeWithTag("menu_archive").performClick()
 
         // Archiving returns to Home, which now has no active habit but one archived habit.
-        compose.waitForTag("filter_archived")
+        // The "Archived" chip can sit beyond the screen edge in the scrollable filter row.
+        compose.waitForTag("filter_row")
+        compose.onNodeWithTag("filter_row").performScrollToNode(hasTestTag("filter_archived"))
         compose.onNodeWithTag("filter_archived").performClick()
         compose.waitForText("Water")
     }

@@ -3,6 +3,8 @@ package com.example.trackly.ui
 import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.onRoot
+import androidx.compose.ui.test.printToString
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.platform.app.InstrumentationRegistry
 import com.example.trackly.TracklyApp
@@ -57,9 +59,23 @@ object UiTestSupport {
 }
 
 fun ComposeTestRule.waitForTag(tag: String, timeoutMillis: Long = 8_000) {
-    waitUntil(timeoutMillis) { onAllNodesWithTag(tag).fetchSemanticsNodes().isNotEmpty() }
+    waitOrExplain("tag '$tag'", timeoutMillis) { onAllNodesWithTag(tag).fetchSemanticsNodes().isNotEmpty() }
 }
 
 fun ComposeTestRule.waitForText(text: String, timeoutMillis: Long = 8_000) {
-    waitUntil(timeoutMillis) { onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty() }
+    waitOrExplain("text '$text'", timeoutMillis) { onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty() }
+}
+
+/** Like waitUntil, but a timeout says *what* was awaited and dumps the current UI tree. */
+private fun ComposeTestRule.waitOrExplain(what: String, timeoutMillis: Long, condition: () -> Boolean) {
+    try {
+        waitUntil(timeoutMillis, condition)
+    } catch (error: Exception) {
+        val tree = try {
+            onRoot(useUnmergedTree = true).printToString(maxDepth = 7).take(3_500)
+        } catch (ignored: Exception) {
+            "(UI tree unavailable)"
+        }
+        throw AssertionError("Timed out waiting for $what.\nUI tree:\n$tree", error)
+    }
 }
