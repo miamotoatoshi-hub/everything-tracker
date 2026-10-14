@@ -8,9 +8,11 @@ Trackly — нативное Android-приложение (Kotlin + Jetpack Comp
 * Данные привычек хранятся **локально** (Room). Приложение работает полностью офлайн.
 * Нет аккаунтов, рекламы и аналитики, нет собственных сетевых запросов. Приложение само не объявляет `INTERNET`.
 * Собственные разрешения: `POST_NOTIFICATIONS`, `RECEIVE_BOOT_COMPLETED`, `VIBRATE`. В итоговый манифест
-  библиотеки добавляют ещё `com.android.vending.BILLING`, `INTERNET`, `ACCESS_NETWORK_STATE`
-  (Play Billing / AndroidX), `WAKE_LOCK` и `FOREGROUND_SERVICE` (WorkManager). Полный список и источник каждого
-  разрешения печатает шаг «Inspect release» в CI.
+  библиотеки добавляют ещё: `com.android.vending.BILLING` (Play Billing), `INTERNET`
+  (транзитивная зависимость `com.google.android.datatransport:transport-backend-cct`), а также
+  `ACCESS_NETWORK_STATE`, `WAKE_LOCK` и `FOREGROUND_SERVICE` (`androidx.work:work-runtime`). Код приложения не
+  делает собственных сетевых запросов. Полный список и источник каждого разрешения печатает шаг
+  «Inspect release» в CI; учитывайте их при заполнении формы *Data safety* в Play Console.
 
 > **Содержание**
 > 1. [Быстрый старт](#1-быстрый-старт)
