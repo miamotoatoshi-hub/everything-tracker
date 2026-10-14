@@ -35,6 +35,9 @@ jobs:
         run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
 
       - uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-cleanup: never
+          add-job-summary: never
 
       - name: Unit tests
         run: ./gradlew --console=plain testDebugUnitTest

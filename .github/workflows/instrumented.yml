@@ -32,6 +32,9 @@ jobs:
           sudo udevadm trigger --name-match=kvm
 
       - uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-cleanup: never
+          add-job-summary: never
 
       - name: Run instrumented tests
         uses: reactivecircus/android-emulator-runner@v2
