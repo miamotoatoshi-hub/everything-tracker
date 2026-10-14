@@ -349,7 +349,7 @@ app/src/androidTest/  UI-тесты Compose и тесты Room/репозито�
 ## 12. Тесты
 
 ```bash
-./gradlew testDebugUnitTest              # JVM unit-тесты (~130)
+./gradlew testDebugUnitTest              # JVM unit-тесты (~120)
 ./gradlew connectedDebugAndroidTest      # UI-тесты + Room на эмуляторе/устройстве
 ```
 
