@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Onboarding -->
+    <string name="onboarding_title_1">Track what matters.</string>
+    <string name="onboarding_body_1">Create any habit or goal you care about — water, workouts, reading, savings — and keep it in one calm place.</string>
+    <string name="onboarding_title_2">Build better habits.</string>
+    <string name="onboarding_body_2">Set goals, pick your days and add gentle reminders that fit your routine.</string>
+    <string name="onboarding_title_3">Stay consistent.</string>
+    <string name="onboarding_body_3">Streaks, calendars and statistics show how far you\'ve come.</string>
+    <string name="onboarding_skip">Skip</string>
+    <string name="onboarding_next">Next</string>
+    <string name="onboarding_templates_title">Create your first habit</string>
+    <string name="onboarding_templates_body">Pick a few to start with — you can change everything later.</string>
+    <string name="onboarding_start">Start tracking</string>
+    <string name="onboarding_start_count">Start tracking (%1$d)</string>
+    <string name="onboarding_custom">Create Custom Habit</string>
+    <string name="onboarding_later">I\'ll do it later</string>
+    <string name="onboarding_limit">The free plan supports up to %1$d habits.</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <!-- The Premium cache is re-verified with Google Play on every device; never restore it. -->
+    <exclude domain="file" path="datastore/trackly_entitlement.preferences_pb" />
+    <exclude domain="sharedpref" path="reminder_registry.xml" />
+</full-backup-content>

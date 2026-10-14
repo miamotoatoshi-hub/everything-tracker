@@ -1,74 +1,72 @@
 package com.example.trackly
 
-import android.app.Activity
-import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material3.Text
-import com.android.billingclient.api.AcknowledgePurchaseParams
-import com.android.billingclient.api.BillingClient
-import com.android.billingclient.api.BillingFlowParams
-import com.android.billingclient.api.PendingPurchasesParams
-import com.android.billingclient.api.Purchase
-import com.android.billingclient.api.QueryProductDetailsParams
-import com.android.billingclient.api.QueryPurchasesParams
-import com.android.billingclient.api.acknowledgePurchase
-import com.android.billingclient.api.queryProductDetails
-import com.android.billingclient.api.queryPurchasesAsync
+import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.trackly.notifications.ReminderNotifier
+import com.example.trackly.presentation.app.MainViewModel
+import com.example.trackly.presentation.app.TracklyRoot
+import com.example.trackly.presentation.common.LocalAppContainer
+import kotlinx.coroutines.flow.MutableStateFlow
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent { Text("probe") }
+class MainActivity : AppCompatActivity() {
+
+    private val container get() = (application as TracklyApp).container
+
+    /** Habit to open because the user tapped a reminder notification. */
+    private val deepLinkHabitId = MutableStateFlow<Long?>(null)
+
+    private val mainViewModel: MainViewModel by viewModels {
+        viewModelFactory { initializer { MainViewModel(container.settingsRepository) } }
     }
-}
 
-@Suppress("unused")
-object BillingApiProbe {
-    fun client(context: Context): BillingClient =
-        BillingClient.newBuilder(context)
-            .setListener { _, _ -> }
-            .enablePendingPurchases(PendingPurchasesParams.newBuilder().enableOneTimeProducts().build())
-            .build()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        val splash = installSplashScreen()
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        splash.setKeepOnScreenCondition { mainViewModel.startDestination.value == null }
 
-    suspend fun run(client: BillingClient, activity: Activity) {
-        val params = QueryProductDetailsParams.newBuilder()
-            .setProductList(
-                listOf(
-                    QueryProductDetailsParams.Product.newBuilder()
-                        .setProductId("x")
-                        .setProductType(BillingClient.ProductType.SUBS)
-                        .build(),
-                ),
-            ).build()
-        val result = client.queryProductDetails(params)
-        val details = result.productDetailsList?.firstOrNull()
-        val offer = details?.subscriptionOfferDetails?.firstOrNull()
-        val phase = offer?.pricingPhases?.pricingPhaseList?.firstOrNull()
-        println("${phase?.formattedPrice} ${phase?.priceAmountMicros} ${phase?.priceCurrencyCode} ${phase?.billingPeriod}")
-        if (details != null && offer != null) {
-            val flow = BillingFlowParams.newBuilder()
-                .setProductDetailsParamsList(
-                    listOf(
-                        BillingFlowParams.ProductDetailsParams.newBuilder()
-                            .setProductDetails(details)
-                            .setOfferToken(offer.offerToken)
-                            .build(),
-                    ),
-                ).build()
-            client.launchBillingFlow(activity, flow)
-        }
-        val purchases = client.queryPurchasesAsync(
-            QueryPurchasesParams.newBuilder().setProductType(BillingClient.ProductType.SUBS).build(),
-        )
-        purchases.purchasesList.forEach { p: Purchase ->
-            if (p.purchaseState == Purchase.PurchaseState.PURCHASED && !p.isAcknowledged) {
-                client.acknowledgePurchase(
-                    AcknowledgePurchaseParams.newBuilder().setPurchaseToken(p.purchaseToken).build(),
+        handleIntent(intent)
+        container.billingRepository.connect()
+
+        setContent {
+            val pendingHabit by deepLinkHabitId.collectAsStateWithLifecycle()
+            CompositionLocalProvider(LocalAppContainer provides container) {
+                TracklyRoot(
+                    mainViewModel = mainViewModel,
+                    deepLinkHabitId = pendingHabit,
+                    onDeepLinkConsumed = { deepLinkHabitId.value = null },
                 )
             }
-            println("${p.products} ${p.isAutoRenewing}")
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        handleIntent(intent)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Midnight may have passed while the app was in the background; also re-check Premium.
+        container.todayProvider.refresh()
+        container.billingRepository.refreshPurchases()
+    }
+
+    private fun handleIntent(intent: Intent?) {
+        if (intent?.action == ReminderNotifier.ACTION_OPEN_HABIT) {
+            val id = intent.getLongExtra(ReminderNotifier.EXTRA_HABIT_ID, -1L)
+            if (id > 0L) deepLinkHabitId.value = id
         }
     }
 }

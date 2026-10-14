@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Settings -->
+    <string name="settings_appearance">Appearance</string>
+    <string name="settings_theme">Theme</string>
+    <string name="settings_accent">Accent color</string>
+    <string name="settings_notifications">Notifications</string>
+    <string name="settings_enable_notifications">Enable notifications</string>
+    <string name="settings_enable_notifications_desc">Reminders for your habits</string>
+    <string name="settings_notifications_blocked">Notifications are turned off</string>
+    <string name="settings_notifications_blocked_desc">Tap to allow notifications in system settings</string>
+    <string name="settings_sound">Sound</string>
+    <string name="settings_vibration">Vibration</string>
+    <string name="settings_system_notifications">System notification settings</string>
+    <string name="settings_general">General</string>
+    <string name="settings_first_day">First day of week</string>
+    <string name="settings_units">Units</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_language_system">System default</string>
+    <string name="settings_premium">Premium</string>
+    <string name="settings_premium_active">Trackly Premium</string>
+    <string name="settings_premium_active_desc">Thank you for your support</string>
+    <string name="settings_premium_canceled">Trackly Premium (ends soon)</string>
+    <string name="settings_premium_pending">Payment pending</string>
+    <string name="settings_premium_expired">Premium expired</string>
+    <string name="settings_premium_free">Free plan</string>
+    <string name="settings_premium_upgrade_desc">Unlock unlimited habits and advanced statistics</string>
+    <string name="settings_manage_subscription">Manage subscription</string>
+    <string name="settings_restore_purchases">Restore purchases</string>
+    <string name="settings_about">About</string>
+    <string name="settings_privacy_policy">Privacy Policy</string>
+    <string name="settings_terms">Terms of Service</string>
+    <string name="settings_version">App version</string>
+</resources>

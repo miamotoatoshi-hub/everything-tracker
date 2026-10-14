@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Statistics and weekly overview -->
+    <string name="stats_overall">Overall</string>
+    <string name="stats_per_habit">Per habit</string>
+    <string name="stats_week">Week</string>
+    <string name="stats_month">Month</string>
+    <string name="stats_year">Year</string>
+    <string name="stats_completion_rate">Completion rate</string>
+    <string name="stats_rate_caption">Completed days out of the days you planned.</string>
+    <string name="stats_total_completions">Total completions</string>
+    <string name="stats_average_completion">Average completion</string>
+    <string name="stats_weekly_activity">Weekly activity</string>
+    <string name="stats_monthly_activity">Monthly activity</string>
+    <string name="stats_yearly_activity">Yearly activity</string>
+    <string name="stats_by_habit">By habit</string>
+    <string name="stats_weekly_overview">Weekly overview</string>
+    <string name="stats_premium_section">Premium insights</string>
+    <string name="stats_locked_message">Unlock monthly and yearly statistics and see the bigger picture.</string>
+    <string name="stats_empty_title">No statistics yet</string>
+    <string name="stats_empty_message">Track a habit for a few days and your statistics will appear here.</string>
+    <string name="insights_locked_title">Premium insights</string>
+    <string name="insights_locked_message">Find your best day, your most consistent habit and your weekly trend.</string>
+    <string name="insights_not_enough_data">Keep tracking for a few more days to unlock your insights.</string>
+    <string name="insights_overall_only">Insights compare all of your habits. Switch to \"Overall\" to see them.</string>
+    <string name="insight_best_day">Your best day</string>
+    <string name="insight_weakest_day">Your toughest day</string>
+    <string name="insight_top_habit">Most consistent habit (30 days)</string>
+    <string name="insight_trend">Trend vs. previous week</string>
+    <string name="insight_trend_up">Up %1$d points</string>
+    <string name="insight_trend_down">Down %1$d points</string>
+    <string name="insight_trend_flat">No change</string>
+    <string name="insight_perfect_days">Perfect days (last 30 days)</string>
+    <string name="weekly_title">This week</string>
+    <string name="weekly_completion_rate">completion rate</string>
+    <string name="weekly_daily_progress">Daily progress</string>
+    <string name="weekly_by_habit">By habit</string>
+    <string name="weekly_day_description">%1$s: %2$d of %3$d habits done</string>
+</resources>
