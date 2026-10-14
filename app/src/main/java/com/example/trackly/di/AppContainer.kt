@@ -19,7 +19,6 @@ import com.example.trackly.domain.repository.HabitRepository
 import com.example.trackly.domain.repository.SettingsRepository
 import com.example.trackly.domain.usecase.SaveHabitUseCase
 import com.example.trackly.notifications.AlarmReminderScheduler
-import com.example.trackly.notifications.NotificationChannels
 import com.example.trackly.notifications.ReminderNotifier
 import com.example.trackly.notifications.ReminderSyncWorker
 import kotlinx.coroutines.CoroutineScope
@@ -37,7 +36,7 @@ import java.time.Clock
  * (the only writer lives in the `debug` source set), so release Premium always comes from Google Play.
  */
 class PremiumOverride {
-    val value = MutableStateFlow<Boolean?>(null)
+    val flow = MutableStateFlow<Boolean?>(null)
 }
 
 /** Hand-rolled dependency container: simple, explicit, and easy to replace in tests. */
@@ -71,7 +70,7 @@ class AppContainer(
 
     /** The effective Premium state: Google Play's answer (plus the debug-only override in debug builds). */
     val isPremium: StateFlow<Boolean> by lazy {
-        combine(billingRepository.isPremium, premiumOverride.value) { real, override -> override ?: real }
+        combine(billingRepository.isPremium, premiumOverride.flow) { real, forced -> forced ?: real }
             .stateIn(appScope, SharingStarted.Eagerly, billingRepository.isPremium.value)
     }
 

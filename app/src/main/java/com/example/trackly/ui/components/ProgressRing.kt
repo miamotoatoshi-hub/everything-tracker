@@ -1,5 +1,6 @@
 package com.example.trackly.ui.components
 
+import androidx.compose.runtime.getValue
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween

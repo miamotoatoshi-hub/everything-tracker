@@ -29,13 +29,13 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
 
       - name: Unit tests
-        run: ./gradlew --stacktrace testDebugUnitTest
+        run: ./gradlew --console=plain testDebugUnitTest
 
       - name: Lint (release)
-        run: ./gradlew --stacktrace lintRelease
+        run: ./gradlew --console=plain lintRelease
 
       - name: Assemble debug APK + compile instrumented tests
-        run: ./gradlew --stacktrace assembleDebug assembleDebugAndroidTest
+        run: ./gradlew --console=plain assembleDebug assembleDebugAndroidTest
 
       - name: Bundle release (AAB)
         env:
@@ -43,7 +43,7 @@ jobs:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-        run: ./gradlew --stacktrace bundleRelease
+        run: ./gradlew --console=plain bundleRelease
 
       - name: Upload AAB
         if: always()

@@ -35,7 +35,7 @@ object DebugTools {
 
     @Composable
     fun SettingsSection(container: AppContainer) {
-        val override by container.premiumOverride.value.collectAsStateWithLifecycle()
+        val override by container.premiumOverride.flow.collectAsStateWithLifecycle()
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text("Debug (debug builds only)", style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.error)
             Surface(shape = RoundedCornerShape(24.dp), color = MaterialTheme.colorScheme.errorContainer) {
@@ -44,7 +44,7 @@ object DebugTools {
                         Text("Force Premium on", modifier = Modifier.weight(1f))
                         Switch(
                             checked = override == true,
-                            onCheckedChange = { container.premiumOverride.value = if (it) true else null },
+                            onCheckedChange = { container.premiumOverride.flow.value = if (it) true else null },
                             modifier = Modifier.testTag("debug_premium_switch"),
                         )
                     }
