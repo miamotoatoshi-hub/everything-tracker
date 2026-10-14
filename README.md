@@ -6,9 +6,11 @@ Trackly — нативное Android-приложение (Kotlin + Jetpack Comp
 Премиум-версия продаётся **только через Google Play Billing** (подписка).
 
 * Данные привычек хранятся **локально** (Room). Приложение работает полностью офлайн.
-* Нет аккаунтов, рекламы и аналитики. В манифесте **нет разрешения `INTERNET`**.
-* Разрешения: `POST_NOTIFICATIONS`, `RECEIVE_BOOT_COMPLETED`, `VIBRATE` (+ `com.android.vending.BILLING`
-  добавляется библиотекой Billing автоматически).
+* Нет аккаунтов, рекламы и аналитики, нет собственных сетевых запросов. Приложение само не объявляет `INTERNET`.
+* Собственные разрешения: `POST_NOTIFICATIONS`, `RECEIVE_BOOT_COMPLETED`, `VIBRATE`. В итоговый манифест
+  библиотеки добавляют ещё `com.android.vending.BILLING`, `INTERNET`, `ACCESS_NETWORK_STATE`
+  (Play Billing / AndroidX), `WAKE_LOCK` и `FOREGROUND_SERVICE` (WorkManager). Полный список и источник каждого
+  разрешения печатает шаг «Inspect release» в CI.
 
 > **Содержание**
 > 1. [Быстрый старт](#1-быстрый-старт)
@@ -349,7 +351,7 @@ app/src/androidTest/  UI-тесты Compose и тесты Room/репозито�
 ## 12. Тесты
 
 ```bash
-./gradlew testDebugUnitTest              # JVM unit-тесты (~120)
+./gradlew testDebugUnitTest              # JVM unit-тесты (127)
 ./gradlew connectedDebugAndroidTest      # UI-тесты + Room на эмуляторе/устройстве
 ```
 
@@ -370,7 +372,7 @@ UI-тесты (Compose): создание привычки, валидация �
   (**`trackly-release-aab`**, `trackly-debug-apk`, `reports`) скачиваются со страницы запуска
   (*Actions ▸ Android CI ▸ выбрать запуск ▸ Artifacts*). Без секретов подписи AAB получается **неподписанным** —
   такой файл нельзя загрузить в Google Play (см. раздел 4).
-* `.github/workflows/instrumented.yml` — UI-тесты на эмуляторе (запуск вручную или по push в `main`).
+* `.github/workflows/instrumented.yml` — UI-тесты и тесты Room на эмуляторе (API 34) на каждый push.
 
 ---
 

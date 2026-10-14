@@ -83,8 +83,24 @@ jobs:
           ls -l app/build/outputs/bundle/release/*.aab
           sha256sum app/build/outputs/bundle/release/*.aab
           unzip -l app/build/outputs/bundle/release/*.aab | tail -n 3
-          echo "== Native libraries in the AAB (none expected: nothing to align for 16 KB pages) =="
-          unzip -l app/build/outputs/bundle/release/*.aab | grep -E '\.so$' || echo "none"
+          echo "== Where each permission comes from (manifest merger report) =="
+          report=app/build/outputs/logs/manifest-merger-release-report.txt
+          for perm in INTERNET ACCESS_NETWORK_STATE FOREGROUND_SERVICE WAKE_LOCK; do
+            grep -h -A2 "uses-permission#android.permission.$perm\$" "$report" | head -3 || true
+          done
+          echo "== Native libraries in the AAB: Google Play requires 16 KB ELF alignment (LOAD align 0x4000 or more) =="
+          libs=$(mktemp -d)
+          unzip -q -o app/build/outputs/bundle/release/*.aab 'base/lib/arm64-v8a/*.so' 'base/lib/x86_64/*.so' -d "$libs"
+          status=ok
+          while read -r lib; do
+            aligns=$(readelf -lW "$lib" | awk '$1 == "LOAD" {print $NF}' | sort -u | tr '\n' ' ')
+            echo "${lib#"$libs"/}: $aligns"
+            for a in $aligns; do
+              if [ $((a)) -lt 16384 ]; then status=NOT_ALIGNED; fi
+            done
+          done < <(find "$libs" -name '*.so' | sort)
+          echo "16 KB alignment: $status"
+          [ "$status" = ok ]
 
       - name: Upload AAB
         if: always()
