@@ -39,6 +39,10 @@ jobs:
       - name: Unit tests
         run: ./gradlew --console=plain testDebugUnitTest
 
+      - name: Print Room schema (commit app/schemas/ to keep a migration baseline)
+        run: |
+          for f in app/schemas/*/*.json; do echo "== $f"; cat "$f"; echo; done
+
       - name: Lint (release)
         run: ./gradlew --console=plain lintRelease
 
@@ -72,6 +76,8 @@ jobs:
           ls -l app/build/outputs/bundle/release/*.aab
           sha256sum app/build/outputs/bundle/release/*.aab
           unzip -l app/build/outputs/bundle/release/*.aab | tail -n 3
+          echo "== Native libraries in the AAB (none expected: nothing to align for 16 KB pages) =="
+          unzip -l app/build/outputs/bundle/release/*.aab | grep -E '\.so$' || echo "none"
 
       - name: Upload AAB
         if: always()

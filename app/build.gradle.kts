@@ -97,6 +97,9 @@ android {
         abortOnError = true
         checkReleaseBuilds = true
         warningsAsErrors = false
+        // Print the findings to the console as well (handy in CI logs).
+        textReport = true
+        textOutput = File("stdout")
     }
 
     testOptions {

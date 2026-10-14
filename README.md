@@ -366,7 +366,10 @@ UI-тесты (Compose): создание привычки, валидация �
 ## 13. CI (GitHub Actions)
 
 * `.github/workflows/android.yml` — на каждый push: unit-тесты, lint, debug APK, компиляция androidTest,
-  `bundleRelease`; артефакты (AAB, APK, отчёты) скачиваются со страницы запуска.
+  `bundleRelease`, печать итоговых разрешений из merged-манифеста, SHA-256 и состава AAB. Артефакты
+  (**`trackly-release-aab`**, `trackly-debug-apk`, `reports`) скачиваются со страницы запуска
+  (*Actions ▸ Android CI ▸ выбрать запуск ▸ Artifacts*). Без секретов подписи AAB получается **неподписанным** —
+  такой файл нельзя загрузить в Google Play (см. раздел 4).
 * `.github/workflows/instrumented.yml` — UI-тесты на эмуляторе (запуск вручную или по push в `main`).
 
 ---
