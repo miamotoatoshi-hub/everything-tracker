@@ -5,6 +5,7 @@ package com.example.trackly.presentation.premium
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.scaleIn
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -21,6 +22,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -36,6 +39,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
@@ -44,14 +48,19 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
@@ -62,7 +71,9 @@ import com.example.trackly.R
 import com.example.trackly.billing.BillingConfig
 import com.example.trackly.billing.BillingPeriod
 import com.example.trackly.billing.PeriodUnit
-import com.example.trackly.billing.PremiumProduct
+import com.example.trackly.billing.PlanKind
+import com.example.trackly.billing.PlanPricing
+import com.example.trackly.billing.PremiumPlan
 import com.example.trackly.billing.ProductState
 import com.example.trackly.domain.model.EntitlementStatus
 import com.example.trackly.domain.model.PremiumFeature
@@ -122,14 +133,15 @@ fun PremiumScreen(
                 when {
                     isPremium -> ActiveCard(
                         canceled = entitlement.status == EntitlementStatus.ACTIVE_CANCELED,
+                        lifetime = entitlement.isLifetime,
                         onManage = { openUrl(context, BillingConfig.manageSubscriptionUrl(context.packageName)) },
                     )
                     else -> {
                         if (entitlement.status == EntitlementStatus.PENDING) PendingBanner()
-                        PriceCard(
+                        PlansCard(
                             state = productState,
                             canPurchase = entitlement.status != EntitlementStatus.PENDING,
-                            onPurchase = { context.findActivity()?.let(viewModel::purchase) },
+                            onPurchase = { plan -> context.findActivity()?.let { viewModel.purchase(it, plan) } },
                             onRetry = viewModel::retry,
                         )
                     }
@@ -140,7 +152,7 @@ fun PremiumScreen(
                     modifier = Modifier.align(Alignment.CenterHorizontally).testTag("restore_purchases_button"),
                 ) { Text(stringResource(R.string.settings_restore_purchases)) }
 
-                Disclosure()
+                Disclosure(hasLifetime = (productState as? ProductState.Available)?.plans?.any { it.kind == PlanKind.LIFETIME } == true)
                 LegalLinks(onOpenLegal)
             }
         }
@@ -217,12 +229,15 @@ private fun reasonText(feature: PremiumFeature): Int = when (feature) {
     PremiumFeature.FULL_HISTORY -> R.string.premium_reason_history
     PremiumFeature.ADVANCED_STATISTICS, PremiumFeature.ADVANCED_CHARTS -> R.string.premium_reason_stats
     PremiumFeature.PREMIUM_INSIGHTS -> R.string.premium_reason_insights
+    PremiumFeature.DATA_EXPORT -> R.string.premium_reason_export
+    PremiumFeature.HOME_WIDGET -> R.string.premium_reason_widget
 }
 
 @Composable
 private fun Features() {
     val items = listOf(
         R.string.premium_feature_habits,
+        R.string.premium_feature_widget,
         R.string.premium_feature_stats,
         R.string.premium_feature_reminders,
         R.string.premium_feature_themes,
@@ -230,6 +245,7 @@ private fun Features() {
         R.string.premium_feature_colors,
         R.string.premium_feature_calendar,
         R.string.premium_feature_insights,
+        R.string.premium_feature_export,
     )
     Surface(shape = RoundedCornerShape(24.dp), color = MaterialTheme.colorScheme.surfaceContainerLowest) {
         Column(modifier = Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
@@ -254,21 +270,25 @@ private fun Features() {
 }
 
 @Composable
-private fun PriceCard(
+private fun PlansCard(
     state: ProductState,
     canPurchase: Boolean,
-    onPurchase: () -> Unit,
+    onPurchase: (PremiumPlan) -> Unit,
     onRetry: () -> Unit,
 ) {
+    var selectedId by rememberSaveable { mutableStateOf<String?>(null) }
+    val available = state as? ProductState.Available
+    val selected = available?.let { s -> s.plans.firstOrNull { it.id == selectedId } ?: s.defaultPlan }
+
     Surface(
         shape = RoundedCornerShape(24.dp),
         color = MaterialTheme.colorScheme.primaryContainer,
         modifier = Modifier.fillMaxWidth().testTag("price_card"),
     ) {
         Column(
-            modifier = Modifier.padding(20.dp),
+            modifier = Modifier.padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(14.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             when (state) {
                 is ProductState.Loading -> {
@@ -287,41 +307,162 @@ private fun PriceCard(
                     }
                 }
                 is ProductState.Available -> {
-                    val product = state.product
-                    Text(
-                        text = priceLine(product),
-                        style = MaterialTheme.typography.headlineSmall,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.testTag("premium_price"),
-                    )
-                    product.freeTrialDays?.let { days ->
-                        Text(
-                            text = stringResource(R.string.premium_trial, days),
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onPrimaryContainer,
-                        )
+                    val savings = PlanPricing.yearlySavingsPercent(state.plans)
+                    Column(
+                        modifier = Modifier.fillMaxWidth().selectableGroup(),
+                        verticalArrangement = Arrangement.spacedBy(10.dp),
+                    ) {
+                        state.plans.forEach { plan ->
+                            PlanOption(
+                                plan = plan,
+                                selected = plan.id == selected?.id,
+                                savingsPercent = savings.takeIf { plan.kind == PlanKind.YEARLY },
+                                onClick = { selectedId = plan.id },
+                            )
+                        }
                     }
                 }
             }
             Button(
-                onClick = onPurchase,
-                enabled = state is ProductState.Available && canPurchase,
+                onClick = { selected?.let(onPurchase) },
+                enabled = selected != null && canPurchase,
                 modifier = Modifier.fillMaxWidth().height(56.dp).testTag("start_premium"),
                 shape = RoundedCornerShape(18.dp),
             ) {
-                Text(stringResource(R.string.premium_start), style = MaterialTheme.typography.titleMedium)
+                Text(purchaseButtonText(selected), style = MaterialTheme.typography.titleMedium)
+            }
+            val trialDays = selected?.freeTrialDays
+            if (selected?.kind == PlanKind.LIFETIME) {
+                Text(
+                    text = stringResource(R.string.premium_lifetime_note),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    textAlign = TextAlign.Center,
+                )
+            } else if (selected != null && trialDays != null) {
+                Text(
+                    text = stringResource(R.string.premium_trial_then, trialDays, priceLine(selected)),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.testTag("premium_trial_terms"),
+                )
             }
         }
     }
 }
 
-/** "Premium — $2.99 / month". The amount and currency always come from Google Play. */
 @Composable
-private fun priceLine(product: PremiumProduct): String {
-    val period = BillingPeriod.parse(product.billingPeriod)
-    val periodText = when {
-        period == null -> ""
+private fun PlanOption(
+    plan: PremiumPlan,
+    selected: Boolean,
+    savingsPercent: Int?,
+    onClick: () -> Unit,
+) {
+    val locale = LocalConfiguration.current.locales[0]
+    val border = if (selected) {
+        BorderStroke(2.dp, MaterialTheme.colorScheme.primary)
+    } else {
+        BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
+    }
+    Surface(
+        shape = RoundedCornerShape(18.dp),
+        color = MaterialTheme.colorScheme.surface,
+        border = border,
+        modifier = Modifier
+            .fillMaxWidth()
+            .selectable(selected = selected, onClick = onClick, role = Role.RadioButton)
+            .testTag("plan_${plan.kind.name.lowercase()}"),
+    ) {
+        Row(
+            modifier = Modifier.padding(horizontal = 12.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            RadioButton(selected = selected, onClick = null)
+            Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(
+                        text = stringResource(planTitle(plan.kind)),
+                        style = MaterialTheme.typography.titleMedium,
+                    )
+                    when {
+                        savingsPercent != null -> PlanBadge(stringResource(R.string.premium_plan_save, savingsPercent))
+                        plan.kind == PlanKind.LIFETIME -> PlanBadge(stringResource(R.string.premium_plan_forever_badge))
+                    }
+                }
+                val detail = when (plan.kind) {
+                    PlanKind.YEARLY -> PlanPricing.monthlyEquivalent(plan, locale)
+                        ?.let { stringResource(R.string.premium_plan_per_month, it) }
+                    PlanKind.LIFETIME -> stringResource(R.string.premium_plan_one_time)
+                    else -> null
+                }
+                val trial = plan.freeTrialDays?.let { stringResource(R.string.premium_trial, it) }
+                listOfNotNull(detail, trial).joinToString(" · ").takeIf { it.isNotEmpty() }?.let {
+                    Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
+            }
+            Text(
+                text = shortPrice(plan),
+                style = MaterialTheme.typography.titleMedium,
+                textAlign = TextAlign.End,
+                modifier = Modifier.testTag("premium_price"),
+            )
+        }
+    }
+}
+
+@Composable
+private fun PlanBadge(text: String) {
+    Surface(shape = RoundedCornerShape(50), color = TracklyTheme.extras.premium) {
+        Text(
+            text = text,
+            style = MaterialTheme.typography.labelSmall,
+            color = Color.White,
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
+        )
+    }
+}
+
+private fun planTitle(kind: PlanKind): Int = when (kind) {
+    PlanKind.YEARLY -> R.string.premium_plan_yearly
+    PlanKind.MONTHLY -> R.string.premium_plan_monthly
+    PlanKind.LIFETIME -> R.string.premium_plan_lifetime
+    PlanKind.OTHER -> R.string.premium_plan_other
+}
+
+@Composable
+private fun purchaseButtonText(plan: PremiumPlan?): String {
+    val trialDays = plan?.freeTrialDays
+    return when {
+        plan?.kind == PlanKind.LIFETIME -> stringResource(R.string.premium_buy_lifetime)
+        trialDays != null -> stringResource(R.string.premium_start_trial, trialDays)
+        else -> stringResource(R.string.premium_start)
+    }
+}
+
+/** "$19.99 / year" or "$39.99" — amount and currency always come from Google Play. */
+@Composable
+private fun shortPrice(plan: PremiumPlan): String {
+    val periodText = periodText(plan.billingPeriod)
+    return if (periodText.isEmpty()) plan.formattedPrice else stringResource(R.string.price_per_period, plan.formattedPrice, periodText)
+}
+
+/** "Premium — $2.99 / month". */
+@Composable
+private fun priceLine(plan: PremiumPlan): String {
+    val periodText = periodText(plan.billingPeriod)
+    return if (periodText.isEmpty()) {
+        stringResource(R.string.premium_price_only, plan.formattedPrice)
+    } else {
+        stringResource(R.string.premium_price_period, plan.formattedPrice, periodText)
+    }
+}
+
+@Composable
+private fun periodText(isoPeriod: String?): String {
+    val period = isoPeriod?.let { BillingPeriod.parse(it) } ?: return ""
+    return when {
         period.unit == PeriodUnit.MONTH && period.count == 1 -> stringResource(R.string.period_month)
         period.unit == PeriodUnit.YEAR && period.count == 1 -> stringResource(R.string.period_year)
         period.unit == PeriodUnit.WEEK && period.count == 1 -> stringResource(R.string.period_week)
@@ -330,15 +471,10 @@ private fun priceLine(product: PremiumProduct): String {
         period.unit == PeriodUnit.WEEK -> stringResource(R.string.period_weeks, period.count)
         else -> stringResource(R.string.period_days, period.count)
     }
-    return if (periodText.isEmpty()) {
-        stringResource(R.string.premium_price_only, product.formattedPrice)
-    } else {
-        stringResource(R.string.premium_price_period, product.formattedPrice, periodText)
-    }
 }
 
 @Composable
-private fun ActiveCard(canceled: Boolean, onManage: () -> Unit) {
+private fun ActiveCard(canceled: Boolean, lifetime: Boolean, onManage: () -> Unit) {
     AnimatedVisibility(visible = true, enter = fadeIn() + scaleIn(initialScale = 0.9f)) {
         Surface(
             shape = RoundedCornerShape(24.dp),
@@ -356,14 +492,21 @@ private fun ActiveCard(canceled: Boolean, onManage: () -> Unit) {
                     style = MaterialTheme.typography.titleLarge,
                     textAlign = TextAlign.Center,
                 )
+                val message = when {
+                    lifetime -> R.string.premium_active_lifetime
+                    canceled -> R.string.premium_active_canceled
+                    else -> R.string.premium_active_message
+                }
                 Text(
-                    stringResource(if (canceled) R.string.premium_active_canceled else R.string.premium_active_message),
+                    stringResource(message),
                     style = MaterialTheme.typography.bodyMedium,
                     textAlign = TextAlign.Center,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
-                OutlinedButton(onClick = onManage, modifier = Modifier.testTag("premium_manage")) {
-                    Text(stringResource(R.string.settings_manage_subscription))
+                if (!lifetime) {
+                    OutlinedButton(onClick = onManage, modifier = Modifier.testTag("premium_manage")) {
+                        Text(stringResource(R.string.settings_manage_subscription))
+                    }
                 }
             }
         }
@@ -382,9 +525,11 @@ private fun PendingBanner() {
 }
 
 @Composable
-private fun Disclosure() {
+private fun Disclosure(hasLifetime: Boolean) {
+    val text = stringResource(R.string.premium_disclosure) +
+        if (hasLifetime) " " + stringResource(R.string.premium_disclosure_lifetime) else ""
     Text(
-        text = stringResource(R.string.premium_disclosure),
+        text = text,
         style = MaterialTheme.typography.bodySmall,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
         textAlign = TextAlign.Center,

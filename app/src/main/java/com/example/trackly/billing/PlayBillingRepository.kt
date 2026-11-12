@@ -43,13 +43,15 @@ import kotlin.coroutines.resume
  * Production [BillingRepository] backed by the Google Play Billing Library.
  *
  *  - connects lazily and reconnects when the service disconnects
- *  - loads the subscription's [ProductDetails] (price/currency come from Google Play, never hard-coded)
+ *  - loads the subscription's base plans and the optional lifetime product (prices come from Google Play)
  *  - launches the purchase flow, acknowledges purchases and resolves a [PremiumEntitlement]
  *  - re-checks purchases on demand (restore) and keeps a verified cache for offline start-up
  */
 class PlayBillingRepository(
     context: Context,
     private val productId: String,
+    /** Optional one-time "Premium forever" product; null when none is sold. */
+    private val lifetimeProductId: String?,
     private val settings: SettingsRepository,
     private val clock: Clock,
     private val scope: CoroutineScope,
@@ -75,9 +77,12 @@ class PlayBillingRepository(
     private val connectionMutex = Mutex()
     private val refreshMutex = Mutex()
 
-    @Volatile private var productDetails: ProductDetails? = null
+    @Volatile private var subscriptionDetails: ProductDetails? = null
 
-    @Volatile private var offerToken: String? = null
+    @Volatile private var lifetimeDetails: ProductDetails? = null
+
+    /** Offer token to buy, per subscription base-plan id. */
+    @Volatile private var offerTokens: Map<String, String> = emptyMap()
 
     @Volatile private var lastPersisted: PremiumEntitlement? = null
 
@@ -116,28 +121,20 @@ class PlayBillingRepository(
         scope.launch { queryAndProcessPurchases() }
     }
 
-    override fun launchPurchase(activity: Activity) {
+    override fun launchPurchase(activity: Activity, planId: String) {
         scope.launch {
             if (!ensureConnected()) {
                 _events.emit(BillingEvent.Failure(BillingProblem.BILLING_UNAVAILABLE))
                 return@launch
             }
-            if (productDetails == null) loadProduct()
-            val details = productDetails
-            val token = offerToken
-            if (details == null || token == null) {
+            if (subscriptionDetails == null && lifetimeDetails == null) loadProduct()
+            val productParams = productParamsFor(planId)
+            if (productParams == null) {
                 _events.emit(BillingEvent.Failure(BillingProblem.PRODUCT_NOT_FOUND))
                 return@launch
             }
             val params = BillingFlowParams.newBuilder()
-                .setProductDetailsParamsList(
-                    listOf(
-                        BillingFlowParams.ProductDetailsParams.newBuilder()
-                            .setProductDetails(details)
-                            .setOfferToken(token)
-                            .build(),
-                    ),
-                )
+                .setProductDetailsParamsList(listOf(productParams))
                 .build()
             // launchBillingFlow must run on the main thread.
             val result = withContext(Dispatchers.Main) { billingClient.launchBillingFlow(activity, params) }
@@ -151,6 +148,20 @@ class PlayBillingRepository(
                 else -> _events.emit(BillingEvent.Failure(result.toProblem()))
             }
         }
+    }
+
+    private fun productParamsFor(planId: String): BillingFlowParams.ProductDetailsParams? {
+        val lifetime = lifetimeDetails
+        if (lifetime != null && planId == lifetime.productId) {
+            // One-time products have no offer token.
+            return BillingFlowParams.ProductDetailsParams.newBuilder().setProductDetails(lifetime).build()
+        }
+        val details = subscriptionDetails ?: return null
+        val token = offerTokens[planId] ?: return null
+        return BillingFlowParams.ProductDetailsParams.newBuilder()
+            .setProductDetails(details)
+            .setOfferToken(token)
+            .build()
     }
 
     override fun restorePurchases() {
@@ -248,70 +259,114 @@ class PlayBillingRepository(
 
     // region Products
 
-    private suspend fun loadProduct() {
-        if (_productState.value !is ProductState.Available) _productState.value = ProductState.Loading
-        if (!ensureConnected()) {
-            _productState.value = ProductState.Unavailable(BillingProblem.BILLING_UNAVAILABLE)
-            return
-        }
+    private sealed interface DetailsResult {
+        data class Found(val details: ProductDetails) : DetailsResult
+        data object Missing : DetailsResult
+        data class Failed(val problem: BillingProblem) : DetailsResult
+    }
+
+    private suspend fun queryDetails(id: String, type: String): DetailsResult {
         val params = QueryProductDetailsParams.newBuilder()
             .setProductList(
-                listOf(
-                    QueryProductDetailsParams.Product.newBuilder()
-                        .setProductId(productId)
-                        .setProductType(BillingClient.ProductType.SUBS)
-                        .build(),
-                ),
+                listOf(QueryProductDetailsParams.Product.newBuilder().setProductId(id).setProductType(type).build()),
             )
             .build()
         val result = try {
             billingClient.queryProductDetails(params)
         } catch (error: Exception) {
             Log.w(TAG, "queryProductDetails failed", error)
-            _productState.value = ProductState.Unavailable(BillingProblem.UNKNOWN)
-            return
+            return DetailsResult.Failed(BillingProblem.UNKNOWN)
         }
         if (result.billingResult.responseCode != BillingClient.BillingResponseCode.OK) {
-            _productState.value = ProductState.Unavailable(result.billingResult.toProblem())
+            return DetailsResult.Failed(result.billingResult.toProblem())
+        }
+        val details = result.productDetailsList?.firstOrNull { it.productId == id }
+        return if (details != null) DetailsResult.Found(details) else DetailsResult.Missing
+    }
+
+    private suspend fun loadProduct() {
+        if (_productState.value !is ProductState.Available) _productState.value = ProductState.Loading
+        if (!ensureConnected()) {
+            _productState.value = ProductState.Unavailable(BillingProblem.BILLING_UNAVAILABLE)
             return
         }
-        val details = result.productDetailsList?.firstOrNull { it.productId == productId }
-        val offer = details?.let { chooseOffer(it) }
-        val phases = offer?.pricingPhases?.pricingPhaseList.orEmpty()
-        val recurring = phases.lastOrNull()
-        if (details == null || offer == null || recurring == null) {
-            productDetails = null
-            offerToken = null
-            _productState.value = ProductState.Unavailable(BillingProblem.PRODUCT_NOT_FOUND)
-            return
+        val subscription = queryDetails(productId, BillingClient.ProductType.SUBS)
+        val lifetime = lifetimeProductId?.let { queryDetails(it, BillingClient.ProductType.INAPP) }
+
+        val plans = mutableListOf<PremiumPlan>()
+        val tokens = mutableMapOf<String, String>()
+        val subscriptionFound = (subscription as? DetailsResult.Found)?.details
+        subscriptionFound?.let { details ->
+            subscriptionPlans(details).forEach { (plan, token) ->
+                plans += plan
+                tokens[plan.id] = token
+            }
         }
-        productDetails = details
-        offerToken = offer.offerToken
-        val firstPhase = phases.first()
-        val trialDays = if (phases.size > 1 && firstPhase.priceAmountMicros == 0L) {
-            BillingPeriod.parse(firstPhase.billingPeriod)?.approxDays
+        val lifetimeFound = (lifetime as? DetailsResult.Found)?.details
+        lifetimeFound?.let { details -> lifetimePlan(details)?.let { plans += it } }
+
+        subscriptionDetails = subscriptionFound
+        lifetimeDetails = lifetimeFound
+        offerTokens = tokens
+
+        _productState.value = if (plans.isNotEmpty()) {
+            ProductState.Available(PlanPricing.sorted(plans))
         } else {
-            null
+            val problem = (subscription as? DetailsResult.Failed)?.problem
+                ?: (lifetime as? DetailsResult.Failed)?.problem
+                ?: BillingProblem.PRODUCT_NOT_FOUND
+            ProductState.Unavailable(problem)
         }
-        _productState.value = ProductState.Available(
-            PremiumProduct(
-                productId = details.productId,
-                title = details.name,
-                formattedPrice = recurring.formattedPrice,
-                priceAmountMicros = recurring.priceAmountMicros,
-                currencyCode = recurring.priceCurrencyCode,
-                billingPeriod = recurring.billingPeriod,
-                freeTrialDays = trialDays,
-            ),
+    }
+
+    /** One plan per active base plan, each with the offer the user should get for it. */
+    private fun subscriptionPlans(details: ProductDetails): List<Pair<PremiumPlan, String>> =
+        details.subscriptionOfferDetails.orEmpty()
+            .groupBy { it.basePlanId }
+            .mapNotNull { (basePlanId, offers) ->
+                val offer = chooseOffer(offers) ?: return@mapNotNull null
+                val phases = offer.pricingPhases.pricingPhaseList
+                val recurring = phases.lastOrNull() ?: return@mapNotNull null
+                val firstPhase = phases.first()
+                val trialDays = if (phases.size > 1 && firstPhase.priceAmountMicros == 0L) {
+                    BillingPeriod.parse(firstPhase.billingPeriod)?.approxDays
+                } else {
+                    null
+                }
+                val plan = PremiumPlan(
+                    id = basePlanId,
+                    productId = details.productId,
+                    kind = PlanPricing.kindOf(recurring.billingPeriod),
+                    formattedPrice = recurring.formattedPrice,
+                    priceAmountMicros = recurring.priceAmountMicros,
+                    currencyCode = recurring.priceCurrencyCode,
+                    billingPeriod = recurring.billingPeriod,
+                    freeTrialDays = trialDays,
+                )
+                plan to offer.offerToken
+            }
+
+    private fun lifetimePlan(details: ProductDetails): PremiumPlan? {
+        val price = details.oneTimePurchaseOfferDetails ?: return null
+        return PremiumPlan(
+            id = details.productId,
+            productId = details.productId,
+            kind = PlanKind.LIFETIME,
+            formattedPrice = price.formattedPrice,
+            priceAmountMicros = price.priceAmountMicros,
+            currencyCode = price.priceCurrencyCode,
+            billingPeriod = null,
+            freeTrialDays = null,
         )
     }
 
     /**
-     * Prefers an offer the user is eligible for that starts with a free trial, then the plain base
-     * plan, then whatever Google Play returned first.
+     * Among the offers of one base plan, prefers one the user is eligible for that starts with a free
+     * trial, then the plain base plan, then whatever Google Play returned first.
      */
-    private fun chooseOffer(details: ProductDetails): ProductDetails.SubscriptionOfferDetails? {
-        val offers = details.subscriptionOfferDetails.orEmpty()
+    private fun chooseOffer(
+        offers: List<ProductDetails.SubscriptionOfferDetails>,
+    ): ProductDetails.SubscriptionOfferDetails? {
         val withTrial = offers.firstOrNull { offer ->
             val phases = offer.pricingPhases.pricingPhaseList
             phases.size > 1 && phases.first().priceAmountMicros == 0L
@@ -328,37 +383,46 @@ class PlayBillingRepository(
         data class Failed(val problem: BillingProblem) : RefreshOutcome
     }
 
-    /** Queries Google Play for the user's subscriptions, acknowledges new ones and updates the entitlement. */
+    /** Queries Google Play for the user's purchases, acknowledges new ones and updates the entitlement. */
     private suspend fun queryAndProcessPurchases(extra: List<Purchase> = emptyList()): RefreshOutcome =
         refreshMutex.withLock {
             if (!ensureConnected()) {
                 publish(EntitlementResolver.whenUnverifiable(_entitlement.value, clock.millis()), persist = false)
                 return@withLock RefreshOutcome.Failed(BillingProblem.BILLING_UNAVAILABLE)
             }
-            val result = try {
-                billingClient.queryPurchasesAsync(
-                    QueryPurchasesParams.newBuilder().setProductType(BillingClient.ProductType.SUBS).build(),
-                )
-            } catch (error: Exception) {
-                Log.w(TAG, "queryPurchasesAsync failed", error)
-                publish(EntitlementResolver.whenUnverifiable(_entitlement.value, clock.millis()), persist = false)
-                return@withLock RefreshOutcome.Failed(BillingProblem.UNKNOWN)
+            val types = listOfNotNull(
+                BillingClient.ProductType.SUBS,
+                lifetimeProductId?.let { BillingClient.ProductType.INAPP },
+            )
+            val purchases = mutableListOf<Purchase>()
+            for (type in types) {
+                val result = try {
+                    billingClient.queryPurchasesAsync(QueryPurchasesParams.newBuilder().setProductType(type).build())
+                } catch (error: Exception) {
+                    Log.w(TAG, "queryPurchasesAsync($type) failed", error)
+                    publish(EntitlementResolver.whenUnverifiable(_entitlement.value, clock.millis()), persist = false)
+                    return@withLock RefreshOutcome.Failed(BillingProblem.UNKNOWN)
+                }
+                if (result.billingResult.responseCode != BillingClient.BillingResponseCode.OK) {
+                    // Could not verify: keep the last verified status (within the offline grace period).
+                    publish(EntitlementResolver.whenUnverifiable(_entitlement.value, clock.millis()), persist = false)
+                    return@withLock RefreshOutcome.Failed(result.billingResult.toProblem())
+                }
+                purchases += result.purchasesList
             }
-            if (result.billingResult.responseCode != BillingClient.BillingResponseCode.OK) {
-                // Could not verify: keep the last verified status (within the offline grace period).
-                publish(EntitlementResolver.whenUnverifiable(_entitlement.value, clock.millis()), persist = false)
-                return@withLock RefreshOutcome.Failed(result.billingResult.toProblem())
-            }
-            val purchases = (result.purchasesList + extra).distinctBy { it.purchaseToken }
-            purchases
-                .filter { it.purchaseState == Purchase.PurchaseState.PURCHASED && !it.isAcknowledged && productId in it.products }
+            val all = (purchases + extra).distinctBy { it.purchaseToken }
+            val ownProducts = setOfNotNull(productId, lifetimeProductId)
+            all
+                .filter { it.purchaseState == Purchase.PurchaseState.PURCHASED && !it.isAcknowledged }
+                .filter { purchase -> purchase.products.any { it in ownProducts } }
                 .forEach { acknowledge(it) }
 
             val resolved = EntitlementResolver.resolve(
-                purchases = purchases.map { it.toSnapshot() },
+                purchases = all.map { it.toSnapshot() },
                 productId = productId,
                 previous = _entitlement.value,
                 nowMillis = clock.millis(),
+                lifetimeProductId = lifetimeProductId,
             )
             publish(resolved, persist = true)
             RefreshOutcome.Success(resolved)

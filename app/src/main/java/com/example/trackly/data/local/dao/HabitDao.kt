@@ -75,4 +75,10 @@ interface HabitDao {
 
     @Query("SELECT COUNT(*) FROM habits WHERE isArchived = 0")
     suspend fun countNonArchived(): Int
+
+    @Query("DELETE FROM habits")
+    suspend fun deleteAll()
+
+    @Insert
+    suspend fun insertPauses(pauses: List<HabitPauseEntity>)
 }

@@ -118,4 +118,87 @@ class EntitlementResolverTest {
         val cached = PremiumEntitlement(EntitlementStatus.EXPIRED, productId, now)
         assertEquals(cached, EntitlementResolver.whenUnverifiable(cached, now + 1))
     }
+
+    // region Lifetime
+
+    private val lifetimeId = "trackly_premium_lifetime"
+
+    @Test
+    fun `lifetime purchase unlocks premium forever`() {
+        val result = EntitlementResolver.resolve(
+            listOf(purchase(products = listOf(lifetimeId), autoRenewing = false)),
+            productId,
+            PremiumEntitlement.None,
+            now,
+            lifetimeProductId = lifetimeId,
+        )
+        assertEquals(EntitlementStatus.LIFETIME, result.status)
+        assertTrue(result.isPremium)
+        assertTrue(result.isLifetime)
+    }
+
+    @Test
+    fun `lifetime wins over a canceled subscription`() {
+        val result = EntitlementResolver.resolve(
+            listOf(purchase(autoRenewing = false), purchase(products = listOf(lifetimeId), autoRenewing = false)),
+            productId,
+            PremiumEntitlement.None,
+            now,
+            lifetimeProductId = lifetimeId,
+        )
+        assertEquals(EntitlementStatus.LIFETIME, result.status)
+    }
+
+    @Test
+    fun `pending lifetime purchase does not unlock premium`() {
+        val result = EntitlementResolver.resolve(
+            listOf(purchase(state = PurchaseStateKind.PENDING, products = listOf(lifetimeId))),
+            productId,
+            PremiumEntitlement.None,
+            now,
+            lifetimeProductId = lifetimeId,
+        )
+        assertEquals(EntitlementStatus.PENDING, result.status)
+        assertFalse(result.isPremium)
+    }
+
+    @Test
+    fun `pending lifetime keeps an active subscription active`() {
+        val result = EntitlementResolver.resolve(
+            listOf(purchase(), purchase(state = PurchaseStateKind.PENDING, products = listOf(lifetimeId))),
+            productId,
+            PremiumEntitlement.None,
+            now,
+            lifetimeProductId = lifetimeId,
+        )
+        assertEquals(EntitlementStatus.ACTIVE, result.status)
+    }
+
+    @Test
+    fun `refunded lifetime purchase is reported as expired`() {
+        val previous = PremiumEntitlement(EntitlementStatus.LIFETIME, lifetimeId, 1L)
+        val result = EntitlementResolver.resolve(emptyList(), productId, previous, now, lifetimeProductId = lifetimeId)
+        assertEquals(EntitlementStatus.EXPIRED, result.status)
+        assertFalse(result.isPremium)
+    }
+
+    @Test
+    fun `lifetime product is ignored when none is configured`() {
+        val result = EntitlementResolver.resolve(
+            listOf(purchase(products = listOf(lifetimeId))),
+            productId,
+            PremiumEntitlement.None,
+            now,
+        )
+        assertEquals(EntitlementStatus.NONE, result.status)
+    }
+
+    @Test
+    fun `verified lifetime stays premium offline without a time limit`() {
+        val cached = PremiumEntitlement(EntitlementStatus.LIFETIME, lifetimeId, now)
+        val muchLater = now + EntitlementResolver.OFFLINE_GRACE_MILLIS * 10
+        assertTrue(EntitlementResolver.whenUnverifiable(cached, muchLater).isPremium)
+    }
+
+    // endregion
 }

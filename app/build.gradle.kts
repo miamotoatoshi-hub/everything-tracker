@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
 }
 
@@ -33,7 +34,12 @@ android {
         buildConfigField(
             "String",
             "BILLING_PREMIUM_PRODUCT_ID",
-            "\"${projectProp("BILLING_PREMIUM_PRODUCT_ID", "trackly_premium_monthly")}\"",
+            "\"${projectProp("BILLING_PREMIUM_PRODUCT_ID", "trackly_premium")}\"",
+        )
+        buildConfigField(
+            "String",
+            "BILLING_LIFETIME_PRODUCT_ID",
+            "\"${projectProp("BILLING_LIFETIME_PRODUCT_ID", "")}\"",
         )
         buildConfigField("String", "PRIVACY_POLICY_URL", "\"${projectProp("PRIVACY_POLICY_URL", "")}\"")
         buildConfigField("String", "TERMS_OF_SERVICE_URL", "\"${projectProp("TERMS_OF_SERVICE_URL", "")}\"")
@@ -145,6 +151,11 @@ dependencies {
     implementation(libs.androidx.work.runtime.ktx)
 
     implementation(libs.billing.ktx)
+    implementation(libs.play.review.ktx)
+
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.androidx.glance.appwidget)
+    implementation(libs.androidx.glance.material3)
 
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)

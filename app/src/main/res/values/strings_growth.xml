@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Plans on the paywall (prices always come from Google Play) -->
+    <string name="premium_plan_yearly">Yearly</string>
+    <string name="premium_plan_monthly">Monthly</string>
+    <string name="premium_plan_lifetime">Lifetime</string>
+    <string name="premium_plan_other">Premium</string>
+    <string name="premium_plan_save">Save %1$d%%</string>
+    <string name="premium_plan_forever_badge">Pay once</string>
+    <string name="premium_plan_per_month">≈ %1$s / month</string>
+    <string name="premium_plan_one_time">One-time payment, yours forever</string>
+    <string name="premium_lifetime_note">One payment. No subscription, no renewals.</string>
+    <string name="premium_trial_then">Free for %1$d days, then %2$s. Cancel anytime in Google Play.</string>
+    <string name="premium_buy_lifetime">Get Premium forever</string>
+    <string name="premium_start_trial">Start %1$d-day free trial</string>
+    <string name="price_per_period">%1$s / %2$s</string>
+    <string name="premium_disclosure_lifetime">The lifetime purchase is a one-time payment with no renewals.</string>
+    <string name="premium_active_lifetime">You own Premium forever. Thank you for supporting Trackly!</string>
+    <string name="settings_premium_lifetime">Premium — lifetime</string>
+    <!-- Premium reasons / features added later -->
+    <string name="premium_feature_widget">Home-screen widget</string>
+    <string name="premium_feature_export">Export to CSV (Excel, Google Sheets)</string>
+    <string name="premium_reason_export">Exporting your history to CSV is part of Premium.</string>
+    <string name="premium_reason_widget">The home-screen widget is part of Premium.</string>
+
+    <!-- Settings: your data -->
+    <string name="settings_data">Your data</string>
+    <string name="settings_backup">Back up to a file</string>
+    <string name="settings_backup_desc">Save all habits and history, e.g. to Google Drive, before changing phones</string>
+    <string name="settings_restore">Restore from a backup</string>
+    <string name="settings_restore_desc">Replace the data on this device with a backup file</string>
+    <string name="settings_export_csv">Export to CSV</string>
+    <string name="settings_export_csv_desc">Your full history as a spreadsheet</string>
+    <string name="settings_export_csv_premium">Your full history as a spreadsheet · Premium</string>
+    <string name="restore_confirm_title">Restore this backup?</string>
+    <string name="restore_confirm_message">All habits and history currently on this device will be replaced by the backup. This can\'t be undone.</string>
+    <string name="restore_confirm_action">Replace data</string>
+    <string name="backup_saved">Backup saved</string>
+    <string name="csv_saved">CSV file saved</string>
+    <plurals name="backup_restored">
+        <item quantity="one">Backup restored: %1$d habit</item>
+        <item quantity="other">Backup restored: %1$d habits</item>
+    </plurals>
+    <string name="backup_invalid">This file isn\'t a Trackly backup or is damaged. Nothing was changed.</string>
+    <string name="backup_too_new">This backup was made by a newer version of Trackly. Update the app and try again.</string>
+    <string name="backup_failed">Couldn\'t read or write the file. Please try again.</string>
+</resources>

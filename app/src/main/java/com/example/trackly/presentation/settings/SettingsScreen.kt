@@ -49,6 +49,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -86,6 +87,7 @@ import com.example.trackly.ui.components.SegmentedControl
 import com.example.trackly.ui.theme.swatchColor
 import com.example.trackly.debug.DebugTools
 import com.example.trackly.presentation.common.LocalAppContainer
+import kotlinx.coroutines.launch
 
 enum class LegalKind { PRIVACY, TERMS }
 
@@ -100,6 +102,7 @@ fun SettingsScreen(
     }
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val snackbar = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
     val context = LocalContext.current
     val currentOnUpgrade by rememberUpdatedState(onUpgrade)
 
@@ -126,7 +129,19 @@ fun SettingsScreen(
             is UiState.Loading -> LoadingState()
             is UiState.Error -> ErrorState(onRetry = viewModel::retry)
             is UiState.Content -> CenteredContent(maxWidth = 640.dp) {
-                SettingsBody(current.data, viewModel, onOpenPremium, onOpenLegal)
+                SettingsBody(
+                    data = current.data,
+                    viewModel = viewModel,
+                    onOpenPremium = onOpenPremium,
+                    onOpenLegal = onOpenLegal,
+                    onUpgrade = onUpgrade,
+                    onMessage = { text ->
+                        scope.launch {
+                            snackbar.currentSnackbarData?.dismiss()
+                            snackbar.showSnackbar(text)
+                        }
+                    },
+                )
             }
         }
         SnackbarHost(
@@ -142,6 +157,8 @@ private fun SettingsBody(
     viewModel: SettingsViewModel,
     onOpenPremium: () -> Unit,
     onOpenLegal: (LegalKind) -> Unit,
+    onUpgrade: (PremiumFeature) -> Unit,
+    onMessage: (String) -> Unit,
 ) {
     val top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
     val settings = data.settings
@@ -173,7 +190,7 @@ private fun SettingsBody(
         // Premium first: it is the one section that changes what the user can do.
         SettingsGroup(stringResource(R.string.settings_premium)) {
             PremiumStatusRow(data, onOpenPremium)
-            if (data.entitlement.status != EntitlementStatus.NONE || data.isPremium) {
+            if ((data.entitlement.status != EntitlementStatus.NONE || data.isPremium) && !data.entitlement.isLifetime) {
                 SettingsRow(
                     title = stringResource(R.string.settings_manage_subscription),
                     onClick = { openUrl(context, BillingConfig.manageSubscriptionUrl(context.packageName)) },
@@ -253,6 +270,8 @@ private fun SettingsBody(
                 onClick = { showLanguage = true },
             )
         }
+
+        DataSection(isPremium = data.isPremium, onMessage = onMessage, onUpgrade = onUpgrade)
 
         SettingsGroup(stringResource(R.string.settings_about)) {
             SettingsRow(
@@ -336,7 +355,7 @@ private fun unitsLabel(value: UnitSystem): Int = when (value) {
 // region building blocks
 
 @Composable
-private fun SettingsGroup(title: String, content: @Composable () -> Unit) {
+internal fun SettingsGroup(title: String, content: @Composable () -> Unit) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(
             text = title,
@@ -351,7 +370,7 @@ private fun SettingsGroup(title: String, content: @Composable () -> Unit) {
 }
 
 @Composable
-private fun SettingsRow(
+internal fun SettingsRow(
     title: String,
     modifier: Modifier = Modifier,
     subtitle: String? = null,
@@ -418,6 +437,7 @@ private fun SwitchRow(
 private fun PremiumStatusRow(data: SettingsData, onOpenPremium: () -> Unit) {
     val status = data.entitlement.status
     val title = when {
+        status == EntitlementStatus.LIFETIME -> R.string.settings_premium_lifetime
         data.isPremium && status == EntitlementStatus.ACTIVE_CANCELED -> R.string.settings_premium_canceled
         data.isPremium -> R.string.settings_premium_active
         status == EntitlementStatus.PENDING -> R.string.settings_premium_pending

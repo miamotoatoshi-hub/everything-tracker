@@ -15,6 +15,9 @@ enum class EntitlementStatus {
 
     /** Was subscribed before, but Google Play no longer reports an active subscription. */
     EXPIRED,
+
+    /** The one-time "Premium forever" product was bought. Never expires. */
+    LIFETIME,
 }
 
 /**
@@ -28,7 +31,11 @@ data class PremiumEntitlement(
     val verifiedAtMillis: Long? = null,
 ) {
     val isPremium: Boolean
-        get() = status == EntitlementStatus.ACTIVE || status == EntitlementStatus.ACTIVE_CANCELED
+        get() = status == EntitlementStatus.ACTIVE ||
+            status == EntitlementStatus.ACTIVE_CANCELED ||
+            status == EntitlementStatus.LIFETIME
+
+    val isLifetime: Boolean get() = status == EntitlementStatus.LIFETIME
 
     val isPending: Boolean get() = status == EntitlementStatus.PENDING
 

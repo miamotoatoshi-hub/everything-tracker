@@ -4,6 +4,7 @@ import android.app.Activity
 import androidx.lifecycle.ViewModel
 import com.example.trackly.billing.BillingEvent
 import com.example.trackly.billing.BillingRepository
+import com.example.trackly.billing.PremiumPlan
 import com.example.trackly.billing.ProductState
 import com.example.trackly.domain.model.PremiumEntitlement
 import kotlinx.coroutines.flow.SharedFlow
@@ -20,7 +21,7 @@ class PremiumViewModel(private val billing: BillingRepository) : ViewModel() {
         billing.connect()
     }
 
-    fun purchase(activity: Activity) = billing.launchPurchase(activity)
+    fun purchase(activity: Activity, plan: PremiumPlan) = billing.launchPurchase(activity, plan.id)
 
     fun restore() = billing.restorePurchases()
 

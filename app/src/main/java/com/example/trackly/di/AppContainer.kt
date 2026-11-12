@@ -6,15 +6,20 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import androidx.core.content.ContextCompat
+import com.example.trackly.BuildConfig
 import com.example.trackly.billing.BillingConfig
 import com.example.trackly.billing.BillingRepository
 import com.example.trackly.billing.PlayBillingRepository
 import com.example.trackly.core.time.SystemClock
 import com.example.trackly.core.time.TodayProvider
+import com.example.trackly.data.backup.ContentResolverDocumentStore
+import com.example.trackly.data.backup.RoomBackupRepository
 import com.example.trackly.data.local.TracklyDatabase
 import com.example.trackly.data.repository.HabitRepositoryImpl
 import com.example.trackly.data.repository.SettingsRepositoryImpl
 import com.example.trackly.domain.model.PremiumPolicy
+import com.example.trackly.domain.repository.BackupRepository
+import com.example.trackly.domain.repository.DocumentStore
 import com.example.trackly.domain.repository.HabitRepository
 import com.example.trackly.domain.repository.SettingsRepository
 import com.example.trackly.domain.usecase.SaveHabitUseCase
@@ -63,7 +68,14 @@ class AppContainer(
     val reminderNotifier: ReminderNotifier by lazy { ReminderNotifier(app) }
 
     val billingRepository: BillingRepository by lazy {
-        PlayBillingRepository(app, BillingConfig.PREMIUM_PRODUCT_ID, settingsRepository, clock, appScope)
+        PlayBillingRepository(
+            app,
+            BillingConfig.PREMIUM_PRODUCT_ID,
+            BillingConfig.LIFETIME_PRODUCT_ID,
+            settingsRepository,
+            clock,
+            appScope,
+        )
     }
 
     val premiumOverride = PremiumOverride()
@@ -80,6 +92,12 @@ class AppContainer(
     }
 
     val saveHabit: SaveHabitUseCase by lazy { SaveHabitUseCase(habitRepository) }
+
+    val backupRepository: BackupRepository by lazy {
+        RoomBackupRepository(database, clock, BuildConfig.VERSION_NAME) { reminderScheduler.syncAll() }
+    }
+
+    val documentStore: DocumentStore by lazy { ContentResolverDocumentStore(app) }
 
     /** Called once from [com.example.trackly.TracklyApp.onCreate]. */
     fun start() {

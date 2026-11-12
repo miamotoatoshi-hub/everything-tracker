@@ -20,11 +20,13 @@ class FakeBillingRepository(premium: Boolean = false) : BillingRepository {
     private val _isPremium = MutableStateFlow(premium)
     override val entitlement: StateFlow<PremiumEntitlement> = _entitlement.asStateFlow()
     override val isPremium: StateFlow<Boolean> = _isPremium.asStateFlow()
-    override val productState: StateFlow<ProductState> = MutableStateFlow(ProductState.Loading)
+    val productStateFlow = MutableStateFlow<ProductState>(ProductState.Loading)
+    override val productState: StateFlow<ProductState> = productStateFlow.asStateFlow()
     override val events: SharedFlow<BillingEvent> = MutableSharedFlow()
 
     var connectCalls = 0
     var restoreCalls = 0
+    val purchasedPlanIds = mutableListOf<String>()
 
     fun setEntitlement(entitlement: PremiumEntitlement) {
         _entitlement.value = entitlement
@@ -37,7 +39,9 @@ class FakeBillingRepository(premium: Boolean = false) : BillingRepository {
 
     override fun refreshProduct() = Unit
     override fun refreshPurchases() = Unit
-    override fun launchPurchase(activity: Activity) = Unit
+    override fun launchPurchase(activity: Activity, planId: String) {
+        purchasedPlanIds += planId
+    }
 
     override fun restorePurchases() {
         restoreCalls++

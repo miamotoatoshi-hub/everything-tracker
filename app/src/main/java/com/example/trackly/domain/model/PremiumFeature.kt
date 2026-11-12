@@ -15,6 +15,8 @@ enum class PremiumFeature {
     FULL_HISTORY,
     PREMIUM_THEMES,
     PREMIUM_INSIGHTS,
+    DATA_EXPORT,
+    HOME_WIDGET,
 }
 
 /** Limits of the free plan. Change them here — nothing else in the app hard-codes them. */
