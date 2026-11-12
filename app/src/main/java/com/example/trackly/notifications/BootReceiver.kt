@@ -13,6 +13,8 @@ import kotlinx.coroutines.launch
 /** Re-registers reminder alarms after a reboot, app update, or clock / time-zone change. */
 class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
+        // Only react to the system broadcasts this receiver is registered for.
+        if (intent.action !in HANDLED_ACTIONS) return
         val app = context.applicationContext as? TracklyApp ?: return
         val pending = goAsync()
         scope.launch {
@@ -29,6 +31,7 @@ class BootReceiver : BroadcastReceiver() {
 
     private companion object {
         const val TAG = "BootReceiver"
+        val HANDLED_ACTIONS = setOf(Intent.ACTION_BOOT_COMPLETED, Intent.ACTION_MY_PACKAGE_REPLACED)
         val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
     }
 }

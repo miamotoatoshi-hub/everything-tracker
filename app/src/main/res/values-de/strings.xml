@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Core: actions, navigation, generic states -->
     <string name="action_archive">Archivieren</string>
     <string name="action_back">Zurück</string>
@@ -96,11 +96,11 @@
     <string name="template_vitamins">Vitamine</string>
     <string name="template_walk">Spazieren</string>
     <string name="template_daily">Täglich</string>
-    <plurals name="weekly_habits">
+    <plurals name="weekly_habits" tools:ignore="ImpliedQuantity">
         <item quantity="one">Gewohnheit</item>
         <item quantity="other">Gewohnheiten</item>
     </plurals>
-    <plurals name="weekly_completions">
+    <plurals name="weekly_completions" tools:ignore="ImpliedQuantity">
         <item quantity="one">Erledigung</item>
         <item quantity="other">Erledigungen</item>
     </plurals>
