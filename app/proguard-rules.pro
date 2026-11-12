@@ -21,3 +21,7 @@
 -keepclasseswithmembers class com.example.trackly.data.backup.** {
     kotlinx.serialization.KSerializer serializer(...);
 }
+
+# play:review-ktx references an annotation from Play services that is not on the classpath.
+# It is only an annotation (no runtime behaviour), so it is safe to ignore.
+-dontwarn com.google.android.gms.common.annotation.NoNullnessRewrite
