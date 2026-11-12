@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Notification channels and content -->
+    <string name="channel_reminders_sound_vibration">Lembretes (som e vibração)</string>
+    <string name="channel_reminders_sound">Lembretes (só som)</string>
+    <string name="channel_reminders_vibration">Lembretes (só vibração)</string>
+    <string name="channel_reminders_silent">Lembretes (silenciosos)</string>
+    <string name="channel_reminders_description">Lembretes dos hábitos que você acompanha</string>
+    <string name="notification_default_message">Hora de: %1$s %2$s</string>
+    <string name="notification_action_done">Feito</string>
+    <string name="notification_action_add">Adicionar</string>
+</resources>

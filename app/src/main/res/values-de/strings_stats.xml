@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Statistics and weekly overview -->
+    <string name="stats_overall">Gesamt</string>
+    <string name="stats_per_habit">Pro Gewohnheit</string>
+    <string name="stats_week">Woche</string>
+    <string name="stats_month">Monat</string>
+    <string name="stats_year">Jahr</string>
+    <string name="stats_completion_rate">Erfolgsquote</string>
+    <string name="stats_rate_caption">Erledigte Tage im Verhältnis zu den geplanten Tagen.</string>
+    <string name="stats_total_completions">Erledigungen gesamt</string>
+    <string name="stats_average_completion">Durchschnittliche Erfüllung</string>
+    <string name="stats_weekly_activity">Wöchentliche Aktivität</string>
+    <string name="stats_monthly_activity">Monatliche Aktivität</string>
+    <string name="stats_yearly_activity">Jährliche Aktivität</string>
+    <string name="stats_by_habit">Nach Gewohnheit</string>
+    <string name="stats_weekly_overview">Wochenübersicht</string>
+    <string name="stats_premium_section">Premium-Einblicke</string>
+    <string name="stats_locked_message">Schalte Monats- und Jahresstatistiken frei und behalte den Überblick.</string>
+    <string name="stats_empty_title">Noch keine Statistiken</string>
+    <string name="stats_empty_message">Tracke eine Gewohnheit ein paar Tage lang, dann erscheinen hier deine Statistiken.</string>
+    <string name="insights_locked_title">Premium-Einblicke</string>
+    <string name="insights_locked_message">Finde deinen besten Tag, deine beständigste Gewohnheit und deinen Wochentrend.</string>
+    <string name="insights_not_enough_data">Tracke noch ein paar Tage weiter, um deine Einblicke freizuschalten.</string>
+    <string name="insights_overall_only">Einblicke vergleichen alle deine Gewohnheiten. Wechsle zu „Gesamt“, um sie zu sehen.</string>
+    <string name="insight_best_day">Dein bester Tag</string>
+    <string name="insight_weakest_day">Dein schwierigster Tag</string>
+    <string name="insight_top_habit">Beständigste Gewohnheit (30 Tage)</string>
+    <string name="insight_trend">Trend ggü. Vorwoche</string>
+    <string name="insight_trend_up">Plus %1$d Punkte</string>
+    <string name="insight_trend_down">Minus %1$d Punkte</string>
+    <string name="insight_trend_flat">Keine Veränderung</string>
+    <string name="insight_perfect_days">Perfekte Tage (letzte 30 Tage)</string>
+    <string name="weekly_title">Diese Woche</string>
+    <string name="weekly_completion_rate">Erfolgsquote</string>
+    <string name="weekly_daily_progress">Täglicher Fortschritt</string>
+    <string name="weekly_by_habit">Nach Gewohnheit</string>
+    <string name="weekly_day_description">%1$s: %2$d von %3$d Gewohnheiten erledigt</string>
+</resources>

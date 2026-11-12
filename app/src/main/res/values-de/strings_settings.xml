@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Settings -->
+    <string name="settings_appearance">Darstellung</string>
+    <string name="settings_theme">Design</string>
+    <string name="settings_accent">Akzentfarbe</string>
+    <string name="settings_notifications">Benachrichtigungen</string>
+    <string name="settings_enable_notifications">Benachrichtigungen aktivieren</string>
+    <string name="settings_enable_notifications_desc">Erinnerungen für deine Gewohnheiten</string>
+    <string name="settings_notifications_blocked">Benachrichtigungen sind deaktiviert</string>
+    <string name="settings_notifications_blocked_desc">Tippe, um Benachrichtigungen in den Systemeinstellungen zu erlauben</string>
+    <string name="settings_sound">Ton</string>
+    <string name="settings_vibration">Vibration</string>
+    <string name="settings_system_notifications">Benachrichtigungseinstellungen des Systems</string>
+    <string name="settings_general">Allgemein</string>
+    <string name="settings_first_day">Erster Wochentag</string>
+    <string name="settings_units">Einheiten</string>
+    <string name="settings_language">Sprache</string>
+    <string name="settings_language_system">Systemstandard</string>
+    <string name="settings_premium">Premium</string>
+    <string name="settings_premium_active">Trackly Premium</string>
+    <string name="settings_premium_active_desc">Danke für deine Unterstützung</string>
+    <string name="settings_premium_canceled">Trackly Premium (endet bald)</string>
+    <string name="settings_premium_pending">Zahlung ausstehend</string>
+    <string name="settings_premium_expired">Premium abgelaufen</string>
+    <string name="settings_premium_free">Kostenloser Plan</string>
+    <string name="settings_premium_upgrade_desc">Unbegrenzte Gewohnheiten und erweiterte Statistiken freischalten</string>
+    <string name="settings_manage_subscription">Abo verwalten</string>
+    <string name="settings_restore_purchases">Käufe wiederherstellen</string>
+    <string name="settings_about">Info</string>
+    <string name="settings_privacy_policy">Datenschutzerklärung</string>
+    <string name="settings_terms">Nutzungsbedingungen</string>
+    <string name="settings_version">App-Version</string>
+</resources>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Plans on the paywall (prices always come from Google Play) -->
+    <string name="premium_plan_yearly">Год</string>
+    <string name="premium_plan_monthly">Месяц</string>
+    <string name="premium_plan_lifetime">Навсегда</string>
+    <string name="premium_plan_other">Premium</string>
+    <string name="premium_plan_save">Выгода %1$d%%</string>
+    <string name="premium_plan_forever_badge">Разовая оплата</string>
+    <string name="premium_plan_per_month">≈ %1$s / мес.</string>
+    <string name="premium_plan_one_time">Разовый платёж, доступ навсегда</string>
+    <string name="premium_lifetime_note">Один платёж. Без подписки и продлений.</string>
+    <string name="premium_trial_then">Бесплатно %1$d дн., затем %2$s. Отменить можно в любой момент в Google Play.</string>
+    <string name="premium_buy_lifetime">Получить Premium навсегда</string>
+    <string name="premium_start_trial">Попробовать бесплатно (%1$d дн.)</string>
+    <string name="price_per_period">%1$s / %2$s</string>
+    <string name="premium_disclosure_lifetime">Покупка навсегда — это разовый платёж без автоматических продлений.</string>
+    <string name="premium_active_lifetime">Premium твой навсегда. Спасибо, что поддерживаешь Trackly!</string>
+    <string name="settings_premium_lifetime">Premium — навсегда</string>
+    <!-- Premium reasons / features added later -->
+    <string name="premium_feature_widget">Виджет на главном экране</string>
+    <string name="premium_feature_export">Экспорт в CSV (Excel, Google Таблицы)</string>
+    <string name="premium_reason_export">Экспорт истории в CSV доступен в Premium.</string>
+    <string name="premium_reason_widget">Виджет на главном экране доступен в Premium.</string>
+
+    <!-- Settings: your data -->
+    <string name="settings_data">Твои данные</string>
+    <string name="settings_backup">Резервная копия в файл</string>
+    <string name="settings_backup_desc">Сохрани все привычки и историю, например на Google Диск, перед сменой телефона</string>
+    <string name="settings_restore">Восстановить из копии</string>
+    <string name="settings_restore_desc">Заменить данные на этом устройстве данными из резервной копии</string>
+    <string name="settings_export_csv">Экспорт в CSV</string>
+    <string name="settings_export_csv_desc">Вся история в виде таблицы</string>
+    <string name="settings_export_csv_premium">Вся история в виде таблицы · Premium</string>
+    <string name="restore_confirm_title">Восстановить эту копию?</string>
+    <string name="restore_confirm_message">Все привычки и история на этом устройстве будут заменены данными из резервной копии. Это действие нельзя отменить.</string>
+    <string name="restore_confirm_action">Заменить данные</string>
+    <string name="backup_saved">Резервная копия сохранена</string>
+    <string name="csv_saved">Файл CSV сохранён</string>
+    <plurals name="backup_restored">
+        <item quantity="one">Копия восстановлена: %1$d привычка</item>
+        <item quantity="few">Копия восстановлена: %1$d привычки</item>
+        <item quantity="many">Копия восстановлена: %1$d привычек</item>
+        <item quantity="other">Копия восстановлена: %1$d привычки</item>
+    </plurals>
+    <string name="backup_invalid">Это не резервная копия Trackly, или файл повреждён. Ничего не изменено.</string>
+    <string name="backup_too_new">Эта копия создана более новой версией Trackly. Обнови приложение и попробуй ещё раз.</string>
+    <string name="backup_failed">Не удалось прочитать или записать файл. Попробуй ещё раз.</string>
+
+    <!-- Home-screen widget -->
+    <string name="widget_name">Trackly · Сегодня</string>
+    <string name="widget_description">Отмечай привычки на сегодня прямо с главного экрана</string>
+    <string name="widget_title">Сегодня</string>
+    <string name="widget_progress">%1$d / %2$d</string>
+    <string name="widget_value">%1$s / %2$s</string>
+    <string name="widget_empty">На сегодня ничего не запланировано 🎉</string>
+    <string name="widget_locked">Открой виджет с Trackly Premium ✨</string>
+    <string name="settings_widget_group">Главный экран</string>
+    <string name="settings_add_widget">Добавить виджет «Сегодня»</string>
+    <string name="settings_add_widget_desc">Отмечай привычки, не открывая приложение</string>
+    <string name="settings_add_widget_premium">Отмечай привычки, не открывая приложение · Premium</string>
+    <string name="settings_add_widget_manual">Нажми и удерживай главный экран, выбери «Виджеты» и найди Trackly.</string>
+</resources>

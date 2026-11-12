@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Onboarding -->
+    <string name="onboarding_title_1">Acompanhe o que importa.</string>
+    <string name="onboarding_body_1">Crie qualquer hábito ou meta que seja importante para você — água, treinos, leitura, economia — e mantenha tudo em um lugar tranquilo.</string>
+    <string name="onboarding_title_2">Crie hábitos melhores.</string>
+    <string name="onboarding_body_2">Defina metas, escolha seus dias e adicione lembretes leves que combinam com sua rotina.</string>
+    <string name="onboarding_title_3">Mantenha a constância.</string>
+    <string name="onboarding_body_3">Sequências, calendários e estatísticas mostram o quanto você já avançou.</string>
+    <string name="onboarding_skip">Pular</string>
+    <string name="onboarding_next">Próximo</string>
+    <string name="onboarding_templates_title">Crie seu primeiro hábito</string>
+    <string name="onboarding_templates_body">Escolha alguns para começar — você pode mudar tudo depois.</string>
+    <string name="onboarding_start">Começar</string>
+    <string name="onboarding_start_count">Começar (%1$d)</string>
+    <string name="onboarding_custom">Criar hábito personalizado</string>
+    <string name="onboarding_later">Vou fazer isso depois</string>
+    <string name="onboarding_limit">O plano gratuito permite até %1$d hábitos.</string>
+</resources>

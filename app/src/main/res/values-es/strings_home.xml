@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Home / Today -->
+    <string name="home_greeting_morning">Buenos días 👋</string>
+    <string name="home_greeting_afternoon">Buenas tardes 👋</string>
+    <string name="home_greeting_evening">Buenas noches 👋</string>
+    <string name="home_today_progress">Progreso de hoy</string>
+    <string name="home_progress_summary">%1$d de %2$d hábitos completados</string>
+    <string name="home_nothing_scheduled">Nada programado para hoy</string>
+    <string name="home_start_streak">Completa un hábito para iniciar una racha</string>
+    <string name="home_this_week">Esta semana</string>
+    <string name="home_add_habit">Agregar hábito</string>
+    <string name="home_create_habit">Crear hábito</string>
+    <string name="home_search">Buscar hábitos</string>
+    <string name="home_search_hint">Buscar hábitos</string>
+    <string name="home_reorder">Reordenar hábitos</string>
+    <string name="home_empty_title">Aún no hay nada que seguir.</string>
+    <string name="home_empty_message">Crea tu primer hábito y empieza a construir tu rutina.</string>
+    <string name="home_goal_reached">¡%1$s completado! 🎉</string>
+    <string name="home_all_done_title">Todo listo por hoy</string>
+    <string name="home_all_done_message">¡Buen trabajo! Nos vemos mañana.</string>
+    <string name="filter_today">Hoy</string>
+    <string name="filter_all">Todos</string>
+    <string name="filter_completed">Completados</string>
+    <string name="filter_incomplete">Pendientes</string>
+    <string name="filter_archived">Archivados</string>
+    <string name="section_todo">Pendientes · %1$d</string>
+    <string name="section_done">Completados · %1$d</string>
+    <string name="empty_today_title">Nada programado para hoy</string>
+    <string name="empty_today_message">Disfruta el día o revisa \"Todos\" para ver cada hábito.</string>
+    <string name="empty_search_title">Sin resultados</string>
+    <string name="empty_search_message">Ningún hábito coincide con tu búsqueda.</string>
+    <string name="empty_completed_title">Aún no hay nada completado</string>
+    <string name="empty_completed_message">Los hábitos terminados aparecerán aquí.</string>
+    <string name="empty_incomplete_title">¡Todo está hecho!</string>
+    <string name="empty_incomplete_message">No te queda nada por hacer hoy.</string>
+    <string name="empty_archived_title">No hay hábitos archivados</string>
+    <string name="empty_archived_message">Archiva un hábito para ocultarlo sin perder su historial.</string>
+    <string name="habit_card_add">Agregar %1$s %2$s a %3$s</string>
+    <string name="habit_card_mark_done">Marcar %1$s como hecho</string>
+    <string name="habit_card_mark_not_done">Marcar %1$s como no hecho</string>
+    <string name="habit_card_set_value">Establecer valor exacto</string>
+    <string name="reorder_title">Reordenar hábitos</string>
+    <string name="reorder_hint">Usa las flechas para cambiar el orden de tus hábitos.</string>
+    <string name="reorder_move_up">Subir %1$s</string>
+    <string name="reorder_move_down">Bajar %1$s</string>
+</resources>

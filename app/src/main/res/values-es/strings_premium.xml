@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Premium, paywall and Google Play Billing messages -->
+    <string name="premium_title">Desbloquea Trackly Premium</string>
+    <string name="premium_title_active">Tienes Trackly Premium</string>
+    <string name="premium_subtitle">Hábitos ilimitados. Análisis más profundos. Mejores rutinas.</string>
+    <string name="premium_badge">PREMIUM</string>
+    <string name="premium_feature_title">✨ Función Premium</string>
+    <string name="premium_upgrade">Pasar a Premium</string>
+    <string name="premium_start">Obtener Premium</string>
+    <string name="premium_loading_price">Cargando precio de Google Play…</string>
+    <string name="premium_price_period">Premium — %1$s / %2$s</string>
+    <string name="premium_price_only">Premium — %1$s</string>
+    <string name="premium_trial">Incluye una prueba gratis de %1$d días</string>
+    <string name="period_month">mes</string>
+    <string name="period_year">año</string>
+    <string name="period_week">semana</string>
+    <string name="period_months">%1$d meses</string>
+    <string name="period_years">%1$d años</string>
+    <string name="period_weeks">%1$d semanas</string>
+    <string name="period_days">%1$d días</string>
+    <string name="premium_feature_habits">Hábitos ilimitados</string>
+    <string name="premium_feature_stats">Estadísticas y gráficos avanzados</string>
+    <string name="premium_feature_reminders">Recordatorios ilimitados</string>
+    <string name="premium_feature_themes">Temas Premium</string>
+    <string name="premium_feature_history">Historial completo</string>
+    <string name="premium_feature_colors">Colores personalizados</string>
+    <string name="premium_feature_calendar">Calendario avanzado</string>
+    <string name="premium_feature_insights">Análisis Premium</string>
+    <string name="premium_reason_habits">El plan gratuito incluye hasta 5 hábitos. Pásate a Premium para tener hábitos ilimitados.</string>
+    <string name="premium_reason_reminders">El plan gratuito incluye hasta 2 recordatorios por hábito. Premium no tiene límite.</string>
+    <string name="premium_reason_colors">Los colores adicionales y personalizados son parte de Premium.</string>
+    <string name="premium_reason_themes">Con los temas Premium, Trackly se adapta a tu estilo.</string>
+    <string name="premium_reason_calendar">Explora todo tu calendario con Premium.</string>
+    <string name="premium_reason_history">Premium mantiene disponible todo tu historial.</string>
+    <string name="premium_reason_stats">Las estadísticas mensuales y anuales son parte de Premium.</string>
+    <string name="premium_reason_insights">Los análisis Premium revelan lo que mejor te funciona.</string>
+    <string name="premium_active_title">Premium está activo</string>
+    <string name="premium_active_message">Todo está desbloqueado. ¡Gracias por apoyar a Trackly!</string>
+    <string name="premium_active_canceled">Tu suscripción está cancelada y seguirá activa hasta el final del período pagado.</string>
+    <string name="premium_pending_banner">Tu pago está pendiente. Premium se desbloqueará en cuanto se confirme.</string>
+    <string name="premium_disclosure">El pago se cargará a tu cuenta de Google Play. La suscripción se renueva automáticamente en cada período al precio indicado, a menos que la canceles al menos 24 horas antes de la fecha de renovación. Puedes administrarla o cancelarla en cualquier momento en Google Play, en Pagos y suscripciones &gt; Suscripciones. Al cancelar, se detienen las renovaciones futuras; el período actual sigue activo.</string>
+    <string name="billing_purchase_success">¡Te damos la bienvenida a Premium! 🎉</string>
+    <string name="billing_purchase_canceled">Compra cancelada</string>
+    <string name="billing_purchase_pending">Compra pendiente: Premium se desbloqueará cuando se confirme el pago.</string>
+    <string name="billing_restore_found">Premium restaurado</string>
+    <string name="billing_restore_none">No se encontró ninguna suscripción activa para esta cuenta de Google.</string>
+    <string name="billing_error_unavailable">La facturación de Google Play no está disponible en este dispositivo. Asegúrate de tener Google Play instalado y de haber iniciado sesión.</string>
+    <string name="billing_error_product">Esta suscripción no está disponible en este momento. Inténtalo de nuevo más tarde.</string>
+    <string name="billing_error_network">No se pudo conectar con Google Play. Revisa tu conexión a internet e inténtalo de nuevo.</string>
+    <string name="billing_error_disconnected">Se perdió la conexión con Google Play. Inténtalo de nuevo.</string>
+    <string name="billing_error_unknown">Hubo un problema con Google Play. Inténtalo de nuevo.</string>
+</resources>

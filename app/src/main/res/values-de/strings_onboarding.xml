@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Onboarding -->
+    <string name="onboarding_title_1">Tracke, was zählt.</string>
+    <string name="onboarding_body_1">Erstelle jede Gewohnheit und jedes Ziel, das dir wichtig ist – Wasser, Training, Lesen, Sparen – alles an einem ruhigen Ort.</string>
+    <string name="onboarding_title_2">Baue bessere Gewohnheiten auf.</string>
+    <string name="onboarding_body_2">Setze Ziele, wähle deine Tage und füge sanfte Erinnerungen hinzu, die zu deiner Routine passen.</string>
+    <string name="onboarding_title_3">Bleib dran.</string>
+    <string name="onboarding_body_3">Serien, Kalender und Statistiken zeigen dir, wie weit du gekommen bist.</string>
+    <string name="onboarding_skip">Überspringen</string>
+    <string name="onboarding_next">Weiter</string>
+    <string name="onboarding_templates_title">Erstelle deine erste Gewohnheit</string>
+    <string name="onboarding_templates_body">Wähle ein paar für den Anfang – du kannst später alles ändern.</string>
+    <string name="onboarding_start">Los geht\'s</string>
+    <string name="onboarding_start_count">Los geht\'s (%1$d)</string>
+    <string name="onboarding_custom">Eigene Gewohnheit erstellen</string>
+    <string name="onboarding_later">Später</string>
+    <string name="onboarding_limit">Der kostenlose Plan umfasst bis zu %1$d Gewohnheiten.</string>
+</resources>

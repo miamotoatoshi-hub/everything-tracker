@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Plans on the paywall (prices always come from Google Play) -->
+    <string name="premium_plan_yearly">Anual</string>
+    <string name="premium_plan_monthly">Mensual</string>
+    <string name="premium_plan_lifetime">De por vida</string>
+    <string name="premium_plan_other">Premium</string>
+    <string name="premium_plan_save">Ahorra %1$d%%</string>
+    <string name="premium_plan_forever_badge">Pago único</string>
+    <string name="premium_plan_per_month">≈ %1$s / mes</string>
+    <string name="premium_plan_one_time">Un solo pago, tuyo para siempre</string>
+    <string name="premium_lifetime_note">Un solo pago. Sin suscripción ni renovaciones.</string>
+    <string name="premium_trial_then">Gratis durante %1$d días; después, %2$s. Cancela cuando quieras en Google Play.</string>
+    <string name="premium_buy_lifetime">Obtener Premium para siempre</string>
+    <string name="premium_start_trial">Iniciar prueba gratis de %1$d días</string>
+    <string name="price_per_period">%1$s / %2$s</string>
+    <string name="premium_disclosure_lifetime">La compra de por vida es un pago único, sin renovaciones.</string>
+    <string name="premium_active_lifetime">Tienes Premium para siempre. ¡Gracias por apoyar a Trackly!</string>
+    <string name="settings_premium_lifetime">Premium — de por vida</string>
+    <!-- Premium reasons / features added later -->
+    <string name="premium_feature_widget">Widget en la pantalla de inicio</string>
+    <string name="premium_feature_export">Exportar a CSV (Excel, Google Sheets)</string>
+    <string name="premium_reason_export">Exportar tu historial a CSV es parte de Premium.</string>
+    <string name="premium_reason_widget">El widget de la pantalla de inicio es parte de Premium.</string>
+
+    <!-- Settings: your data -->
+    <string name="settings_data">Tus datos</string>
+    <string name="settings_backup">Crear copia de seguridad</string>
+    <string name="settings_backup_desc">Guarda todos tus hábitos e historial, p. ej., en Google Drive, antes de cambiar de teléfono</string>
+    <string name="settings_restore">Restaurar copia de seguridad</string>
+    <string name="settings_restore_desc">Reemplaza los datos de este dispositivo con un archivo de copia de seguridad</string>
+    <string name="settings_export_csv">Exportar a CSV</string>
+    <string name="settings_export_csv_desc">Todo tu historial en una hoja de cálculo</string>
+    <string name="settings_export_csv_premium">Todo tu historial en una hoja de cálculo · Premium</string>
+    <string name="restore_confirm_title">¿Restaurar esta copia de seguridad?</string>
+    <string name="restore_confirm_message">Todos los hábitos y el historial de este dispositivo se reemplazarán por la copia de seguridad. Esta acción no se puede deshacer.</string>
+    <string name="restore_confirm_action">Reemplazar datos</string>
+    <string name="backup_saved">Copia de seguridad guardada</string>
+    <string name="csv_saved">Archivo CSV guardado</string>
+    <plurals name="backup_restored">
+        <item quantity="one">Copia restaurada: %1$d hábito</item>
+        <item quantity="many">Copia restaurada: %1$d hábitos</item>
+        <item quantity="other">Copia restaurada: %1$d hábitos</item>
+    </plurals>
+    <string name="backup_invalid">Este archivo no es una copia de seguridad de Trackly o está dañado. No se cambió nada.</string>
+    <string name="backup_too_new">Esta copia de seguridad se creó con una versión más reciente de Trackly. Actualiza la app e inténtalo de nuevo.</string>
+    <string name="backup_failed">No se pudo leer ni escribir el archivo. Inténtalo de nuevo.</string>
+
+    <!-- Home-screen widget -->
+    <string name="widget_name">Trackly · Hoy</string>
+    <string name="widget_description">Marca los hábitos de hoy desde la pantalla de inicio</string>
+    <string name="widget_title">Hoy</string>
+    <string name="widget_progress">%1$d / %2$d</string>
+    <string name="widget_value">%1$s / %2$s</string>
+    <string name="widget_empty">Nada programado para hoy 🎉</string>
+    <string name="widget_locked">Desbloquea el widget con Trackly Premium ✨</string>
+    <string name="settings_widget_group">Pantalla de inicio</string>
+    <string name="settings_add_widget">Agregar el widget Hoy</string>
+    <string name="settings_add_widget_desc">Marca tus hábitos sin abrir la app</string>
+    <string name="settings_add_widget_premium">Marca tus hábitos sin abrir la app · Premium</string>
+    <string name="settings_add_widget_manual">Mantén presionada la pantalla de inicio, elige Widgets y busca Trackly.</string>
+</resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Statistics and weekly overview -->
+    <string name="stats_overall">Общая</string>
+    <string name="stats_per_habit">По привычке</string>
+    <string name="stats_week">Неделя</string>
+    <string name="stats_month">Месяц</string>
+    <string name="stats_year">Год</string>
+    <string name="stats_completion_rate">Процент выполнения</string>
+    <string name="stats_rate_caption">Выполненные дни из запланированных.</string>
+    <string name="stats_total_completions">Всего выполнений</string>
+    <string name="stats_average_completion">Среднее выполнение</string>
+    <string name="stats_weekly_activity">Активность за неделю</string>
+    <string name="stats_monthly_activity">Активность за месяц</string>
+    <string name="stats_yearly_activity">Активность за год</string>
+    <string name="stats_by_habit">По привычкам</string>
+    <string name="stats_weekly_overview">Обзор недели</string>
+    <string name="stats_premium_section">Аналитика Premium</string>
+    <string name="stats_locked_message">Открой статистику за месяц и год и посмотри на картину целиком.</string>
+    <string name="stats_empty_title">Статистики пока нет</string>
+    <string name="stats_empty_message">Отслеживай привычку несколько дней, и здесь появится статистика.</string>
+    <string name="insights_locked_title">Аналитика Premium</string>
+    <string name="insights_locked_message">Узнай свой лучший день, самую стабильную привычку и тренд за неделю.</string>
+    <string name="insights_not_enough_data">Продолжай отмечать привычки ещё несколько дней, чтобы открыть аналитику.</string>
+    <string name="insights_overall_only">Аналитика сравнивает все твои привычки. Переключись на «Общая», чтобы её увидеть.</string>
+    <string name="insight_best_day">Твой лучший день</string>
+    <string name="insight_weakest_day">Твой самый трудный день</string>
+    <string name="insight_top_habit">Самая стабильная привычка (30 дней)</string>
+    <string name="insight_trend">Тренд к прошлой неделе</string>
+    <string name="insight_trend_up">Рост на %1$d п. п.</string>
+    <string name="insight_trend_down">Снижение на %1$d п. п.</string>
+    <string name="insight_trend_flat">Без изменений</string>
+    <string name="insight_perfect_days">Идеальные дни (последние 30 дней)</string>
+    <string name="weekly_title">Эта неделя</string>
+    <string name="weekly_completion_rate">выполнение</string>
+    <string name="weekly_daily_progress">Прогресс по дням</string>
+    <string name="weekly_by_habit">По привычкам</string>
+    <string name="weekly_day_description">%1$s: выполнено привычек — %2$d из %3$d</string>
+</resources>

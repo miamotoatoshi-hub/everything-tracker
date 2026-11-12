@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Notification channels and content -->
+    <string name="channel_reminders_sound_vibration">Recordatorios (sonido y vibración)</string>
+    <string name="channel_reminders_sound">Recordatorios (solo sonido)</string>
+    <string name="channel_reminders_vibration">Recordatorios (solo vibración)</string>
+    <string name="channel_reminders_silent">Recordatorios (silencio)</string>
+    <string name="channel_reminders_description">Recordatorios de los hábitos que sigues</string>
+    <string name="notification_default_message">Es hora de: %1$s %2$s</string>
+    <string name="notification_action_done">Hecho</string>
+    <string name="notification_action_add">Agregar</string>
+</resources>

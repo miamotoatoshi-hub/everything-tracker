@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Premium, paywall and Google Play Billing messages -->
+    <string name="premium_title">Открой Trackly Premium</string>
+    <string name="premium_title_active">У тебя Trackly Premium</string>
+    <string name="premium_subtitle">Безлимит привычек. Глубокая аналитика. Полезный распорядок.</string>
+    <string name="premium_badge">PREMIUM</string>
+    <string name="premium_feature_title">✨ Функция Premium</string>
+    <string name="premium_upgrade">Перейти на Premium</string>
+    <string name="premium_start">Оформить Premium</string>
+    <string name="premium_loading_price">Загружаем цену из Google Play…</string>
+    <string name="premium_price_period">Premium — %1$s / %2$s</string>
+    <string name="premium_price_only">Premium — %1$s</string>
+    <string name="premium_trial">Бесплатный пробный период: %1$d дн.</string>
+    <string name="period_month">месяц</string>
+    <string name="period_year">год</string>
+    <string name="period_week">неделя</string>
+    <string name="period_months">%1$d мес.</string>
+    <string name="period_years">%1$d г.</string>
+    <string name="period_weeks">%1$d нед.</string>
+    <string name="period_days">%1$d дн.</string>
+    <string name="premium_feature_habits">Безлимит привычек</string>
+    <string name="premium_feature_stats">Расширенная статистика и графики</string>
+    <string name="premium_feature_reminders">Безлимит напоминаний</string>
+    <string name="premium_feature_themes">Темы Premium</string>
+    <string name="premium_feature_history">Полная история</string>
+    <string name="premium_feature_colors">Свои цвета</string>
+    <string name="premium_feature_calendar">Расширенный календарь</string>
+    <string name="premium_feature_insights">Аналитика Premium</string>
+    <string name="premium_reason_habits">В бесплатной версии — до 5 привычек. С Premium — без ограничений.</string>
+    <string name="premium_reason_reminders">В бесплатной версии — до 2 напоминаний на привычку. В Premium ограничений нет.</string>
+    <string name="premium_reason_colors">Дополнительные и свои цвета доступны в Premium.</string>
+    <string name="premium_reason_themes">Темы Premium помогут сделать Trackly по-настоящему своим.</string>
+    <string name="premium_reason_calendar">С Premium доступен весь календарь.</string>
+    <string name="premium_reason_history">С Premium вся история всегда под рукой.</string>
+    <string name="premium_reason_stats">Статистика за месяц и год доступна в Premium.</string>
+    <string name="premium_reason_insights">Аналитика Premium покажет, что работает лучше всего именно для тебя.</string>
+    <string name="premium_active_title">Premium активен</string>
+    <string name="premium_active_message">Всё открыто. Спасибо, что поддерживаешь Trackly!</string>
+    <string name="premium_active_canceled">Подписка отменена и остаётся активной до конца оплаченного периода.</string>
+    <string name="premium_pending_banner">Платёж обрабатывается. Premium откроется сразу после подтверждения.</string>
+    <string name="premium_disclosure">Оплата списывается с аккаунта Google Play. Подписка продлевается автоматически в конце каждого периода по указанной цене, если не отменить её не позднее чем за 24 часа до даты продления. Управлять подпиской или отменить её можно в любой момент в Google Play: Платежи и подписки &gt; Подписки. После отмены подписка больше не продлевается, а текущий период остаётся активным.</string>
+    <string name="billing_purchase_success">Добро пожаловать в Premium! 🎉</string>
+    <string name="billing_purchase_canceled">Покупка отменена</string>
+    <string name="billing_purchase_pending">Покупка обрабатывается — Premium откроется после подтверждения платежа.</string>
+    <string name="billing_restore_found">Premium восстановлен</string>
+    <string name="billing_restore_none">Для этого аккаунта Google не найдено активной подписки.</string>
+    <string name="billing_error_unavailable">Оплата через Google Play недоступна на этом устройстве. Убедись, что Google Play установлен и ты вошёл в аккаунт.</string>
+    <string name="billing_error_product">Эта подписка сейчас недоступна. Попробуй позже.</string>
+    <string name="billing_error_network">Не удалось подключиться к Google Play. Проверь подключение к интернету и попробуй ещё раз.</string>
+    <string name="billing_error_disconnected">Соединение с Google Play прервано. Попробуй ещё раз.</string>
+    <string name="billing_error_unknown">Ошибка Google Play. Попробуй ещё раз.</string>
+</resources>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Core: app name, actions, navigation, generic states -->
-    <string name="app_name">Trackly</string>
+    <string name="app_name" translatable="false">Trackly</string>
     <string name="action_archive">Archive</string>
     <string name="action_back">Back</string>
     <string name="action_cancel">Cancel</string>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Home / Today -->
+    <string name="home_greeting_morning">Guten Morgen 👋</string>
+    <string name="home_greeting_afternoon">Guten Tag 👋</string>
+    <string name="home_greeting_evening">Guten Abend 👋</string>
+    <string name="home_today_progress">Heutiger Fortschritt</string>
+    <string name="home_progress_summary">%1$d von %2$d Gewohnheiten erledigt</string>
+    <string name="home_nothing_scheduled">Heute nichts geplant</string>
+    <string name="home_start_streak">Erledige eine Gewohnheit, um eine Serie zu starten</string>
+    <string name="home_this_week">Diese Woche</string>
+    <string name="home_add_habit">Gewohnheit hinzufügen</string>
+    <string name="home_create_habit">Gewohnheit erstellen</string>
+    <string name="home_search">Gewohnheiten suchen</string>
+    <string name="home_search_hint">Gewohnheiten suchen</string>
+    <string name="home_reorder">Gewohnheiten sortieren</string>
+    <string name="home_empty_title">Noch nichts zu tracken.</string>
+    <string name="home_empty_message">Erstelle deine erste Gewohnheit und baue deine Routine auf.</string>
+    <string name="home_goal_reached">%1$s erledigt! 🎉</string>
+    <string name="home_all_done_title">Für heute alles erledigt</string>
+    <string name="home_all_done_message">Super gemacht – bis morgen.</string>
+    <string name="filter_today">Heute</string>
+    <string name="filter_all">Alle</string>
+    <string name="filter_completed">Erledigt</string>
+    <string name="filter_incomplete">Offen</string>
+    <string name="filter_archived">Archiviert</string>
+    <string name="section_todo">Offen · %1$d</string>
+    <string name="section_done">Erledigt · %1$d</string>
+    <string name="empty_today_title">Heute nichts geplant</string>
+    <string name="empty_today_message">Genieß den Tag oder wähle „Alle“, um jede Gewohnheit zu sehen.</string>
+    <string name="empty_search_title">Keine Treffer</string>
+    <string name="empty_search_message">Keine Gewohnheit passt zu deiner Suche.</string>
+    <string name="empty_completed_title">Noch nichts erledigt</string>
+    <string name="empty_completed_message">Erledigte Gewohnheiten erscheinen hier.</string>
+    <string name="empty_incomplete_title">Alles erledigt!</string>
+    <string name="empty_incomplete_message">Für heute ist nichts mehr zu tun.</string>
+    <string name="empty_archived_title">Keine archivierten Gewohnheiten</string>
+    <string name="empty_archived_message">Archiviere eine Gewohnheit, um sie auszublenden, ohne ihren Verlauf zu verlieren.</string>
+    <string name="habit_card_add">%1$s %2$s zu %3$s hinzufügen</string>
+    <string name="habit_card_mark_done">%1$s als erledigt markieren</string>
+    <string name="habit_card_mark_not_done">%1$s als nicht erledigt markieren</string>
+    <string name="habit_card_set_value">Genauen Wert festlegen</string>
+    <string name="reorder_title">Gewohnheiten sortieren</string>
+    <string name="reorder_hint">Ändere die Reihenfolge deiner Gewohnheiten mit den Pfeilen.</string>
+    <string name="reorder_move_up">%1$s nach oben verschieben</string>
+    <string name="reorder_move_down">%1$s nach unten verschieben</string>
+</resources>

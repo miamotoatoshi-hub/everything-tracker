@@ -3,7 +3,16 @@
 Trackly — нативное Android-приложение (Kotlin + Jetpack Compose + Material 3), в котором пользователь
 создаёт **любую** привычку или цель (вода, йога, чтение, сбережения, «без курения», свои варианты),
 получает напоминания и видит прогресс: streak'и, календарь, статистику и недельный обзор.
-Премиум-версия продаётся **только через Google Play Billing** (подписка).
+Премиум-версия продаётся **только через Google Play Billing**: подписка (месяц / год) и разовая покупка «навсегда».
+
+> 📘 **Как выложить приложение в Google Play — пошаговая инструкция: [`docs/PUBLISHING.md`](docs/PUBLISHING.md).**
+> Шаблон политики конфиденциальности: [`docs/privacy-policy.md`](docs/privacy-policy.md).
+> Готовые тексты для страницы в магазине: [`store-assets/listing/`](store-assets/listing/).
+
+**Что умеет:** любые привычки (да/нет, счётчик, время, расстояние, количество), гибкое расписание, напоминания
+с отметкой из уведомления, серии, календарь, статистика, недельный обзор, виджет «Сегодня» на главный экран,
+резервная копия и восстановление (JSON), экспорт в CSV, светлая/тёмная тема, 6 языков
+(English, Русский, Español, Deutsch, Français, Português (Brasil)), запрос оценки в Google Play.
 
 * Данные привычек хранятся **локально** (Room). Приложение работает полностью офлайн.
 * Нет аккаунтов, рекламы и аналитики, нет собственных сетевых запросов. Приложение само не объявляет `INTERNET`.
@@ -64,13 +73,16 @@ Premium для проверки UI. Этого кода **нет в release** (�
 TRACKLY_APPLICATION_ID=com.example.trackly      # package name в Google Play (applicationId)
 TRACKLY_VERSION_NAME=1.0.0                       # версия для пользователей
 TRACKLY_VERSION_CODE=1                           # номер сборки: увеличивайте при каждой загрузке в Play
-BILLING_PREMIUM_PRODUCT_ID=trackly_premium_monthly  # Product ID подписки из Play Console
+BILLING_PREMIUM_PRODUCT_ID=trackly_premium        # подписка в Play Console (base plans: monthly + yearly)
+BILLING_LIFETIME_PRODUCT_ID=trackly_premium_lifetime  # разовая покупка «навсегда» (пусто = не продавать)
 PRIVACY_POLICY_URL=                              # ссылка на вашу политику (необязательно; иначе экран-заглушка)
 TERMS_OF_SERVICE_URL=
 ```
 
-* **Product ID находится здесь** и пробрасывается в код как `BuildConfig.BILLING_PREMIUM_PRODUCT_ID`
-  (`billing/BillingConfig.kt`). Искать его по проекту не нужно.
+* **Product ID находятся здесь** и пробрасываются в код как `BuildConfig.BILLING_PREMIUM_PRODUCT_ID` и
+  `BuildConfig.BILLING_LIFETIME_PRODUCT_ID` (`billing/BillingConfig.kt`). Искать их по проекту не нужно.
+  Экран Premium показывает **все активные base plan'ы** подписки (годовой — первым, со значком «Экономия X %»,
+  посчитанным из цен Google Play) и, если создан, товар «навсегда».
 * **Цена нигде не зашита.** Приложение читает цену и валюту из Google Play (`ProductDetails`:
   `formattedPrice`, `priceAmountMicros`, `priceCurrencyCode`, `billingPeriod`). Если вы поставите в Play Console
   $2.99/мес — пользователь в США увидит «Premium — $2.99 / month», а в других странах — локализованную цену.
@@ -171,22 +183,18 @@ KEY_PASSWORD=…
    релиз во внутреннем тестировании. (Play Console требует загруженный билд с Billing, прежде чем разрешит
    создавать подписки.)
 
-### 5.4 Создайте subscription product
-1. **Monetize with Play ▸ Products ▸ Subscriptions ▸ Create subscription**.
-2. **Product ID:** `trackly_premium_monthly` — должен **точно** совпадать с `BILLING_PREMIUM_PRODUCT_ID`
-   в `gradle.properties`. *Product ID нельзя изменить или переиспользовать после создания.*
-3. **Name:** «Trackly Premium». Добавьте описание (отображается пользователю).
+### 5.4 Создайте подписку и покупку «навсегда»
+Подробно, с рекомендуемыми ценами — [`docs/PUBLISHING.md`, шаг 6](docs/PUBLISHING.md#6-цены-подписка-и-покупка-навсегда). Коротко:
+1. **Monetize with Play ▸ Products ▸ Subscriptions ▸ Create subscription**, Product ID **`trackly_premium`**
+   (= `BILLING_PREMIUM_PRODUCT_ID`; *нельзя изменить или переиспользовать*).
+2. Base plan `monthly` (Auto-renewing, 1 month, например **$2.99**) и base plan `yearly` (1 year, например **$19.99**) ▸ **Activate**.
+   Опционально — оффер *Free trial* 7 дней на годовом плане: приложение покажет кнопку «Попробовать N дней бесплатно».
+3. **In-app products ▸ Create product**, Product ID **`trackly_premium_lifetime`** (= `BILLING_LIFETIME_PRODUCT_ID`),
+   например **$34.99** ▸ **Activate**. Не нужен — не создавайте (или очистите `BILLING_LIFETIME_PRODUCT_ID`).
 
-### 5.5 Настройте месячный base plan и цену $2.99
-1. В подписке нажмите **Add base plan**: Base plan ID — например `monthly`, **Renewal type: Auto-renewing**,
-   **Billing period: Monthly**. (Приложение выбирает подходящее предложение автоматически; если у подписки
-   несколько base plan'ов/офферов, пользователю предлагается базовый план без offer ID либо оффер с бесплатным пробным
-   периодом, на который он имеет право.)
-2. **Set price** → выберите **основной регион (например, United States), цена `2.99 USD`** → при желании примените
-   *Convert prices* для автоматического пересчёта в других валютах (или задайте цены регионов вручную).
-3. Опционально: *Grace period*, *Account hold*, пробный период (free trial) через **Offers**. Приложение само покажет
-   «Includes a N-day free trial», если пользователь имеет на него право.
-4. **Activate** base plan и убедитесь, что подписка в статусе *Active*.
+### 5.5 Цены
+Цены задаёте **только вы** в Play Console (в коде их нет). Используйте автоматический пересчёт по странам.
+Цены можно менять в любой момент без обновления приложения.
 
 ### 5.6 Настройте страны/регионы
 В настройках base plan / приложения (**Release ▸ Setup ▸ Advanced settings ▸ Release countries / Availability**)
@@ -226,7 +234,8 @@ KEY_PASSWORD=…
 | Проверка | Как |
 |---|---|
 | Цена отображается из Play | `Settings ▸ Premium` → экран Premium показывает цену из Play Console |
-| Покупка | **Start Premium** → диалог Google Play → тестовая карта *Test card, always approves* → Premium разблокирован, снимается лимит 5 привычек |
+| Покупка подписки | выберите Год или Месяц → кнопка → тестовая карта *Test card, always approves* → Premium разблокирован, снимается лимит 5 привычек, открывается виджет |
+| Покупка «навсегда» | выберите «Навсегда» → купить → статус «Premium — lifetime», кнопки «Manage subscription» нет; работает офлайн без ограничения срока |
 | Pending | в диалоге выберите *Slow test card, approves after a few minutes* → приложение показывает «Purchase pending»; Premium включится после подтверждения |
 | Отмена покупки | закройте диалог оплаты → «Purchase canceled», ничего не ломается |
 | Restore | удалите и переустановите приложение (или очистите данные) → `Settings ▸ Restore purchases` |
@@ -271,6 +280,8 @@ KEY_PASSWORD=…
 | до 2 напоминаний на привычку | безлимит напоминаний |
 | 8 базовых цветов, 2 темы-акцента | расширенная палитра + свой цвет, 8 тем-акцентов |
 | — | Premium insights (лучший день, самая стабильная привычка, тренд) |
+| резервная копия и восстановление (JSON) — бесплатно, это данные пользователя | экспорт в CSV |
+| — | виджет «Сегодня» на главный экран (отметка привычек в одно касание) |
 
 **Как добавить новую Premium-функцию:** (1) добавьте значение в `PremiumFeature`; (2) добавьте проверку в `PremiumPolicy`
 (и тест в `PremiumPolicyTest`); (3) в UI вызовите `policy.isUnlocked(...)`/`gate(...)` и покажите `PremiumLockedCard`
@@ -296,13 +307,17 @@ Debug-переключатель существует лишь в debug-сбор
 
 ---
 
-## 10. Добавление языка
+## 10. Языки и добавление нового
 
-1. Создайте `app/src/main/res/values-ru/` (или `values-de`, `values-fr`, `values-es`) и скопируйте туда все файлы
-   `strings*.xml`, `legal.xml`, переведя тексты (plurals — в `strings.xml`).
-2. Добавьте код языка в `res/xml/locales_config.xml` (`<locale android:name="ru" />`).
-3. Добавьте его в `AppLocales.supportedTags` (`core/locale/AppLocales.kt`) — появится в `Settings ▸ Language`.
-4. На Android 13+ язык также выбирается в системных настройках приложения.
+Готовы: **English** (`values/`), **Русский** (`values-ru/`), **Español** (`values-es/`), **Deutsch** (`values-de/`),
+**Français** (`values-fr/`), **Português (Brasil)** (`values-pt-rBR/`). Юридические тексты-заглушки (`legal.xml`)
+помечены `translatable="false"` — замените их своими (или задайте ссылки в `gradle.properties`).
+
+Добавить язык:
+1. Создайте `app/src/main/res/values-<код>/` и переведите **все** файлы `strings*.xml` (lint падает на
+   `MissingTranslation`, если хоть одной строки не хватает). Plurals — с формами этого языка.
+2. Добавьте код в `res/xml/locales_config.xml` и в `AppLocales.supportedTags` (`core/locale/AppLocales.kt`).
+3. При добавлении **новой строки** в `values/` добавьте её перевод во все `values-*`.
 
 Весь текст интерфейса берётся из string-ресурсов (в Kotlin-коде нет захардкоженных UI-строк, кроме эмодзи).
 AAB настроен без языковых сплитов (`bundle.language.enableSplit = false`), чтобы переключение языка внутри
@@ -353,13 +368,14 @@ app/src/androidTest/  UI-тесты Compose и тесты Room/репозито�
 ## 12. Тесты
 
 ```bash
-./gradlew testDebugUnitTest              # JVM unit-тесты (127)
+./gradlew testDebugUnitTest              # JVM unit-тесты (~150)
 ./gradlew connectedDebugAndroidTest      # UI-тесты + Room на эмуляторе/устройстве
 ```
 
 Unit-тесты покрывают: расчёт streak, расписание, прогресс цели/completion, даты и диапазоны, статистику,
 валидацию формы, расчёт времени напоминаний, **Premium entitlement и политику Free/Premium**, `SaveHabitUseCase`
-(лимиты) и ViewModel'и (используются fake-репозитории; `FakeBillingRepository` — только в тестах).
+(лимиты), тарифы и «экономию %» (`PlanPricing`), формат резервной копии и CSV (`BackupCodec`), данные виджета,
+правило запроса оценки и ViewModel'и (используются fake-репозитории; `FakeBillingRepository` — только в тестах).
 
 UI-тесты (Compose): создание привычки, валидация формы, выполнение boolean/counter привычек, редактирование,
 архивирование, удаление с подтверждением, навигация по вкладкам, экран Premium, лимит Free-плана.
@@ -386,7 +402,7 @@ UI-тесты (Compose): создание привычки, валидация �
 ## 14. Чек-лист перед публикацией
 
 - [ ] `TRACKLY_APPLICATION_ID` заменён (не `com.example.*`), `TRACKLY_VERSION_CODE` увеличен.
-- [ ] Создана подписка с Product ID = `BILLING_PREMIUM_PRODUCT_ID`, base plan активирован, цена задана вами.
+- [ ] Создана подписка `BILLING_PREMIUM_PRODUCT_ID` с активными base plan'ами (месяц, год) и, по желанию, товар `BILLING_LIFETIME_PRODUCT_ID`; цены заданы вами.
 - [ ] Свой upload keystore подключён (раздел 4); AAB подписан; включён Play App Signing.
 - [ ] Заменены юридические тексты: `res/values/legal.xml` (TODO-маркеры) **или** заданы `PRIVACY_POLICY_URL` / `TERMS_OF_SERVICE_URL`.
 - [ ] В Play Console: Privacy Policy URL, Data safety (данные не собираются и не передаются; покупки обрабатывает Google Play),

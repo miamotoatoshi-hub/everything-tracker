@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Onboarding -->
+    <string name="onboarding_title_1">Отслеживай важное.</string>
+    <string name="onboarding_body_1">Создавай любые привычки и цели — вода, тренировки, чтение, накопления — и держи их в одном спокойном месте.</string>
+    <string name="onboarding_title_2">Формируй полезные привычки.</string>
+    <string name="onboarding_body_2">Ставь цели, выбирай дни и добавляй ненавязчивые напоминания под свой распорядок.</string>
+    <string name="onboarding_title_3">Не сбавляй темп.</string>
+    <string name="onboarding_body_3">Серии, календари и статистика покажут, как далеко ты продвинулся.</string>
+    <string name="onboarding_skip">Пропустить</string>
+    <string name="onboarding_next">Далее</string>
+    <string name="onboarding_templates_title">Создай первую привычку</string>
+    <string name="onboarding_templates_body">Выбери несколько для начала — всё можно изменить позже.</string>
+    <string name="onboarding_start">Начать</string>
+    <string name="onboarding_start_count">Начать (%1$d)</string>
+    <string name="onboarding_custom">Создать свою привычку</string>
+    <string name="onboarding_later">Сделаю позже</string>
+    <string name="onboarding_limit">В бесплатной версии можно создать до %1$d привычек.</string>
+</resources>

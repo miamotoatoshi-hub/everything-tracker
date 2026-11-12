@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Onboarding -->
+    <string name="onboarding_title_1">Suis ce qui compte.</string>
+    <string name="onboarding_body_1">Crée toutes les habitudes ou tous les objectifs qui te tiennent à cœur (eau, sport, lecture, épargne) et retrouve-les dans un seul endroit apaisant.</string>
+    <string name="onboarding_title_2">Prends de meilleures habitudes.</string>
+    <string name="onboarding_body_2">Fixe des objectifs, choisis tes jours et ajoute de petits rappels adaptés à ta routine.</string>
+    <string name="onboarding_title_3">Reste régulier.</string>
+    <string name="onboarding_body_3">Séries, calendriers et statistiques te montrent le chemin parcouru.</string>
+    <string name="onboarding_skip">Passer</string>
+    <string name="onboarding_next">Suivant</string>
+    <string name="onboarding_templates_title">Crée ta première habitude</string>
+    <string name="onboarding_templates_body">Choisis-en quelques-unes pour commencer. Tu pourras tout modifier plus tard.</string>
+    <string name="onboarding_start">Commencer</string>
+    <string name="onboarding_start_count">Commencer (%1$d)</string>
+    <string name="onboarding_custom">Créer une habitude personnalisée</string>
+    <string name="onboarding_later">Plus tard</string>
+    <string name="onboarding_limit">L\'offre gratuite permet jusqu\'à %1$d habitudes.</string>
+</resources>
