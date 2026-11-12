@@ -53,7 +53,7 @@ import androidx.compose.ui.text.font.FontWeight
 @Composable
 fun TracklyRoot(
     mainViewModel: MainViewModel,
-    deepLinkHabitId: Long?,
+    deepLinkRoute: String?,
     onDeepLinkConsumed: () -> Unit,
 ) {
     val container = LocalAppContainer.current
@@ -88,7 +88,7 @@ fun TracklyRoot(
                 if (startRoute != null) {
                     AppNavHost(
                         startDestination = startRoute,
-                        deepLinkHabitId = deepLinkHabitId,
+                        deepLinkRoute = deepLinkRoute,
                         onDeepLinkConsumed = onDeepLinkConsumed,
                     )
                 }

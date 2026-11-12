@@ -44,4 +44,18 @@
     <string name="backup_invalid">This file isn\'t a Trackly backup or is damaged. Nothing was changed.</string>
     <string name="backup_too_new">This backup was made by a newer version of Trackly. Update the app and try again.</string>
     <string name="backup_failed">Couldn\'t read or write the file. Please try again.</string>
+
+    <!-- Home-screen widget -->
+    <string name="widget_name">Trackly · Today</string>
+    <string name="widget_description">Check off today\'s habits right from your home screen</string>
+    <string name="widget_title">Today</string>
+    <string name="widget_progress">%1$d / %2$d</string>
+    <string name="widget_value">%1$s / %2$s</string>
+    <string name="widget_empty">Nothing scheduled today 🎉</string>
+    <string name="widget_locked">Unlock the widget with Trackly Premium ✨</string>
+    <string name="settings_widget_group">Home screen</string>
+    <string name="settings_add_widget">Add the Today widget</string>
+    <string name="settings_add_widget_desc">Check off habits without opening the app</string>
+    <string name="settings_add_widget_premium">Check off habits without opening the app · Premium</string>
+    <string name="settings_add_widget_manual">Long-press your home screen, choose Widgets and find Trackly.</string>
 </resources>

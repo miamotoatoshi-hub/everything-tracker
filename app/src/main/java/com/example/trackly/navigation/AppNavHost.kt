@@ -65,7 +65,7 @@ private val popExit: AnimatedContentTransitionScope<NavBackStackEntry>.() -> Exi
 @Composable
 fun AppNavHost(
     startDestination: String,
-    deepLinkHabitId: Long?,
+    deepLinkRoute: String?,
     onDeepLinkConsumed: () -> Unit,
 ) {
     val navController = rememberNavController()
@@ -74,11 +74,11 @@ fun AppNavHost(
     val showBottomBar = currentRoute in TopLevelDestination.routes
     val currentOnConsumed by rememberUpdatedState(onDeepLinkConsumed)
 
-    // Notification tap: Home is the base of the back stack, the habit opens on top of it.
-    LaunchedEffect(deepLinkHabitId, backStackEntry != null) {
-        if (deepLinkHabitId != null && backStackEntry != null) {
+    // Notification / widget tap: Home is the base of the back stack, the target opens on top of it.
+    LaunchedEffect(deepLinkRoute, backStackEntry != null) {
+        if (deepLinkRoute != null && backStackEntry != null) {
             if (currentRoute != Routes.ONBOARDING) {
-                navController.navigate(Routes.habit(deepLinkHabitId)) { launchSingleTop = true }
+                navController.navigate(deepLinkRoute) { launchSingleTop = true }
             }
             currentOnConsumed()
         }

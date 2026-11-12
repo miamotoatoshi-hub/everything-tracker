@@ -69,8 +69,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.trackly.R
 import com.example.trackly.domain.model.HabitType
 import com.example.trackly.domain.model.PremiumFeature
+import com.example.trackly.presentation.common.LocalAppContainer
 import com.example.trackly.presentation.common.UiState
 import com.example.trackly.presentation.common.appViewModel
+import com.example.trackly.presentation.common.findActivity
 import com.example.trackly.presentation.common.rememberDateFormats
 import com.example.trackly.presentation.common.unitLabel
 import com.example.trackly.ui.components.CenteredContent
@@ -100,6 +102,7 @@ fun HomeScreen(
     val snackbar = remember { SnackbarHostState() }
     val haptic = LocalHapticFeedback.current
     val context = LocalContext.current
+    val container = LocalAppContainer.current
     val currentOnUpgrade by rememberUpdatedState(onUpgrade)
 
     var valueDialogFor by remember { mutableStateOf<HabitItem?>(null) }
@@ -112,6 +115,7 @@ fun HomeScreen(
                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                     snackbar.currentSnackbarData?.dismiss()
                     snackbar.showSnackbar(context.getString(R.string.home_goal_reached, event.habitName))
+                    context.findActivity()?.let { activity -> container.reviewPrompter.onGoalReached(activity) }
                 }
                 is HomeEvent.RequiresPremium -> currentOnUpgrade(event.feature)
                 HomeEvent.ActionFailed -> snackbar.showSnackbar(context.getString(R.string.error_action_failed))

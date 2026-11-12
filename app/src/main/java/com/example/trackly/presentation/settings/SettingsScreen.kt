@@ -87,6 +87,7 @@ import com.example.trackly.ui.components.SegmentedControl
 import com.example.trackly.ui.theme.swatchColor
 import com.example.trackly.debug.DebugTools
 import com.example.trackly.presentation.common.LocalAppContainer
+import com.example.trackly.widget.requestPinTodayWidget
 import kotlinx.coroutines.launch
 
 enum class LegalKind { PRIVACY, TERMS }
@@ -211,6 +212,23 @@ private fun SettingsBody(
                 Text(stringResource(R.string.settings_accent), style = MaterialTheme.typography.titleSmall)
                 AccentPicker(settings.accent, data.isPremium) { viewModel.setAccent(it, data.isPremium) }
             }
+        }
+
+        SettingsGroup(stringResource(R.string.settings_widget_group)) {
+            SettingsRow(
+                title = stringResource(R.string.settings_add_widget),
+                subtitle = stringResource(
+                    if (data.isPremium) R.string.settings_add_widget_desc else R.string.settings_add_widget_premium,
+                ),
+                onClick = {
+                    if (!data.isPremium) {
+                        onUpgrade(PremiumFeature.HOME_WIDGET)
+                    } else if (!requestPinTodayWidget(context)) {
+                        onMessage(context.getString(R.string.settings_add_widget_manual))
+                    }
+                },
+                modifier = Modifier.testTag("add_widget"),
+            )
         }
 
         SettingsGroup(stringResource(R.string.settings_notifications)) {

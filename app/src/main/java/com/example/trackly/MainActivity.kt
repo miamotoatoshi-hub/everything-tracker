@@ -12,6 +12,8 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.trackly.domain.model.PremiumFeature
+import com.example.trackly.navigation.Routes
 import com.example.trackly.notifications.ReminderNotifier
 import com.example.trackly.presentation.app.MainViewModel
 import com.example.trackly.presentation.app.TracklyRoot
@@ -22,8 +24,8 @@ class MainActivity : AppCompatActivity() {
 
     private val container get() = (application as TracklyApp).container
 
-    /** Habit to open because the user tapped a reminder notification. */
-    private val deepLinkHabitId = MutableStateFlow<Long?>(null)
+    /** Screen to open because the user tapped a reminder notification or the widget. */
+    private val deepLinkRoute = MutableStateFlow<String?>(null)
 
     private val mainViewModel: MainViewModel by viewModels {
         viewModelFactory { initializer { MainViewModel(container.settingsRepository) } }
@@ -39,12 +41,12 @@ class MainActivity : AppCompatActivity() {
         container.billingRepository.connect()
 
         setContent {
-            val pendingHabit by deepLinkHabitId.collectAsStateWithLifecycle()
+            val pendingRoute by deepLinkRoute.collectAsStateWithLifecycle()
             CompositionLocalProvider(LocalAppContainer provides container) {
                 TracklyRoot(
                     mainViewModel = mainViewModel,
-                    deepLinkHabitId = pendingHabit,
-                    onDeepLinkConsumed = { deepLinkHabitId.value = null },
+                    deepLinkRoute = pendingRoute,
+                    onDeepLinkConsumed = { deepLinkRoute.value = null },
                 )
             }
         }
@@ -64,9 +66,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleIntent(intent: Intent?) {
-        if (intent?.action == ReminderNotifier.ACTION_OPEN_HABIT) {
-            val id = intent.getLongExtra(ReminderNotifier.EXTRA_HABIT_ID, -1L)
-            if (id > 0L) deepLinkHabitId.value = id
+        when (intent?.action) {
+            ReminderNotifier.ACTION_OPEN_HABIT -> {
+                val id = intent.getLongExtra(ReminderNotifier.EXTRA_HABIT_ID, -1L)
+                if (id > 0L) deepLinkRoute.value = Routes.habit(id)
+            }
+            ACTION_OPEN_PREMIUM -> deepLinkRoute.value = Routes.premium(PremiumFeature.HOME_WIDGET)
         }
+    }
+
+    companion object {
+        /** Opens the paywall (used by the locked home-screen widget). */
+        const val ACTION_OPEN_PREMIUM = "com.example.trackly.action.OPEN_PREMIUM"
     }
 }
