@@ -270,7 +270,7 @@ private fun Features() {
 }
 
 @Composable
-private fun PlansCard(
+internal fun PlansCard(
     state: ProductState,
     canPurchase: Boolean,
     onPurchase: (PremiumPlan) -> Unit,

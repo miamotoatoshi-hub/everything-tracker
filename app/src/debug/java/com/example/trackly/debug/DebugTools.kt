@@ -70,12 +70,18 @@ object DebugTools {
 
         data class Demo(val name: String, val icon: String, val color: Int, val type: HabitType, val goal: Double, val unit: HabitUnit, val step: Double)
 
+        // Demo names follow the app language, so store screenshots look native.
+        val ru = java.util.Locale.getDefault().language == "ru"
+        fun name(en: String, ruName: String) = if (ru) ruName else en
         val demos = listOf(
-            Demo("Drink Water", "💧", HabitColors.FREE[5], HabitType.COUNTER, 8.0, HabitUnit.GLASSES, 1.0),
-            Demo("Yoga", "🧘", HabitColors.FREE[7], HabitType.DURATION, 30.0, HabitUnit.MINUTES, 5.0),
-            Demo("Read", "📚", HabitColors.FREE[2], HabitType.QUANTITY, 20.0, HabitUnit.PAGES, 5.0),
-            Demo("Walk", "🚶", HabitColors.FREE[3], HabitType.DISTANCE, 5.0, HabitUnit.KM, 1.0),
+            Demo(name("Drink Water", "Пить воду"), "💧", HabitColors.FREE[5], HabitType.COUNTER, 8.0, HabitUnit.GLASSES, 1.0),
+            Demo(name("Yoga", "Йога"), "🧘", HabitColors.FREE[7], HabitType.DURATION, 30.0, HabitUnit.MINUTES, 5.0),
+            Demo(name("Read", "Чтение"), "📚", HabitColors.FREE[2], HabitType.QUANTITY, 20.0, HabitUnit.PAGES, 5.0),
+            Demo(name("Walk", "Прогулка"), "🚶", HabitColors.FREE[3], HabitType.DISTANCE, 5.0, HabitUnit.KM, 1.0),
+            Demo(name("Meditate", "Медитация"), "🧠", HabitColors.FREE[0], HabitType.BOOLEAN, 1.0, HabitUnit.TIMES, 1.0),
         )
+        // Today: some habits done, some in progress, some still to do — like a real day.
+        val todayValues = listOf(5.0, 30.0, 0.0, 2.0, 1.0)
         demos.forEachIndexed { index, demo ->
             val id = repo.createHabit(
                 HabitDraft(
@@ -100,6 +106,7 @@ object DebugTools {
                 }
                 date = date.plusDays(1)
             }
+            todayValues.getOrNull(index)?.takeIf { it > 0.0 }?.let { repo.setEntryValue(id, today, it) }
         }
     }
 

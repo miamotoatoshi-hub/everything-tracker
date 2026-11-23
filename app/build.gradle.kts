@@ -30,6 +30,8 @@ android {
         versionName = projectProp("TRACKLY_VERSION_NAME", "1.0.0")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        // The screenshot tour (androidTest/.../screens) runs separately in CI, not with the regular tests.
+        testInstrumentationRunnerArguments["notPackage"] = "com.example.trackly.screens"
 
         buildConfigField(
             "String",
