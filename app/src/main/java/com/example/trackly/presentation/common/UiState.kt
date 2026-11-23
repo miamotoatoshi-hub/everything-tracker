@@ -28,12 +28,20 @@ sealed interface UiState<out T> {
 class RetryableState<T>(scope: CoroutineScope, source: () -> Flow<T>) {
     private val trigger = MutableStateFlow(0)
 
+    /** The attempt whose content is on screen; a restart of the same attempt keeps showing it (no flicker). */
+    @Volatile private var shownAttempt = -1
+
     @OptIn(ExperimentalCoroutinesApi::class)
     val state: StateFlow<UiState<T>> = trigger
-        .flatMapLatest {
+        .flatMapLatest { attempt ->
             source()
-                .map<T, UiState<T>> { UiState.Content(it) }
-                .onStart { emit(UiState.Loading) }
+                .map<T, UiState<T>> {
+                    shownAttempt = attempt
+                    UiState.Content(it)
+                }
+                // Loading only for the first load and for a retry — not when collection restarts after the
+                // screen was in the background (that would flash a spinner and lose the scroll position).
+                .onStart { if (attempt != shownAttempt) emit(UiState.Loading) }
                 .catch { error -> emit(UiState.Error(error)) }
         }
         .stateIn(scope, SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS), UiState.Loading)

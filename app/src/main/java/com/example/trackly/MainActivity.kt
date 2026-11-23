@@ -37,7 +37,9 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         splash.setKeepOnScreenCondition { mainViewModel.startDestination.value == null }
 
-        handleIntent(intent)
+        // Only a fresh launch carries a new deep link; a recreated activity (rotation, theme, language)
+        // must not open the same habit / paywall again.
+        if (savedInstanceState == null) handleIntent(intent)
         container.billingRepository.connect()
 
         setContent {

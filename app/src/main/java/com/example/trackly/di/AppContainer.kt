@@ -35,6 +35,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -110,6 +111,7 @@ class AppContainer(
         registerTimeChangeReceiver()
         ReminderSyncWorker.schedule(app)
         keepWidgetsFresh()
+        dismissRemindersOfCompletedHabits()
         appScope.launch {
             try {
                 // Channels are created on demand; syncing re-arms alarms lost to updates or force-stops.
@@ -136,6 +138,21 @@ class AppContainer(
                     }
             } catch (ignored: Exception) {
                 // Widgets are best effort; the system also refreshes them every 30 minutes.
+            }
+        }
+    }
+
+    /** A reminder for a habit that is already done today (in the app, widget or notification) is removed. */
+    private fun dismissRemindersOfCompletedHabits() {
+        appScope.launch {
+            try {
+                combine(habitRepository.observeEntries(), todayProvider.today) { entries, today ->
+                    entries.filter { it.date == today && it.completed }.map { it.habitId }.toSet()
+                }
+                    .distinctUntilChanged()
+                    .collect { done -> done.forEach { reminderNotifier.cancel(it) } }
+            } catch (ignored: Exception) {
+                // best effort
             }
         }
     }

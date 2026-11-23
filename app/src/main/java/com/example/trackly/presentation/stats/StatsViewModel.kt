@@ -1,5 +1,6 @@
 package com.example.trackly.presentation.stats
 
+import com.example.trackly.core.locale.weekLocale
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.trackly.core.time.TodayProvider
@@ -31,7 +32,6 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.update
 import java.time.DayOfWeek
 import java.time.LocalDate
-import java.util.Locale
 
 /** One bar: a day (week view), a week (month view) or a month (year view). */
 data class StatBucket(val start: LocalDate, val fraction: Float, val eligible: Int, val isCurrent: Boolean, val isFuture: Boolean)
@@ -83,7 +83,7 @@ class StatsViewModel(
             settings.settings,
             policy,
         ) { list, entries, today, appSettings, currentPolicy ->
-            Source(list.filter { !it.isArchived }, entries, today, appSettings.firstDayOfWeek.resolve(Locale.getDefault()), currentPolicy)
+            Source(list.filter { !it.isArchived }, entries, today, appSettings.firstDayOfWeek.resolve(weekLocale()), currentPolicy)
         }
         combine(shared, selection) { src, sel -> build(src, sel) }.flowOn(Dispatchers.Default)
     }
@@ -154,7 +154,8 @@ class StatsViewModel(
                 Day(agg.date, eligible, agg.completed, agg.fraction)
             }
             rate = overall.completionRate
-            completions = src.entries.count { it.completed && it.date in range }
+            val counted = src.habits.map { it.id }.toSet()
+            completions = src.entries.count { it.completed && it.date in range && it.habitId in counted }
             average = if (days.isEmpty()) 0f else {
                 val eligibleDays = days.filter { it.eligible > 0 }
                 if (eligibleDays.isEmpty()) 0f else eligibleDays.map { it.fraction }.average().toFloat()

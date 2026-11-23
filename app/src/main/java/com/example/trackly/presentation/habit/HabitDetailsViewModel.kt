@@ -1,5 +1,6 @@
 package com.example.trackly.presentation.habit
 
+import com.example.trackly.core.locale.weekLocale
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.trackly.core.time.TodayProvider
@@ -31,7 +32,6 @@ import kotlinx.coroutines.flow.flowOn
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
-import java.util.Locale
 
 /** Completion rate of a slice of time (a week inside a month, or a month inside a year). */
 data class RateBucket(val start: LocalDate, val rate: Float, val eligible: Int, val completed: Int)
@@ -88,7 +88,7 @@ class HabitDetailsViewModel(
             settings.settings,
             policy,
         ) { habit, entries, today, appSettings, currentPolicy ->
-            if (habit == null) null else buildDetails(habit, entries, today, appSettings.firstDayOfWeek.resolve(Locale.getDefault()), currentPolicy)
+            if (habit == null) null else buildDetails(habit, entries, today, appSettings.firstDayOfWeek.resolve(weekLocale()), currentPolicy)
         }.flowOn(Dispatchers.Default)
     }
 

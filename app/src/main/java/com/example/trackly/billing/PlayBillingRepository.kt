@@ -97,9 +97,12 @@ class PlayBillingRepository(
             } catch (error: Exception) {
                 PremiumEntitlement.None
             }
-            lastPersisted = cached
-            if (!verifiedThisSession) {
-                publish(EntitlementResolver.whenUnverifiable(cached, clock.millis()), persist = false)
+            // Under the same lock as the Google Play refresh, so a fresh Play answer is never overwritten.
+            refreshMutex.withLock {
+                if (lastPersisted == null) lastPersisted = cached
+                if (!verifiedThisSession) {
+                    publish(EntitlementResolver.whenUnverifiable(cached, clock.millis()), persist = false)
+                }
             }
         }
     }

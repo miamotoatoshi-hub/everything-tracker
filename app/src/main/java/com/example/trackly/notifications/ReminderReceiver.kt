@@ -6,6 +6,7 @@ import android.content.Intent
 import android.util.Log
 import com.example.trackly.TracklyApp
 import com.example.trackly.domain.model.Habit
+import com.example.trackly.domain.model.HabitType
 import com.example.trackly.domain.model.Reminder
 import com.example.trackly.domain.model.ReminderRepeat
 import kotlinx.coroutines.CoroutineScope
@@ -41,6 +42,11 @@ class ReminderReceiver : BroadcastReceiver() {
         val reminderId = intent.getLongExtra(EXTRA_REMINDER_ID, -1L)
         val scheduledMillis = intent.getLongExtra(EXTRA_TRIGGER_AT, 0L)
         val clock = container.clock
+        val firedAt = if (scheduledMillis > 0) {
+            LocalDateTime.ofInstant(Instant.ofEpochMilli(scheduledMillis), clock.zone)
+        } else {
+            LocalDateTime.now(clock)
+        }
 
         val habits = container.habitRepository.getHabits()
         val habit = habits.firstOrNull { h -> h.reminders.any { it.id == reminderId } }
@@ -48,26 +54,36 @@ class ReminderReceiver : BroadcastReceiver() {
 
         if (habit != null && reminder != null) {
             val settings = container.settingsRepository.current()
-            val today = LocalDate.now(clock)
-            val done = container.habitRepository.getEntry(habit.id, today)?.completed == true
-            if (settings.notificationsEnabled && isDueToday(habit, reminder, today) && !done) {
-                container.reminderNotifier.show(habit, reminder, settings)
+            // The day the reminder was meant for (a late delivery just after midnight still belongs to it).
+            val day = firedAt.toLocalDate()
+            val stale = day.isBefore(LocalDate.now(clock).minusDays(1))
+            val done = container.habitRepository.getEntry(habit.id, day)?.completed == true
+            if (settings.notificationsEnabled && !stale && isDueToday(habit, reminder, day) && !done) {
+                container.reminderNotifier.show(habit, reminder, settings, day)
             }
         }
 
-        val firedAt = if (scheduledMillis > 0) {
-            LocalDateTime.ofInstant(Instant.ofEpochMilli(scheduledMillis), clock.zone)
-        } else {
-            LocalDateTime.now(clock)
-        }
-        container.reminderScheduler.syncAfterFiring(firedAt)
+        container.reminderScheduler.syncAfterFiring(reminderId, firedAt)
     }
 
     private suspend fun handleQuickLog(app: TracklyApp, intent: Intent) {
         val container = app.container
         val habitId = intent.getLongExtra(ReminderNotifier.EXTRA_HABIT_ID, -1L)
         val habit = container.habitRepository.getHabit(habitId) ?: return
-        container.habitRepository.addToEntry(habit.id, LocalDate.now(container.clock), habit.stepValue)
+        val today = LocalDate.now(container.clock)
+        // Log the day the notification was for, unless it is older than yesterday.
+        val day = intent.getLongExtra(ReminderNotifier.EXTRA_EPOCH_DAY, Long.MIN_VALUE)
+            .takeIf { it != Long.MIN_VALUE }
+            ?.let { LocalDate.ofEpochDay(it) }
+            ?.takeIf { !it.isAfter(today) && !it.isBefore(today.minusDays(1)) }
+            ?: today
+        val repository = container.habitRepository
+        if (habit.type == HabitType.BOOLEAN) {
+            // "Done" must never undo: only set the day as done.
+            if (repository.getEntry(habit.id, day)?.completed != true) repository.setEntryValue(habit.id, day, 1.0)
+        } else {
+            repository.addToEntry(habit.id, day, habit.stepValue)
+        }
         container.reminderNotifier.cancel(habit.id)
     }
 

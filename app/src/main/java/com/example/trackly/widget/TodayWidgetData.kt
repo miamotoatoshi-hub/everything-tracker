@@ -7,6 +7,9 @@ import com.example.trackly.domain.logic.StreakCalculator
 import com.example.trackly.domain.model.Habit
 import com.example.trackly.domain.model.HabitEntry
 import com.example.trackly.domain.model.HabitType
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import java.time.LocalDate
 
@@ -58,6 +61,19 @@ object TodayWidgetData {
             .sortedBy { it.completed } // stable: keeps the user's order within each group
         return TodayWidgetState(isPremium = isPremium, habits = rows)
     }
+
+    /** Live state; [initialPremium] covers a cold start before Google Play or the offline cache has answered. */
+    fun observe(container: AppContainer, initialPremium: Boolean): Flow<TodayWidgetState> =
+        combine(
+            container.habitRepository.observeHabits(),
+            container.habitRepository.observeEntries(),
+            container.isPremium,
+            container.billingRepository.entitlement,
+            container.todayProvider.today,
+        ) { habits, entries, premium, entitlement, today ->
+            val unknownYet = entitlement.verifiedAtMillis == null
+            build(habits, entries, today, isPremium = premium || (unknownYet && initialPremium))
+        }.catch { /* keep the last rendered state */ }
 
     suspend fun load(container: AppContainer): TodayWidgetState {
         val today = LocalDate.now(container.clock)

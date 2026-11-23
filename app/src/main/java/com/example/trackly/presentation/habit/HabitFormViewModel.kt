@@ -1,5 +1,6 @@
 package com.example.trackly.presentation.habit
 
+import com.example.trackly.core.locale.weekLocale
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.trackly.core.time.TodayProvider
@@ -94,7 +95,7 @@ class HabitFormViewModel(
     val events: SharedFlow<HabitFormEvent> = _events.asSharedFlow()
 
     val firstDayOfWeek: StateFlow<DayOfWeek> = settings.settings
-        .map { it.firstDayOfWeek.resolve(Locale.getDefault()) }
+        .map { it.firstDayOfWeek.resolve(weekLocale()) }
         .stateIn(viewModelScope, SharingStarted.Eagerly, DayOfWeek.MONDAY)
 
     private var initial: HabitFormState = _state.value

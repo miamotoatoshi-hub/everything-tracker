@@ -31,7 +31,12 @@ class BootReceiver : BroadcastReceiver() {
 
     private companion object {
         const val TAG = "BootReceiver"
-        val HANDLED_ACTIONS = setOf(Intent.ACTION_BOOT_COMPLETED, Intent.ACTION_MY_PACKAGE_REPLACED)
+        val HANDLED_ACTIONS = setOf(
+            Intent.ACTION_BOOT_COMPLETED,
+            Intent.ACTION_MY_PACKAGE_REPLACED,
+            Intent.ACTION_TIMEZONE_CHANGED,
+            Intent.ACTION_TIME_CHANGED, // "android.intent.action.TIME_SET"
+        )
         val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
     }
 }

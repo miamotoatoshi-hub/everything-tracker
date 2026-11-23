@@ -113,13 +113,16 @@ class HabitRepositoryImpl(
             return null
         }
         val now = clock.millis()
+        // A past day keeps the goal it was logged against: raising the goal later must not rewrite history.
+        val isPast = date.isBefore(LocalDate.now(clock))
+        val goal = if (isPast && existing != null) existing.goal else habit.goalValue
         val entity = HabitCompletionEntity(
             id = existing?.id ?: 0,
             habitId = habitId,
             epochDay = epochDay,
             value = newValue,
-            goal = habit.goalValue,
-            completed = GoalProgress.isComplete(newValue, habit.goalValue),
+            goal = goal,
+            completed = GoalProgress.isComplete(newValue, goal),
             createdAt = existing?.createdAt ?: now,
             updatedAt = now,
         )

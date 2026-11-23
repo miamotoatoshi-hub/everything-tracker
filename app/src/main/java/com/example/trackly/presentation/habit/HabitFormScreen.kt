@@ -47,6 +47,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
@@ -129,6 +131,7 @@ fun HabitFormScreen(
     val currentOnSaved by rememberUpdatedState(onSaved)
     val currentOnUpgrade by rememberUpdatedState(onUpgrade)
     var showDiscard by remember { mutableStateOf(false) }
+    val snackbar = remember { SnackbarHostState() }
 
     val permissionLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) {
         // Save regardless of the answer: reminders are stored and start working once permission is granted.
@@ -148,7 +151,10 @@ fun HabitFormScreen(
             when (event) {
                 is HabitFormEvent.Saved -> currentOnSaved(event.habitId)
                 is HabitFormEvent.RequiresPremium -> currentOnUpgrade(event.feature)
-                HabitFormEvent.Failed -> Unit
+                HabitFormEvent.Failed -> {
+                    snackbar.currentSnackbarData?.dismiss()
+                    snackbar.showSnackbar(context.getString(R.string.error_action_failed))
+                }
             }
         }
     }
@@ -160,6 +166,7 @@ fun HabitFormScreen(
 
     Scaffold(
         modifier = Modifier.imePadding(),
+        snackbarHost = { SnackbarHost(snackbar) },
         topBar = {
             TopAppBar(
                 title = {

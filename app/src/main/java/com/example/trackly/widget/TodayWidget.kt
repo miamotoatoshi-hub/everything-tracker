@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -51,13 +53,16 @@ import java.time.LocalDate
 class TodayWidget : GlanceAppWidget() {
 
     override suspend fun provideGlance(context: Context, id: GlanceId) {
-        val app = context.applicationContext as TracklyApp
-        val state = try {
-            TodayWidgetData.load(app.container)
+        val container = (context.applicationContext as TracklyApp).container
+        val initial = try {
+            TodayWidgetData.load(container)
         } catch (error: Exception) {
             TodayWidgetState(isPremium = false, habits = emptyList())
         }
+        // While the widget session is alive, it re-renders from live data (a tap shows its result at once).
+        val live = TodayWidgetData.observe(container, initialPremium = initial.isPremium)
         provideContent {
+            val state by live.collectAsState(initial)
             GlanceTheme {
                 WidgetBody(state)
             }

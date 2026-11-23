@@ -36,8 +36,12 @@ class AlarmReminderScheduler(
 
     override suspend fun syncAll() = sync(from = LocalDateTime.now(clock))
 
-    /** Re-registers every alarm, treating [firedAt] as the earliest moment a reminder may fire next. */
-    suspend fun syncAfterFiring(firedAt: LocalDateTime) {
+    /**
+     * Called when reminder [reminderId] fired: its next occurrence is searched after [firedAt] (the time it was
+     * scheduled for). Other reminders keep a due-but-not-yet-delivered alarm (see [sync]).
+     */
+    suspend fun syncAfterFiring(reminderId: Long, firedAt: LocalDateTime) {
+        registry.edit().remove(pendingKey(reminderId)).apply()
         val now = LocalDateTime.now(clock)
         sync(from = if (firedAt.isAfter(now)) firedAt else now)
     }
@@ -47,9 +51,20 @@ class AlarmReminderScheduler(
             val manager = alarmManager ?: return@withContext
             val enabled = settings.current().notificationsEnabled
             val desired = HashMap<Long, Long>()
+            val nowMillis = clock.millis()
             if (enabled) {
                 for (habit in habits.getHabits()) {
                     for (reminder in habit.reminders) {
+                        // Inexact alarms can be delivered late (Doze). An occurrence that is already due but has
+                        // not fired yet must not be skipped by a re-sync: keep it while it is still valid.
+                        val pending = registry.getLong(pendingKey(reminder.id), 0L)
+                        val keepPending = pending in (nowMillis - LATE_DELIVERY_GRACE_MILLIS)..nowMillis &&
+                            ReminderTimeCalculator.nextTrigger(habit, reminder, toLocal(pending).minusSeconds(1)) ==
+                            toLocal(pending)
+                        if (keepPending) {
+                            desired[reminder.id] = pending
+                            continue
+                        }
                         val next = ReminderTimeCalculator.nextTrigger(habit, reminder, from) ?: continue
                         desired[reminder.id] = next.atZone(zone()).toInstant().toEpochMilli()
                     }
@@ -58,11 +73,18 @@ class AlarmReminderScheduler(
             val previous = registry.getStringSet(KEY_IDS, emptySet()).orEmpty().mapNotNull { it.toLongOrNull() }
             for (staleId in previous) if (staleId !in desired) cancel(manager, staleId)
             for ((id, at) in desired) schedule(manager, id, at)
-            registry.edit().putStringSet(KEY_IDS, desired.keys.map { it.toString() }.toSet()).apply()
+            val editor = registry.edit().clear().putStringSet(KEY_IDS, desired.keys.map { it.toString() }.toSet())
+            for ((id, at) in desired) editor.putLong(pendingKey(id), at)
+            editor.apply()
         }
     }
 
     private fun zone(): ZoneId = clock.zone
+
+    private fun toLocal(millis: Long): LocalDateTime =
+        LocalDateTime.ofInstant(java.time.Instant.ofEpochMilli(millis), zone()).withNano(0)
+
+    private fun pendingKey(reminderId: Long) = "at_$reminderId"
 
     private fun schedule(manager: AlarmManager, reminderId: Long, triggerAtMillis: Long) {
         val pending = pendingIntent(reminderId, triggerAtMillis, create = true) ?: return
@@ -96,5 +118,6 @@ class AlarmReminderScheduler(
         const val TAG = "ReminderScheduler"
         const val REGISTRY_FILE = "reminder_registry"
         const val KEY_IDS = "registered_reminder_ids"
+        const val LATE_DELIVERY_GRACE_MILLIS = 3L * 60 * 60 * 1000
     }
 }

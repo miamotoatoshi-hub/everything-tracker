@@ -17,6 +17,7 @@ import com.example.trackly.domain.model.AppSettings
 import com.example.trackly.domain.model.Habit
 import com.example.trackly.domain.model.HabitType
 import com.example.trackly.domain.model.Reminder
+import java.time.LocalDate
 
 /** Builds and posts habit reminder notifications. */
 class ReminderNotifier(context: Context) {
@@ -34,7 +35,7 @@ class ReminderNotifier(context: Context) {
     }
 
     @SuppressLint("MissingPermission") // Guarded by canNotify().
-    fun show(habit: Habit, reminder: Reminder, settings: AppSettings) {
+    fun show(habit: Habit, reminder: Reminder, settings: AppSettings, day: LocalDate) {
         if (!canNotify()) return
         val channelId = NotificationChannels.ensure(context, settings.soundEnabled, settings.vibrationEnabled)
         val message = reminder.message?.takeIf { it.isNotBlank() }
@@ -49,7 +50,6 @@ class ReminderNotifier(context: Context) {
             .setCategory(NotificationCompat.CATEGORY_REMINDER)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setAutoCancel(true)
-            .setOnlyAlertOnce(true)
             .setContentIntent(openHabitIntent(habit.id))
 
         val actionLabel = if (habit.type == HabitType.BOOLEAN) {
@@ -57,7 +57,7 @@ class ReminderNotifier(context: Context) {
         } else {
             context.getString(R.string.notification_action_add)
         }
-        builder.addAction(0, actionLabel, quickLogIntent(habit.id))
+        builder.addAction(0, actionLabel, quickLogIntent(habit.id, day))
 
         try {
             NotificationManagerCompat.from(context).notify(notificationId(habit.id), builder.build())
@@ -85,11 +85,12 @@ class ReminderNotifier(context: Context) {
         )
     }
 
-    private fun quickLogIntent(habitId: Long): PendingIntent {
+    private fun quickLogIntent(habitId: Long, day: LocalDate): PendingIntent {
         val intent = Intent(context, ReminderReceiver::class.java).apply {
             action = ReminderReceiver.ACTION_QUICK_LOG
             data = Uri.parse("trackly://quicklog/$habitId")
             putExtra(EXTRA_HABIT_ID, habitId)
+            putExtra(EXTRA_EPOCH_DAY, day.toEpochDay())
         }
         return PendingIntent.getBroadcast(
             context,
@@ -102,6 +103,7 @@ class ReminderNotifier(context: Context) {
     companion object {
         const val ACTION_OPEN_HABIT = "com.example.trackly.action.OPEN_HABIT"
         const val EXTRA_HABIT_ID = "habit_id"
+        const val EXTRA_EPOCH_DAY = "epoch_day"
 
         fun notificationId(habitId: Long): Int = (habitId % Int.MAX_VALUE).toInt()
     }

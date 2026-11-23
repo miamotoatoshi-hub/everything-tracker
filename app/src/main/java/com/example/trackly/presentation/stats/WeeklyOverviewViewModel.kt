@@ -1,5 +1,6 @@
 package com.example.trackly.presentation.stats
 
+import com.example.trackly.core.locale.weekLocale
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.trackly.core.time.TodayProvider
@@ -19,7 +20,6 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOn
 import java.time.DayOfWeek
 import java.time.LocalDate
-import java.util.Locale
 
 data class WeeklyHabitRow(
     val habit: Habit,
@@ -49,7 +49,7 @@ class WeeklyOverviewViewModel(
             settings.settings,
         ) { list, entries, today, appSettings ->
             val active = list.filter { !it.isArchived }
-            val firstDay = appSettings.firstDayOfWeek.resolve(Locale.getDefault())
+            val firstDay = appSettings.firstDayOfWeek.resolve(weekLocale())
             val summary = StatsCalculator.weeklySummary(active, entries, today, firstDay)
             val byHabit = entries.groupBy { it.habitId }
             val rows = active.map { habit ->

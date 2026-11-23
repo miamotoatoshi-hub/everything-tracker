@@ -1,5 +1,6 @@
 package com.example.trackly.presentation.calendar
 
+import com.example.trackly.core.locale.weekLocale
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.trackly.core.time.TodayProvider
@@ -29,7 +30,6 @@ import kotlinx.coroutines.flow.update
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
-import java.util.Locale
 
 data class DayRow(
     val habit: Habit,
@@ -94,7 +94,7 @@ class CalendarViewModel(
             settings.settings,
             policy,
         ) { list, entries, today, appSettings, currentPolicy ->
-            Source(list.filter { !it.isArchived }, entries, today, appSettings.firstDayOfWeek.resolve(Locale.getDefault()), currentPolicy)
+            Source(list.filter { !it.isArchived }, entries, today, appSettings.firstDayOfWeek.resolve(weekLocale()), currentPolicy)
         }
         combine(shared, selection) { src, sel -> build(src, sel) }.flowOn(Dispatchers.Default)
     }

@@ -186,7 +186,8 @@ object StatsCalculator {
         val range = DateRange.week(today, firstDayOfWeek)
         val stats = overall(habits, entries, range, today)
         val byHabit = entries.groupBy { it.habitId }
-        val completions = entries.count { it.completed && it.date in range }
+        val ids = habits.map { it.id }.toSet()
+        val completions = entries.count { it.completed && it.date in range && it.habitId in ids }
         val best = habits.maxOfOrNull { StreakCalculator.compute(it, byHabit[it.id].orEmpty(), today).best } ?: 0
         return WeeklySummary(
             range = range,
