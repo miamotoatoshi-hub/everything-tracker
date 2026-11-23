@@ -62,7 +62,8 @@ class ScreenshotTour {
         container.premiumOverride.flow.value = null
     }
 
-    private fun shot(name: String) {
+    /** Saves a review copy (JPEG, 720 px wide); [store] also keeps a full-resolution PNG for the store listing. */
+    private fun shot(name: String, store: Boolean = false) {
         compose.waitForIdle()
         Thread.sleep(900) // let animations and images settle
         val full = instrumentation.uiAutomation.takeScreenshot() ?: return
@@ -70,6 +71,9 @@ class ScreenshotTour {
         val scaled = Bitmap.createScaledBitmap(full, width, full.height * width / full.width, true)
         val dir = File(instrumentation.targetContext.filesDir, "screens").apply { mkdirs() }
         FileOutputStream(File(dir, "$name.jpg")).use { scaled.compress(Bitmap.CompressFormat.JPEG, 82, it) }
+        if (store) {
+            FileOutputStream(File(dir, "store_$name.png")).use { full.compress(Bitmap.CompressFormat.PNG, 100, it) }
+        }
     }
 
     private fun launch() {
@@ -92,17 +96,17 @@ class ScreenshotTour {
         compose.waitForTag(bodyTag)
     }
 
-    private fun tourInCurrentLanguage(prefix: String) {
+    private fun tourInCurrentLanguage(prefix: String, storeShots: Boolean = true) {
         seed(premium = true)
         launch()
         compose.waitForTag("home_list")
-        shot("${prefix}01_home")
+        shot("${prefix}01_home", store = storeShots)
         swipeUp("home_list")
         shot("${prefix}02_home_more")
 
         openFirstHabit()
         compose.waitForTag("details_body")
-        shot("${prefix}03_details")
+        shot("${prefix}03_details", store = storeShots)
         swipeUp("details_body")
         shot("${prefix}04_details_more")
         swipeUp("details_body")
@@ -111,14 +115,14 @@ class ScreenshotTour {
         compose.waitForTag("home_list")
 
         tab("calendar", "calendar_body")
-        shot("${prefix}06_calendar")
+        shot("${prefix}06_calendar", store = storeShots)
         tab("stats", "stats_body")
-        shot("${prefix}07_stats")
+        shot("${prefix}07_stats", store = storeShots)
         swipeUp("stats_body")
         shot("${prefix}08_stats_more")
         compose.onNodeWithTag("open_weekly_overview").performScrollTo().performClick()
         compose.waitForTag("weekly_body")
-        shot("${prefix}09_weekly")
+        shot("${prefix}09_weekly", store = storeShots)
         Espresso.pressBack()
         compose.waitForTag("stats_body")
 
@@ -132,7 +136,7 @@ class ScreenshotTour {
 
         compose.onNodeWithTag("add_habit").performClick()
         compose.waitForTag("habit_name_field")
-        shot("${prefix}13_form")
+        shot("${prefix}13_form", store = storeShots)
         compose.onNodeWithTag("form_close").performClick()
         compose.waitForTag("home_list")
 
@@ -179,7 +183,7 @@ class ScreenshotTour {
     @Test
     fun tourDark() {
         runBlocking { container.settingsRepository.setThemeMode(ThemeMode.DARK) }
-        tourInCurrentLanguage("en_dark_")
+        tourInCurrentLanguage("en_dark_", storeShots = false)
     }
 
     @Test
@@ -230,6 +234,7 @@ class PaywallPlansShot {
         val scaled = Bitmap.createScaledBitmap(full, 720, full.height * 720 / full.width, true)
         val dir = File(instrumentation.targetContext.filesDir, "screens").apply { mkdirs() }
         FileOutputStream(File(dir, "$name.jpg")).use { scaled.compress(Bitmap.CompressFormat.JPEG, 82, it) }
+        FileOutputStream(File(dir, "store_$name.png")).use { full.compress(Bitmap.CompressFormat.PNG, 100, it) }
     }
 
     @Test fun plansLight() = render(dark = false, name = "plans_light")

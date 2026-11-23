@@ -167,4 +167,20 @@ class HabitRepositoryTest {
         assertEquals(3, streak.current)
         assertEquals(3, streak.best)
     }
+
+    @Test
+    fun raisingTheGoalLaterDoesNotRewriteAPastDay() = runBlocking {
+        val id = repo.createHabit(draft())
+        val monday = today.minusDays(2)
+        assertTrue(repo.setEntryValue(id, monday, 8.0)!!.completed)
+
+        val habit = repo.getHabit(id)!!
+        repo.updateHabit(draft().copy(id = id, goalValue = 10.0, startDate = habit.startDate))
+        // Correcting the old day keeps the goal it was logged against.
+        val corrected = repo.setEntryValue(id, monday, 9.0)!!
+        assertEquals(8.0, corrected.goal, 0.0)
+        assertTrue(corrected.completed)
+        // Today uses the new goal.
+        assertFalse(repo.setEntryValue(id, today, 9.0)!!.completed)
+    }
 }
