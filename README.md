@@ -7,7 +7,8 @@ Trackly — нативное Android-приложение (Kotlin + Jetpack Comp
 
 > 📘 **Как выложить приложение в Google Play — пошаговая инструкция: [`docs/PUBLISHING.md`](docs/PUBLISHING.md).**
 > Шаблон политики конфиденциальности: [`docs/privacy-policy.md`](docs/privacy-policy.md).
-> Готовые тексты для страницы в магазине: [`store-assets/listing/`](store-assets/listing/).
+> Готовые тексты для страницы в магазине: [`store-assets/listing/`](store-assets/listing/),
+> готовые скриншоты (EN/RU): [`store-assets/screenshots/`](store-assets/screenshots/).
 
 **Что умеет:** любые привычки (да/нет, счётчик, время, расстояние, количество), гибкое расписание, напоминания
 с отметкой из уведомления, серии, календарь, статистика, недельный обзор, виджет «Сегодня» на главный экран,
