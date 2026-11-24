@@ -5,6 +5,7 @@ package com.example.trackly.presentation.habit
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -29,7 +30,6 @@ import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.Pause
 import androidx.compose.material.icons.rounded.PlayArrow
 import androidx.compose.material.icons.rounded.Remove
-import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Unarchive
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
@@ -76,7 +76,6 @@ import com.example.trackly.domain.model.PremiumFeature
 import com.example.trackly.presentation.common.UiState
 import com.example.trackly.presentation.common.appViewModel
 import com.example.trackly.presentation.common.formatValue
-import com.example.trackly.presentation.common.progressText
 import com.example.trackly.presentation.common.rememberDateFormats
 import com.example.trackly.presentation.common.rememberLocale
 import com.example.trackly.presentation.common.scheduleSummary
@@ -368,12 +367,6 @@ private fun HeroCard(details: HabitDetails, viewModel: HabitDetailsViewModel) {
                     style = MaterialTheme.typography.titleSmall,
                     color = TracklyTheme.extras.success,
                 )
-            } else {
-                Text(
-                    text = progressText(habit, details.todayValue),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
             }
 
             if (habit.isArchived) {
@@ -408,9 +401,9 @@ private fun HeroCard(details: HabitDetails, viewModel: HabitDetailsViewModel) {
                         onClick = { viewModel.onAdd(details, 1) },
                         modifier = Modifier.weight(1f).height(56.dp).testTag("details_plus"),
                         shape = RoundedCornerShape(18.dp),
+                        contentPadding = PaddingValues(horizontal = 12.dp),
                     ) {
-                        Icon(Icons.Rounded.Add, contentDescription = null, modifier = Modifier.size(20.dp))
-                        Spacer(Modifier.size(6.dp))
+                        // The label already starts with "+": no extra icon, so "+5 pages" fits on narrow phones.
                         Text(
                             stringResource(R.string.details_add_step, formatValue(habit.stepValue, locale), unit),
                             maxLines = 1,
@@ -486,24 +479,24 @@ fun StatTile(emoji: String, value: String, label: String, modifier: Modifier = M
         color = MaterialTheme.colorScheme.surfaceContainerLowest,
         modifier = modifier,
     ) {
-        Row(
+        // Emoji next to the number and the label on its own full-width lines: long labels such as
+        // "Total completions" (or their German/Russian translations) are never cut off.
+        Column(
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 14.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
-            Box(
-                modifier = Modifier.size(40.dp).background(MaterialTheme.colorScheme.surfaceContainer, CircleShape),
-                contentAlignment = Alignment.Center,
-            ) { Text(emoji, fontSize = 20.sp) }
-            Column {
-                Text(value, style = MaterialTheme.typography.titleLarge)
-                Text(
-                    label,
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    maxLines = 2,
-                )
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text(emoji, fontSize = 18.sp)
+                Text(value, style = MaterialTheme.typography.titleLarge, maxLines = 1)
             }
+            Text(
+                label,
+                style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                minLines = 2,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
+            )
         }
     }
 }
@@ -671,7 +664,7 @@ private fun YearCard(details: HabitDetails) {
     val bars = details.yearMonths.map { bucket ->
         val ym = YearMonth.from(bucket.start)
         BarData(
-            label = dates.month(ym),
+            label = dates.monthNarrow(ym),
             fraction = bucket.rate,
             description = stringResource(R.string.chart_bucket_description, dates.month(ym), (bucket.rate * 100).roundToInt()),
             highlighted = ym == currentMonth,

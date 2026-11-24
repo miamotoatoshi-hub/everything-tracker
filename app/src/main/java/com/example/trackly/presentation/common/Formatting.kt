@@ -119,6 +119,9 @@ class DateFormats(private val locale: Locale, private val is24Hour: Boolean) {
         month.toString()
     }
 
+    /** One letter ("J", "F", …) for twelve bars side by side, where "Jan" would not fit. */
+    fun monthNarrow(month: YearMonth): String = month.month.getDisplayName(TextStyle.NARROW_STANDALONE, locale)
+
     fun month(month: YearMonth): String = try {
         formatter("MMM") { dateFallback() }.format(month)
     } catch (error: java.time.temporal.UnsupportedTemporalTypeException) {

@@ -13,6 +13,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -324,8 +327,14 @@ private fun firstGrapheme(text: String): String {
 private fun IconSection(state: HabitFormState, viewModel: HabitFormViewModel) {
     var custom by remember { mutableStateOf("") }
     FormSection(stringResource(R.string.form_icon)) {
-        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            HabitIcons.all.forEach { emoji ->
+        // Two scrollable rows instead of a tall grid: the form's important fields stay near the top.
+        LazyHorizontalGrid(
+            rows = GridCells.Fixed(2),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.fillMaxWidth().height(104.dp).testTag("icon_grid"),
+        ) {
+            items(HabitIcons.all, key = { it }) { emoji ->
                 val selected = emoji == state.icon
                 Box(
                     modifier = Modifier

@@ -263,8 +263,14 @@ private fun ActivityCard(data: StatsData) {
             StatsPeriod.MONTH -> dates.mediumDate(bucket.start)
             StatsPeriod.YEAR -> dates.month(java.time.YearMonth.from(bucket.start))
         }
+        // Twelve month bars only have room for one letter; the accessibility text keeps the full name.
+        val shortLabel = if (data.period == StatsPeriod.YEAR) {
+            dates.monthNarrow(java.time.YearMonth.from(bucket.start))
+        } else {
+            label
+        }
         BarData(
-            label = label,
+            label = shortLabel,
             fraction = bucket.fraction,
             description = stringResource(R.string.chart_bucket_description, label, (bucket.fraction * 100).roundToInt()),
             highlighted = bucket.isCurrent,

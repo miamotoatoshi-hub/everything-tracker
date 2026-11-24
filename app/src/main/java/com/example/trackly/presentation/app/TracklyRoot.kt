@@ -47,6 +47,7 @@ import com.example.trackly.ui.theme.TracklyTheme
 import com.example.trackly.R
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 
@@ -115,6 +116,7 @@ private fun BrandIntro() {
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
+            .testTag("brand_intro")
             .semantics { contentDescription = name },
         contentAlignment = Alignment.Center,
     ) {

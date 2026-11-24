@@ -286,6 +286,7 @@ private fun SettingsBody(
                 subtitle = AppLocales.currentTag()?.let { AppLocales.displayName(it) }
                     ?: stringResource(R.string.settings_language_system),
                 onClick = { showLanguage = true },
+                modifier = Modifier.testTag("setting_language"),
             )
         }
 

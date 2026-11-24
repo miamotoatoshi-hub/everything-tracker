@@ -381,16 +381,23 @@ private fun PlanOption(
         ) {
             RadioButton(selected = selected, onClick = null)
             Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                // Title and badge on one line (badge never wraps), the price on its own line below.
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text(
                         text = stringResource(planTitle(plan.kind)),
                         style = MaterialTheme.typography.titleMedium,
+                        maxLines = 1,
                     )
                     when {
                         savingsPercent != null -> PlanBadge(stringResource(R.string.premium_plan_save, savingsPercent))
                         plan.kind == PlanKind.LIFETIME -> PlanBadge(stringResource(R.string.premium_plan_forever_badge))
                     }
                 }
+                Text(
+                    text = shortPrice(plan),
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.testTag("premium_price"),
+                )
                 val detail = when (plan.kind) {
                     PlanKind.YEARLY -> PlanPricing.monthlyEquivalent(plan, locale)
                         ?.let { stringResource(R.string.premium_plan_per_month, it) }
@@ -402,12 +409,6 @@ private fun PlanOption(
                     Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }
-            Text(
-                text = shortPrice(plan),
-                style = MaterialTheme.typography.titleMedium,
-                textAlign = TextAlign.End,
-                modifier = Modifier.testTag("premium_price"),
-            )
         }
     }
 }
@@ -419,6 +420,8 @@ private fun PlanBadge(text: String) {
             text = text,
             style = MaterialTheme.typography.labelSmall,
             color = Color.White,
+            maxLines = 1,
+            softWrap = false,
             modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
         )
     }

@@ -368,8 +368,10 @@ private fun HomeHeader(
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = greeting,
-                    style = MaterialTheme.typography.headlineMedium,
+                    // headlineSmall keeps "Good evening 👋" (and longer translations) on one line next to the icons.
+                    style = MaterialTheme.typography.headlineSmall,
                     color = MaterialTheme.colorScheme.onSurface,
+                    maxLines = 2,
                 )
                 Text(
                     text = dates.fullDate(content.today),

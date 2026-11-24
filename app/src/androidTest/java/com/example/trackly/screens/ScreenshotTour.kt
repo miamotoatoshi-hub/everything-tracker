@@ -14,6 +14,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performTouchInput
@@ -79,6 +80,11 @@ class ScreenshotTour {
     private fun launch() {
         scenario?.close()
         scenario = ActivityScenario.launch(MainActivity::class.java)
+        // Wait for the short brand intro shown after the system splash to fade out.
+        compose.waitUntil(8_000) {
+            compose.onAllNodes(SemanticsMatcher.expectValue(SemanticsProperties.TestTag, "brand_intro"))
+                .fetchSemanticsNodes().isEmpty()
+        }
     }
 
     private fun seed(premium: Boolean) {
@@ -143,7 +149,7 @@ class ScreenshotTour {
         // A free user opening the paywall (no Google Play on the emulator: the price card shows its error state).
         container.premiumOverride.flow.value = false
         tab("settings", "settings_body")
-        compose.onNodeWithTag("premium_status").performClick()
+        compose.onNodeWithTag("premium_status").performScrollTo().performClick()
         compose.waitForTag("premium_screen")
         shot("${prefix}14_paywall")
         compose.onNodeWithTag("premium_screen").performTouchInput { swipeUp() }
@@ -189,7 +195,15 @@ class ScreenshotTour {
     @Test
     fun tourRussian() {
         runBlocking { container.settingsRepository.setThemeMode(ThemeMode.LIGHT) }
-        instrumentation.runOnMainSync { AppLocales.apply("ru") }
+        // Switch the language the way a user does: Settings > Language > Русский.
+        resetApp()
+        launch()
+        tab("settings", "settings_body")
+        compose.onNodeWithTag("setting_language").performScrollTo().performClick()
+        compose.onNodeWithText("Русский").performClick()
+        compose.waitForIdle()
+        Thread.sleep(2_500) // the activity is recreated in the new language
+        shot("ru_light_00_language_switched")
         tourInCurrentLanguage("ru_light_")
     }
 }

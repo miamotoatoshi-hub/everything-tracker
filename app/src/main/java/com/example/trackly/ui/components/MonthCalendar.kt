@@ -167,7 +167,7 @@ private fun DayCell(
             .testTag("calendar_day_${date}"),
         contentAlignment = Alignment.Center,
     ) {
-        DayDot(state = state, color = color, size = 34.dp, isToday = isToday)
+        DayDot(state = state, color = color, size = 34.dp, isToday = isToday, showFutureDot = false)
         Text(
             text = date.dayOfMonth.toString(),
             style = MaterialTheme.typography.labelMedium,
@@ -179,7 +179,7 @@ private fun DayCell(
 private fun Color.luminanceIsHigh(): Boolean =
     (0.299f * red + 0.587f * green + 0.114f * blue) > 0.62f
 
-/** Small coloured legend: filled = done, half = partial, ring = missed. */
+/** Small coloured legend: filled = done, tinted = partial, ring = missed. */
 @Composable
 fun CalendarLegend(color: Color, modifier: Modifier = Modifier) {
     Row(modifier = modifier, horizontalArrangement = Arrangement.spacedBy(16.dp), verticalAlignment = Alignment.CenterVertically) {

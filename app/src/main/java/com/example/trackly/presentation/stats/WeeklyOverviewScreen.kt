@@ -32,6 +32,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.trackly.R
@@ -166,33 +167,46 @@ private fun WeeklyBody(data: WeeklyOverview, onOpenHabit: (Long) -> Unit) {
         Surface(shape = RoundedCornerShape(24.dp), color = MaterialTheme.colorScheme.surfaceContainerLowest) {
             Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 SectionTitle(stringResource(R.string.weekly_by_habit))
+                // Day letters once, then per habit: its name on a full-width line and its seven days below,
+                // aligned with the letters (names are never squeezed into a narrow column).
                 Row(modifier = Modifier.fillMaxWidth()) {
-                    Box(modifier = Modifier.weight(1.6f))
                     summary.range.days().forEach { date ->
                         Text(
                             text = dates.weekdayNarrow(date.dayOfWeek),
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             textAlign = TextAlign.Center,
-                            modifier = Modifier.weight(0.6f),
+                            modifier = Modifier.weight(1f),
                         )
                     }
                 }
                 data.rows.forEach { row ->
                     val rowAccent = Color(row.habit.colorArgb).habitAccent(isDark)
-                    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
-                        Column(modifier = Modifier.weight(1.6f)) {
-                            Text("${row.habit.icon} ${row.habit.name}", style = MaterialTheme.typography.bodyMedium, maxLines = 1)
+                    Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            modifier = Modifier.fillMaxWidth(),
+                        ) {
+                            Text(
+                                "${row.habit.icon} ${row.habit.name}",
+                                style = MaterialTheme.typography.bodyMedium,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                                modifier = Modifier.weight(1f, fill = false),
+                            )
                             if (row.streak > 0) StreakChip(streak = row.streak)
                         }
-                        row.states.forEachIndexed { index, state ->
-                            Box(modifier = Modifier.weight(0.6f), contentAlignment = Alignment.Center) {
-                                DayDot(
-                                    state = state,
-                                    color = rowAccent,
-                                    size = 20.dp,
-                                    isToday = summary.range.days()[index] == data.today,
-                                )
+                        Row(modifier = Modifier.fillMaxWidth()) {
+                            row.states.forEachIndexed { index, state ->
+                                Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.Center) {
+                                    DayDot(
+                                        state = state,
+                                        color = rowAccent,
+                                        size = 22.dp,
+                                        isToday = summary.range.days()[index] == data.today,
+                                    )
+                                }
                             }
                         }
                     }
