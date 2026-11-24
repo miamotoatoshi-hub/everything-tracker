@@ -38,9 +38,11 @@ import com.example.trackly.ui.theme.TracklyTheme
 import com.example.trackly.ui.waitForTag
 import kotlinx.coroutines.runBlocking
 import org.junit.After
+import org.junit.FixMethodOrder
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.junit.runners.MethodSorters
 import java.io.File
 import java.io.FileOutputStream
 
@@ -49,6 +51,8 @@ import java.io.FileOutputStream
  * files dir (`files/screens/`), so the UI can be reviewed (and store screenshots produced).
  * CI runs it on its own and prints the images; it is skipped by the normal test run (see build.gradle.kts).
  */
+// Alphabetical: tourDark, tourLight, then tourRussian (which switches the app language last).
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(AndroidJUnit4::class)
 class ScreenshotTour {
     @get:Rule val compose = createEmptyComposeRule()

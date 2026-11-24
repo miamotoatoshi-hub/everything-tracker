@@ -1,8 +1,12 @@
+@file:OptIn(ExperimentalLayoutApi::class)
+
 package com.example.trackly.ui.components
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -182,7 +186,12 @@ private fun Color.luminanceIsHigh(): Boolean =
 /** Small coloured legend: filled = done, tinted = partial, ring = missed. */
 @Composable
 fun CalendarLegend(color: Color, modifier: Modifier = Modifier) {
-    Row(modifier = modifier, horizontalArrangement = Arrangement.spacedBy(16.dp), verticalAlignment = Alignment.CenterVertically) {
+    // FlowRow: longer translations ("Пропущено", "Teilweise") move to a second line instead of breaking a word.
+    FlowRow(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(6.dp),
+    ) {
         LegendItem(DayState.COMPLETED, color, stringResource(R.string.legend_done))
         LegendItem(DayState.PARTIAL, color, stringResource(R.string.legend_partial))
         LegendItem(DayState.MISSED, color, stringResource(R.string.legend_missed))
