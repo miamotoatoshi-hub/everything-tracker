@@ -46,6 +46,8 @@ jobs:
           api-level: 34
           arch: x86_64
           target: google_apis
+          # A real phone resolution (1080x2400): crisp screenshots for review and the store listing.
+          profile: pixel_6
           force-avd-creation: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim
           disable-animations: true
