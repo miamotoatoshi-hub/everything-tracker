@@ -52,6 +52,7 @@ jobs:
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim
           disable-animations: true
           script: |
+            adb shell settings put global hide_error_dialogs 1 || true
             ./gradlew --console=plain connectedDebugAndroidTest
             bash .github/scripts/screenshots.sh
 
