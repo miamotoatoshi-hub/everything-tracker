@@ -97,8 +97,15 @@ object DebugTools {
                     reminders = if (index == 0) listOf(Reminder(time = LocalTime.of(9, 0))) else emptyList(),
                 ),
             )
+            // The first habits keep a real streak over the last days, like an engaged user's would.
+            val streakDays = listOf(12, 9, 4, 0, 6).getOrElse(index) { 0 }
             var date = start
             while (date.isBefore(today)) {
+                if (!date.isBefore(today.minusDays(streakDays.toLong()))) {
+                    repo.setEntryValue(id, date, demo.goal)
+                    date = date.plusDays(1)
+                    continue
+                }
                 when (random.nextInt(10)) {
                     in 0..5 -> repo.setEntryValue(id, date, demo.goal)
                     in 6..7 -> repo.setEntryValue(id, date, demo.goal * 0.5)

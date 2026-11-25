@@ -404,8 +404,14 @@ private fun HeroCard(details: HabitDetails, viewModel: HabitDetailsViewModel) {
                         contentPadding = PaddingValues(horizontal = 12.dp),
                     ) {
                         // The label already starts with "+": no extra icon, so "+5 pages" fits on narrow phones.
+                        // Unit labels are plural ("glasses", "pages"): a step of one shows just "+1".
+                        val stepLabel = if (habit.stepValue == 1.0) {
+                            "+1"
+                        } else {
+                            stringResource(R.string.details_add_step, formatValue(habit.stepValue, locale), unit)
+                        }
                         Text(
-                            stringResource(R.string.details_add_step, formatValue(habit.stepValue, locale), unit),
+                            stepLabel,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
                         )
