@@ -39,7 +39,7 @@ import com.example.trackly.presentation.settings.LegalKind
 import com.example.trackly.ui.components.CenteredContent
 
 /**
- * The bundled Privacy Policy and Terms (res/values*/legal.xml). The developer name, contact e-mail and
+ * The bundled Privacy Policy and Terms (legal.xml in every res/values folder). The developer name, contact e-mail and
  * effective date come from gradle.properties (DEVELOPER_NAME, SUPPORT_EMAIL, LEGAL_EFFECTIVE_DATE).
  * When PRIVACY_POLICY_URL / TERMS_OF_SERVICE_URL are set, Settings opens those pages instead.
  */
