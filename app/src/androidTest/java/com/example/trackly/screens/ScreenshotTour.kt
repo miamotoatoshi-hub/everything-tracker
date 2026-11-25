@@ -21,7 +21,6 @@ import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeUp
 import androidx.compose.ui.unit.dp
 import androidx.test.core.app.ActivityScenario
-import androidx.test.espresso.Espresso
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.example.trackly.MainActivity
@@ -133,7 +132,8 @@ class ScreenshotTour {
         compose.onNodeWithTag("open_weekly_overview").performScrollTo().performClick()
         compose.waitForTag("weekly_body")
         shot("${prefix}09_weekly", store = storeShots)
-        Espresso.pressBack()
+        // Back through the app itself: Espresso.pressBack() needs window focus, which a system dialog can steal.
+        scenario?.onActivity { it.onBackPressedDispatcher.onBackPressed() }
         compose.waitForTag("stats_body")
 
         tab("settings", "settings_body")
