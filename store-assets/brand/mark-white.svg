@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- The Trackly mark alone (white), for use on the brand gradient. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="26 26 56 56">
+  <path d="M54,32 A22,22 0 1,1 32,54" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round"/>
+  <path d="M44,55 L51,62 L65,46" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

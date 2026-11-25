@@ -74,6 +74,7 @@ import com.example.trackly.domain.model.FirstDayOfWeekSetting
 import com.example.trackly.domain.model.PremiumFeature
 import com.example.trackly.domain.model.ThemeMode
 import com.example.trackly.domain.model.UnitSystem
+import com.example.trackly.presentation.common.AppLinks
 import com.example.trackly.presentation.common.UiState
 import com.example.trackly.presentation.common.appViewModel
 import com.example.trackly.presentation.common.billingMessage
@@ -293,6 +294,23 @@ private fun SettingsBody(
         DataSection(isPremium = data.isPremium, onMessage = onMessage, onUpgrade = onUpgrade)
 
         SettingsGroup(stringResource(R.string.settings_about)) {
+            SettingsRow(
+                title = stringResource(R.string.settings_rate),
+                subtitle = stringResource(R.string.settings_rate_desc),
+                onClick = { AppLinks.openStorePage(context) },
+                modifier = Modifier.testTag("rate_app"),
+            )
+            SettingsRow(
+                title = stringResource(R.string.settings_feedback),
+                subtitle = stringResource(R.string.settings_feedback_desc),
+                onClick = { AppLinks.sendFeedback(context) },
+                modifier = Modifier.testTag("send_feedback"),
+            )
+            SettingsRow(
+                title = stringResource(R.string.settings_share),
+                onClick = { AppLinks.share(context) },
+                modifier = Modifier.testTag("share_app"),
+            )
             SettingsRow(
                 title = stringResource(R.string.settings_privacy_policy),
                 onClick = { openLegal(context, BuildConfig.PRIVACY_POLICY_URL) { onOpenLegal(LegalKind.PRIVACY) } },

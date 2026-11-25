@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trackly — habit tracker for Android</title>
+<meta name="description" content="Build habits that stick: streaks, reminders, statistics and a home-screen widget. Private, offline, no ads.">
+<meta property="og:title" content="Trackly — habit tracker for Android">
+<meta property="og:description" content="Build habits that stick: streaks, reminders, statistics and a home-screen widget. Private, offline, no ads.">
+<meta property="og:image" content="assets/feature.png">
+<meta name="theme-color" content="#5b4ee6">
+<link rel="icon" href="assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<style>
+:root{--bg:#f6f6fb;--surface:#fff;--text:#16151f;--muted:#5b5a6e;--line:#e7e6f2;--accent:#5b4ee6;--accent2:#3a2dbf;--chip:#ecebff}
+@media (prefers-color-scheme:dark){:root{--bg:#0f0f16;--surface:#1a1a25;--text:#f2f1fa;--muted:#a9a8bd;--line:#2a2a38;--accent:#a49bff;--accent2:#7c7cf8;--chip:#26244a}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--text)}
+a{color:var(--accent)}img{max-width:100%;height:auto;display:block}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+header.top{position:sticky;top:0;z-index:5;backdrop-filter:blur(12px);background:color-mix(in srgb,var(--bg) 80%,transparent);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;gap:16px;height:60px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:19px;color:var(--text);text-decoration:none}
+.brand img{width:32px;height:32px;border-radius:8px}
+nav{margin-left:auto;display:flex;gap:18px;font-size:15px}nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--text)}
+.hero{background:linear-gradient(135deg,#7c7cf8,#3a2dbf);color:#fff;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center;padding-top:64px;padding-bottom:0}
+.hero h1{font-size:clamp(34px,5vw,54px);line-height:1.1;margin:0 0 18px;letter-spacing:-.02em}
+.hero p{font-size:18px;opacity:.92;margin:0 0 28px;max-width:34em}
+.btn{display:inline-flex;align-items:center;gap:10px;background:#fff;color:#2b2190;font-weight:700;padding:14px 22px;border-radius:14px;text-decoration:none;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.btn:hover{transform:translateY(-1px)}
+.note{display:block;margin-top:12px;font-size:14px;opacity:.85}
+.hero .phones{display:flex;justify-content:center;gap:16px;align-self:end}
+.phone{border-radius:28px;background:#14141f;padding:8px;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.phone img{border-radius:22px}
+.hero .phone{width:min(260px,40vw);margin-bottom:-60px}
+.hero .phone.back{transform:translateY(40px);opacity:.95}
+section{padding:72px 0}
+h2.section{font-size:clamp(26px,3.4vw,36px);line-height:1.2;margin:0 0 28px;letter-spacing:-.01em;text-align:center}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px}
+.card .ico{font-size:28px}.card h3{margin:10px 0 6px;font-size:18px}.card p{margin:0;color:var(--muted)}
+.shots{display:flex;gap:18px;overflow-x:auto;padding:8px 4px 20px;scroll-snap-type:x mandatory}
+.shots .phone{flex:0 0 auto;width:230px;scroll-snap-align:center}
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:820px;margin:0 auto}
+.plan h3{margin:0 0 12px;font-size:20px}.plan ul{margin:0;padding:0;list-style:none}
+.plan li{padding:7px 0 7px 28px;position:relative;border-top:1px solid var(--line)}
+.plan li:first-child{border-top:0}
+.plan li:before{content:"✓";position:absolute;left:4px;color:var(--accent);font-weight:700}
+.plan.pro{border:2px solid var(--accent);background:linear-gradient(180deg,var(--chip),var(--surface) 40%)}
+.center{text-align:center;color:var(--muted);max-width:44em;margin:0 auto 26px}
+.small{font-size:14px;color:var(--muted);text-align:center;margin-top:18px}
+.privacy-band{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.points{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.points span{background:var(--chip);padding:10px 16px;border-radius:999px;font-weight:600}
+details{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 20px;margin:0 auto 12px;max-width:760px}
+summary{cursor:pointer;font-weight:650}details p{margin:10px 0 0;color:var(--muted)}
+footer{padding:36px 0 48px;color:var(--muted);font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:18px;align-items:center}footer .links{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
+article.legal{max-width:760px;margin:0 auto;padding:48px 20px 24px}
+article.legal h1{font-size:34px;margin:0 0 8px}article.legal h2{font-size:20px;margin:30px 0 8px}
+article.legal p,article.legal li{color:var(--muted)}article.legal ul{padding-left:20px}
+@media (max-width:820px){.hero .wrap{grid-template-columns:1fr;text-align:center}.hero p{margin-left:auto;margin-right:auto}
+.grid{grid-template-columns:1fr 1fr}.plans{grid-template-columns:1fr}nav a:not(.lang){display:none}}
+@media (max-width:540px){.grid{grid-template-columns:1fr}.hero .phone.back{display:none}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><img src="assets/icon-192.png" alt="">Trackly</a>
+  <nav>
+    <a href="index.html#features">Features</a>
+    <a href="index.html#premium">Premium</a>
+    <a href="index.html#faq">FAQ</a>
+    <a class="lang" href="ru/index.html" hreflang="ru">Русский</a>
+  </nav>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <div>
+    <h1>Build habits that stick.</h1>
+    <p>Trackly turns the things you want to do every day into one simple tap — with streaks that keep you going, gentle reminders and statistics that show real progress.</p>
+    <a class="btn" href="https://play.google.com/store/apps/details?id=com.example.trackly">▶ Get it on Google Play</a>
+    <span class="note">Free · No account · No ads</span>
+  </div>
+  <div class="phones"><div class="phone back"><img src="assets/screens/en_07_stats.png" alt="Trackly app screen" decoding="async"></div><div class="phone "><img src="assets/screens/en_01_home.png" alt="Trackly app screen" decoding="async"></div></div>
+</div></section>
+
+<section id="features"><div class="wrap">
+  <h2 class="section">Everything a habit needs. Nothing it doesn&#x27;t.</h2>
+  <div class="grid"><div class="card"><div class="ico">✅</div><h3>Any habit</h3><p>Yes/no habits, counters, minutes, kilometres or pages — with flexible schedules for every day, chosen weekdays or every few days.</p></div>
+<div class="card"><div class="ico">🔥</div><h3>Streaks that motivate</h3><p>Streaks follow your own schedule, and pausing for a holiday does not break them.</p></div>
+<div class="card"><div class="ico">⏰</div><h3>Reminders that help</h3><p>Reminders at the times you choose. Mark a habit done right from the notification.</p></div>
+<div class="card"><div class="ico">📊</div><h3>Real statistics</h3><p>Completion rates, best streaks, a calendar of every day and a weekly overview.</p></div>
+<div class="card"><div class="ico">📱</div><h3>Home-screen widget</h3><p>Check off today&#x27;s habits without opening the app.</p></div>
+<div class="card"><div class="ico">🔒</div><h3>Private by design</h3><p>Works fully offline. Your data stays on your phone — back it up to a file whenever you like.</p></div></div>
+</div></section>
+
+<section><div class="wrap">
+  <h2 class="section">Simple on the outside. Thoughtful inside.</h2>
+  <div class="shots"><div class="phone "><img src="assets/screens/en_01_home.png" alt="Trackly app screen" decoding="async"></div>
+<div class="phone "><img src="assets/screens/en_03_details.png" alt="Trackly app screen" decoding="async"></div>
+<div class="phone "><img src="assets/screens/en_06_calendar.png" alt="Trackly app screen" decoding="async"></div>
+<div class="phone "><img src="assets/screens/en_07_stats.png" alt="Trackly app screen" decoding="async"></div>
+<div class="phone "><img src="assets/screens/en_09_weekly.png" alt="Trackly app screen" decoding="async"></div></div>
+</div></section>
+
+<section id="premium"><div class="wrap">
+  <h2 class="section">Free to start. Premium when you want more.</h2>
+  <p class="center">The free version is complete for everyday use. Premium unlocks everything for people who track more.</p>
+  <div class="plans">
+    <div class="card plan"><h3>Free</h3><ul><li>Up to 5 habits</li><li>Up to 2 reminders per habit</li><li>Weekly statistics</li><li>Last 30 days of history</li><li>Backup and restore</li><li>Light and dark theme</li></ul></div>
+    <div class="card plan pro"><h3>✨ Premium</h3><ul><li>Unlimited habits and reminders</li><li>Home-screen widget</li><li>Monthly and yearly statistics</li><li>Full history and calendar</li><li>Insights: best day, most consistent habit</li><li>Export to CSV</li><li>Extra colours and themes</li></ul></div>
+  </div>
+  <p class="small">Monthly, yearly (with a free trial for new subscribers) or a one-time lifetime purchase. Prices are shown in your currency in Google Play.</p>
+</div></section>
+
+<section class="privacy-band"><div class="wrap">
+  <h2 class="section">Your habits are nobody else&#x27;s business.</h2>
+  <div class="points"><span>No account, no sign-up</span><span>No ads, no analytics, no tracking</span><span>Data stored only on your device</span><span>Payments handled by Google Play</span></div>
+</div></section>
+
+<section id="faq"><div class="wrap">
+  <h2 class="section">Questions</h2>
+  <details><summary>Is Trackly free?</summary><p>Yes. You can track up to 5 habits with reminders and weekly statistics for free, forever. Premium is optional.</p></details>
+<details><summary>Do I need an account?</summary><p>No. Trackly works without an account and without the internet.</p></details>
+<details><summary>What happens to my data if I change phones?</summary><p>Use Settings ▸ Your data ▸ Back up to a file, then restore the file on the new phone. Android&#x27;s own device backup can also bring it over.</p></details>
+<details><summary>How do I cancel Premium?</summary><p>In Google Play: Payments &amp; subscriptions ▸ Subscriptions ▸ Trackly. Premium stays active until the end of the paid period.</p></details>
+<details><summary>Which languages are supported?</summary><p>English, Русский, Español, Deutsch, Français and Português (Brasil).</p></details>
+</div></section>
+
+<footer><div class="wrap">
+  <span>© 2026 Trackly</span>
+  <span class="links"><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Use</a></span>
+</div></footer>
+</body>
+</html>

@@ -59,4 +59,12 @@
     <string name="settings_add_widget_desc">Coche tes habitudes sans ouvrir l\'appli</string>
     <string name="settings_add_widget_premium">Coche tes habitudes sans ouvrir l\'appli · Premium</string>
     <string name="settings_add_widget_manual">Appuie longuement sur ton écran d\'accueil, choisis Widgets et cherche Trackly.</string>
+    <!-- About: rate, feedback, share -->
+    <string name="settings_rate">Noter Trackly</string>
+    <string name="settings_rate_desc">Laisse un avis sur Google Play</string>
+    <string name="settings_feedback">Envoyer un commentaire</string>
+    <string name="settings_feedback_desc">Idées, bugs ou questions</string>
+    <string name="settings_share">Partager Trackly</string>
+    <string name="share_message">Je prends de bonnes habitudes avec Trackly : %1$s</string>
+    <string name="feedback_subject">Avis sur Trackly (%1$s)</string>
 </resources>

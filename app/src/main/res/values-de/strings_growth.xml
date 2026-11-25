@@ -58,4 +58,12 @@
     <string name="settings_add_widget_desc">Gewohnheiten abhaken, ohne die App zu öffnen</string>
     <string name="settings_add_widget_premium">Gewohnheiten abhaken, ohne die App zu öffnen · Premium</string>
     <string name="settings_add_widget_manual">Halte den Startbildschirm gedrückt, wähle „Widgets“ und suche nach Trackly.</string>
+    <!-- About: rate, feedback, share -->
+    <string name="settings_rate">Trackly bewerten</string>
+    <string name="settings_rate_desc">Schreib eine Bewertung bei Google Play</string>
+    <string name="settings_feedback">Feedback senden</string>
+    <string name="settings_feedback_desc">Ideen, Fehler oder Fragen</string>
+    <string name="settings_share">Trackly teilen</string>
+    <string name="share_message">Ich baue mit Trackly gute Gewohnheiten auf: %1$s</string>
+    <string name="feedback_subject">Feedback zu Trackly (%1$s)</string>
 </resources>

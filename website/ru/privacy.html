@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Политика конфиденциальности — Trackly</title>
+<meta name="description" content="Политика конфиденциальности">
+<meta property="og:title" content="Политика конфиденциальности — Trackly">
+<meta property="og:description" content="Политика конфиденциальности">
+<meta property="og:image" content="../assets/feature.png">
+<meta name="theme-color" content="#5b4ee6">
+<link rel="icon" href="../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../assets/icon-192.png">
+<style>
+:root{--bg:#f6f6fb;--surface:#fff;--text:#16151f;--muted:#5b5a6e;--line:#e7e6f2;--accent:#5b4ee6;--accent2:#3a2dbf;--chip:#ecebff}
+@media (prefers-color-scheme:dark){:root{--bg:#0f0f16;--surface:#1a1a25;--text:#f2f1fa;--muted:#a9a8bd;--line:#2a2a38;--accent:#a49bff;--accent2:#7c7cf8;--chip:#26244a}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--text)}
+a{color:var(--accent)}img{max-width:100%;height:auto;display:block}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+header.top{position:sticky;top:0;z-index:5;backdrop-filter:blur(12px);background:color-mix(in srgb,var(--bg) 80%,transparent);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;gap:16px;height:60px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:19px;color:var(--text);text-decoration:none}
+.brand img{width:32px;height:32px;border-radius:8px}
+nav{margin-left:auto;display:flex;gap:18px;font-size:15px}nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--text)}
+.hero{background:linear-gradient(135deg,#7c7cf8,#3a2dbf);color:#fff;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center;padding-top:64px;padding-bottom:0}
+.hero h1{font-size:clamp(34px,5vw,54px);line-height:1.1;margin:0 0 18px;letter-spacing:-.02em}
+.hero p{font-size:18px;opacity:.92;margin:0 0 28px;max-width:34em}
+.btn{display:inline-flex;align-items:center;gap:10px;background:#fff;color:#2b2190;font-weight:700;padding:14px 22px;border-radius:14px;text-decoration:none;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.btn:hover{transform:translateY(-1px)}
+.note{display:block;margin-top:12px;font-size:14px;opacity:.85}
+.hero .phones{display:flex;justify-content:center;gap:16px;align-self:end}
+.phone{border-radius:28px;background:#14141f;padding:8px;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.phone img{border-radius:22px}
+.hero .phone{width:min(260px,40vw);margin-bottom:-60px}
+.hero .phone.back{transform:translateY(40px);opacity:.95}
+section{padding:72px 0}
+h2.section{font-size:clamp(26px,3.4vw,36px);line-height:1.2;margin:0 0 28px;letter-spacing:-.01em;text-align:center}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px}
+.card .ico{font-size:28px}.card h3{margin:10px 0 6px;font-size:18px}.card p{margin:0;color:var(--muted)}
+.shots{display:flex;gap:18px;overflow-x:auto;padding:8px 4px 20px;scroll-snap-type:x mandatory}
+.shots .phone{flex:0 0 auto;width:230px;scroll-snap-align:center}
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:820px;margin:0 auto}
+.plan h3{margin:0 0 12px;font-size:20px}.plan ul{margin:0;padding:0;list-style:none}
+.plan li{padding:7px 0 7px 28px;position:relative;border-top:1px solid var(--line)}
+.plan li:first-child{border-top:0}
+.plan li:before{content:"✓";position:absolute;left:4px;color:var(--accent);font-weight:700}
+.plan.pro{border:2px solid var(--accent);background:linear-gradient(180deg,var(--chip),var(--surface) 40%)}
+.center{text-align:center;color:var(--muted);max-width:44em;margin:0 auto 26px}
+.small{font-size:14px;color:var(--muted);text-align:center;margin-top:18px}
+.privacy-band{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.points{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.points span{background:var(--chip);padding:10px 16px;border-radius:999px;font-weight:600}
+details{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 20px;margin:0 auto 12px;max-width:760px}
+summary{cursor:pointer;font-weight:650}details p{margin:10px 0 0;color:var(--muted)}
+footer{padding:36px 0 48px;color:var(--muted);font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:18px;align-items:center}footer .links{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
+article.legal{max-width:760px;margin:0 auto;padding:48px 20px 24px}
+article.legal h1{font-size:34px;margin:0 0 8px}article.legal h2{font-size:20px;margin:30px 0 8px}
+article.legal p,article.legal li{color:var(--muted)}article.legal ul{padding-left:20px}
+@media (max-width:820px){.hero .wrap{grid-template-columns:1fr;text-align:center}.hero p{margin-left:auto;margin-right:auto}
+.grid{grid-template-columns:1fr 1fr}.plans{grid-template-columns:1fr}nav a:not(.lang){display:none}}
+@media (max-width:540px){.grid{grid-template-columns:1fr}.hero .phone.back{display:none}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="../ru/index.html"><img src="../assets/icon-192.png" alt="">Trackly</a>
+  <nav>
+    <a href="../ru/index.html#features">Возможности</a>
+    <a href="../ru/index.html#premium">Premium</a>
+    <a href="../ru/index.html#faq">Вопросы</a>
+    <a class="lang" href="../privacy.html" hreflang="en">English</a>
+  </nav>
+</div></header>
+<article class="legal"><h1>Политика конфиденциальности</h1>
+<p>Дата вступления в силу: 25 ноября 2026 г.</p>
+<p>Trackly — трекер привычек. Разработчик: независимый разработчик. Эта политика объясняет, что происходит с вашими данными в приложении. Коротко: ваши привычки остаются на вашем телефоне.</p>
+<h2>Коротко</h2>
+<ul><li>Без аккаунта и регистрации.</li><li>Без рекламы, аналитики и слежки.</li><li>Привычки, история, напоминания и настройки хранятся только на вашем устройстве.</li><li>Мы не собираем, не продаём и не передаём ваши персональные данные.</li></ul>
+<h2>Данные на вашем устройстве</h2>
+<p>Приложение хранит созданные вами привычки, отметки о выполнении, напоминания и настройки в своём закрытом хранилище на устройстве. Эти данные не отправляются нам или кому-либо ещё. Другие приложения не могут их прочитать.</p>
+<h2>Резервное копирование Android</h2>
+<p>Если в настройках телефона включено резервное копирование, Android может включить данные приложения в резервную копию устройства в вашем аккаунте Google, чтобы восстановить их на новом телефоне. Этой копией управляет Google по своей политике конфиденциальности; отключить её можно в настройках Android.</p>
+<h2>Ваши резервные копии и экспорт</h2>
+<p>Если вы используете «Резервная копия в файл» или «Экспорт в CSV», приложение сохраняет файл туда, куда вы выберете, например на телефон или в облачный диск. Файлом распоряжается выбранное вами хранилище. Мы его никогда не получаем.</p>
+<h2>Покупки</h2>
+<p>Trackly Premium продаётся через Google Play. Платежи обрабатывает Google; мы не получаем данные вашей карты или оплаты. Приложение лишь узнаёт у Google Play, есть ли у вас Premium. К покупкам применяется политика конфиденциальности Google: <a href="https://policies.google.com/privacy">https://policies.google.com/privacy</a></p>
+<h2>Оценки</h2>
+<p>Приложение может показать окно оценки Google Play. Оценки и отзывы отправляются в Google Play, а не нам.</p>
+<h2>Разрешения</h2>
+<ul><li>Уведомления — чтобы показывать заданные вами напоминания.</li><li>Запуск при включении — чтобы восстановить напоминания после перезагрузки телефона.</li><li>Вибрация — для вибрации напоминаний.</li></ul>
+<h2>Дети</h2>
+<p>Приложение не предназначено для детей младше 13 лет и сознательно не собирает о них никаких данных.</p>
+<h2>Удаление данных</h2>
+<p>Привычку и её историю можно удалить в приложении в любой момент. Удаление приложения или очистка его данных в настройках Android удаляет все данные приложения. Созданные вами файлы резервных копий остаются там, где вы их сохранили, пока вы их не удалите.</p>
+<h2>Изменения политики</h2>
+<p>Если политика изменится, новая версия будет опубликована в приложении и на сайте приложения с новой датой вступления в силу.</p>
+<h2>Контакты</h2>
+<p>Связаться с разработчиком можно по адресу электронной почты, указанному на странице Trackly в Google Play.</p>
+</article>
+<footer><div class="wrap">
+  <span>© 2026 Trackly</span>
+  <span class="links"><a href="../ru/privacy.html">Политика конфиденциальности</a><a href="../ru/terms.html">Условия использования</a></span>
+</div></footer>
+</body>
+</html>

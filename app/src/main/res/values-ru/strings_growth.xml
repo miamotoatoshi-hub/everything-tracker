@@ -60,4 +60,12 @@
     <string name="settings_add_widget_desc">Отмечай привычки, не открывая приложение</string>
     <string name="settings_add_widget_premium">Отмечай привычки, не открывая приложение · Premium</string>
     <string name="settings_add_widget_manual">Нажми и удерживай главный экран, выбери «Виджеты» и найди Trackly.</string>
+    <!-- About: rate, feedback, share -->
+    <string name="settings_rate">Оценить Trackly</string>
+    <string name="settings_rate_desc">Оставить отзыв в Google Play</string>
+    <string name="settings_feedback">Написать разработчику</string>
+    <string name="settings_feedback_desc">Идеи, ошибки или вопросы</string>
+    <string name="settings_share">Поделиться Trackly</string>
+    <string name="share_message">Выстраиваю полезные привычки с Trackly: %1$s</string>
+    <string name="feedback_subject">Отзыв о Trackly (%1$s)</string>
 </resources>

@@ -58,4 +58,12 @@
     <string name="settings_add_widget_desc">Check off habits without opening the app</string>
     <string name="settings_add_widget_premium">Check off habits without opening the app · Premium</string>
     <string name="settings_add_widget_manual">Long-press your home screen, choose Widgets and find Trackly.</string>
+    <!-- About: rate, feedback, share -->
+    <string name="settings_rate">Rate Trackly</string>
+    <string name="settings_rate_desc">Leave a review on Google Play</string>
+    <string name="settings_feedback">Send feedback</string>
+    <string name="settings_feedback_desc">Ideas, bugs or questions</string>
+    <string name="settings_share">Share Trackly</string>
+    <string name="share_message">I\'m building better habits with Trackly: %1$s</string>
+    <string name="feedback_subject">Trackly feedback (%1$s)</string>
 </resources>

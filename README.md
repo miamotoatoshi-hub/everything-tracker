@@ -6,7 +6,7 @@ Trackly — нативное Android-приложение (Kotlin + Jetpack Comp
 Премиум-версия продаётся **только через Google Play Billing**: подписка (месяц / год) и разовая покупка «навсегда».
 
 > 📘 **Как выложить приложение в Google Play — пошаговая инструкция: [`docs/PUBLISHING.md`](docs/PUBLISHING.md).**
-> Шаблон политики конфиденциальности: [`docs/privacy-policy.md`](docs/privacy-policy.md).
+> Сайт приложения с Политикой конфиденциальности и Условиями (EN/RU): [`website/`](website/) — публикуется через GitHub Pages.
 > Готовые тексты для страницы в магазине: [`store-assets/listing/`](store-assets/listing/),
 > готовые скриншоты (EN/RU): [`store-assets/screenshots/`](store-assets/screenshots/).
 
@@ -76,7 +76,10 @@ TRACKLY_VERSION_NAME=1.0.0                       # версия для поль�
 TRACKLY_VERSION_CODE=1                           # номер сборки: увеличивайте при каждой загрузке в Play
 BILLING_PREMIUM_PRODUCT_ID=trackly_premium        # подписка в Play Console (base plans: monthly + yearly)
 BILLING_LIFETIME_PRODUCT_ID=trackly_premium_lifetime  # разовая покупка «навсегда» (пусто = не продавать)
-PRIVACY_POLICY_URL=                              # ссылка на вашу политику (необязательно; иначе экран-заглушка)
+DEVELOPER_NAME=                                  # ваше имя/компания (в Политике и Условиях)
+SUPPORT_EMAIL=                                   # e-mail поддержки (Политика, «Написать разработчику»)
+LEGAL_EFFECTIVE_DATE=2026-11-25                  # дата вступления в силу Политики/Условий
+PRIVACY_POLICY_URL=                              # ссылка на опубликованную политику (пусто = встроенный текст)
 TERMS_OF_SERVICE_URL=
 ```
 
@@ -311,8 +314,8 @@ Debug-переключатель существует лишь в debug-сбор
 ## 10. Языки и добавление нового
 
 Готовы: **English** (`values/`), **Русский** (`values-ru/`), **Español** (`values-es/`), **Deutsch** (`values-de/`),
-**Français** (`values-fr/`), **Português (Brasil)** (`values-pt-rBR/`). Юридические тексты-заглушки (`legal.xml`)
-помечены `translatable="false"` — замените их своими (или задайте ссылки в `gradle.properties`).
+**Français** (`values-fr/`), **Português (Brasil)** (`values-pt-rBR/`). Политика конфиденциальности и Условия
+(`legal.xml`) тоже переведены на все 6 языков; имя разработчика, e-mail и дата подставляются из `gradle.properties`.
 
 Добавить язык:
 1. Создайте `app/src/main/res/values-<код>/` и переведите **все** файлы `strings*.xml` (lint падает на
@@ -405,7 +408,7 @@ UI-тесты (Compose): создание привычки, валидация �
 - [ ] `TRACKLY_APPLICATION_ID` заменён (не `com.example.*`), `TRACKLY_VERSION_CODE` увеличен.
 - [ ] Создана подписка `BILLING_PREMIUM_PRODUCT_ID` с активными base plan'ами (месяц, год) и, по желанию, товар `BILLING_LIFETIME_PRODUCT_ID`; цены заданы вами.
 - [ ] Свой upload keystore подключён (раздел 4); AAB подписан; включён Play App Signing.
-- [ ] Заменены юридические тексты: `res/values/legal.xml` (TODO-маркеры) **или** заданы `PRIVACY_POLICY_URL` / `TERMS_OF_SERVICE_URL`.
+- [ ] Заданы `DEVELOPER_NAME` и `SUPPORT_EMAIL`, сайт `website/` опубликован, ссылка на `privacy.html` указана в Play Console.
 - [ ] В Play Console: Privacy Policy URL, Data safety (данные не собираются и не передаются; покупки обрабатывает Google Play),
       Ads = No, Content rating, Target audience, декларация о подписке.
 - [ ] Проверены покупка / restore / отмена / истечение на тестовом аккаунте (раздел 6).

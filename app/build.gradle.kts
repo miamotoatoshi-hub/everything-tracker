@@ -43,6 +43,9 @@ android {
             "BILLING_LIFETIME_PRODUCT_ID",
             "\"${projectProp("BILLING_LIFETIME_PRODUCT_ID", "")}\"",
         )
+        buildConfigField("String", "DEVELOPER_NAME", "\"${projectProp("DEVELOPER_NAME", "")}\"")
+        buildConfigField("String", "SUPPORT_EMAIL", "\"${projectProp("SUPPORT_EMAIL", "")}\"")
+        buildConfigField("String", "LEGAL_EFFECTIVE_DATE", "\"${projectProp("LEGAL_EFFECTIVE_DATE", "2026-11-25")}\"")
         buildConfigField("String", "PRIVACY_POLICY_URL", "\"${projectProp("PRIVACY_POLICY_URL", "")}\"")
         buildConfigField("String", "TERMS_OF_SERVICE_URL", "\"${projectProp("TERMS_OF_SERVICE_URL", "")}\"")
     }

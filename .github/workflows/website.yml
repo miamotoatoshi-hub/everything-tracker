@@ -1,0 +1,35 @@
+name: Website
+
+# Publishes website/ (landing page, Privacy Policy, Terms — English and Russian) with GitHub Pages.
+# One-time setup: repository Settings > Pages > Build and deployment > Source: "GitHub Actions".
+# Then run this workflow from the Actions tab ("Run workflow"). The site appears at
+#   https://<owner>.github.io/<repository>/   (Privacy Policy: …/privacy.html)
+# Put that Privacy Policy URL into Play Console and into PRIVACY_POLICY_URL in gradle.properties.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the site from gradle.properties and the app's legal texts
+        run: python3 website/build.py
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: website
+      - id: deployment
+        uses: actions/deploy-pages@v4
