@@ -221,8 +221,8 @@ h2.section{font-size:clamp(26px,3.4vw,36px);line-height:1.2;margin:0 0 28px;lett
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px}
 .card .ico{font-size:28px}.card h3{margin:10px 0 6px;font-size:18px}.card p{margin:0;color:var(--muted)}
-.shots{display:flex;gap:18px;overflow-x:auto;padding:8px 4px 20px;scroll-snap-type:x mandatory}
-.shots .phone{flex:0 0 auto;width:230px;scroll-snap-align:center}
+.shots{display:flex;gap:18px;overflow-x:auto;padding:12px 28px 40px;scroll-padding:0 28px;scroll-snap-type:x mandatory}
+.shots .phone{flex:0 0 auto;width:230px;scroll-snap-align:center;box-shadow:0 10px 24px rgba(20,20,40,.18)}
 .plans{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:820px;margin:0 auto}
 .plan h3{margin:0 0 12px;font-size:20px}.plan ul{margin:0;padding:0;list-style:none}
 .plan li{padding:7px 0 7px 28px;position:relative;border-top:1px solid var(--line)}
