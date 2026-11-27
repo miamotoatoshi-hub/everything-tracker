@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Achievements, perfect day and rest day (version 1.1). -->
+<resources>
+    <string name="achievements_title">Achievements</string>
+    <string name="achievements_unlocked">%1$d of %2$d unlocked</string>
+    <string name="achievements_next">Next: %1$s</string>
+    <string name="achievements_all_done">Everything unlocked. Legendary!</string>
+    <string name="achievement_unlocked">Unlocked</string>
+    <string name="achv_first_title">First step</string>
+    <string name="achv_first_desc">Complete a habit for the first time</string>
+    <string name="achv_streak_desc">Keep one habit going without missing a day</string>
+    <string name="achv_done_desc">Daily goals reached, all habits together</string>
+    <string name="achv_perfect_desc">Days when every habit due was done</string>
+    <string name="achv_habits_desc">Build your routine from several habits</string>
+    <string name="achv_days_desc">Days with at least one goal reached</string>
+    <string name="perfect_day_title">Perfect day!</string>
+    <string name="perfect_day_share_message">✨ A perfect day in Trackly: %1$d of %1$d habits done! %2$s</string>
+    <string name="action_skip_today">Skip today (rest day)</string>
+    <string name="action_unskip_today">Undo today’s rest day</string>
+    <string name="skip_today_done">Rest day: your streak is safe</string>
+    <plurals name="achv_streak_title">
+        <item quantity="one">%d day in a row</item>
+        <item quantity="other">%d days in a row</item>
+    </plurals>
+    <plurals name="achv_done_title">
+        <item quantity="one">%d goal reached</item>
+        <item quantity="other">%d goals reached</item>
+    </plurals>
+    <plurals name="achv_perfect_title">
+        <item quantity="one">%d perfect day</item>
+        <item quantity="other">%d perfect days</item>
+    </plurals>
+    <plurals name="achv_habits_title">
+        <item quantity="one">%d habit</item>
+        <item quantity="other">%d habits</item>
+    </plurals>
+    <plurals name="achv_days_title">
+        <item quantity="one">%d active day</item>
+        <item quantity="other">%d active days</item>
+    </plurals>
+    <plurals name="perfect_day_body">
+        <item quantity="one">Your %d habit for today is done. Great work!</item>
+        <item quantity="other">All %d habits for today are done. Great work!</item>
+    </plurals>
+</resources>

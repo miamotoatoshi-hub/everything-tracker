@@ -38,6 +38,9 @@ interface HabitRepository {
 
     suspend fun setPaused(habitId: Long, paused: Boolean, today: LocalDate)
 
+    /** A rest day: a one-day pause on [date] (see RestDay); false removes it again. */
+    suspend fun setRestDay(habitId: Long, date: LocalDate, rest: Boolean)
+
     suspend fun deleteHabit(habitId: Long)
 
     /** Persists a new ordering; ids not present keep their relative order after the listed ones. */

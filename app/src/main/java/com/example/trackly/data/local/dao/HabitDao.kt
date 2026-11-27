@@ -58,6 +58,9 @@ interface HabitDao {
     @Query("UPDATE habit_pauses SET toEpochDay = :toEpochDay WHERE id = :id")
     suspend fun closePause(id: Long, toEpochDay: Long)
 
+    @Query("SELECT * FROM habit_pauses WHERE habitId = :habitId AND fromEpochDay = :day AND toEpochDay = :day")
+    suspend fun getDayPauses(habitId: Long, day: Long): List<HabitPauseEntity>
+
     @Query("DELETE FROM habit_pauses WHERE id = :id")
     suspend fun deletePause(id: Long)
 

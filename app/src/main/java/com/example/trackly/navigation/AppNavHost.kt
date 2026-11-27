@@ -32,6 +32,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.trackly.presentation.achievements.AchievementsScreen
 import com.example.trackly.domain.model.PremiumFeature
 import com.example.trackly.presentation.calendar.CalendarScreen
 import com.example.trackly.presentation.habit.HabitDetailsScreen
@@ -133,6 +134,7 @@ fun AppNavHost(
                     onUpgrade = { navController.navigate(Routes.premium(it)) },
                     onOpenWeekly = { navController.navigate(Routes.WEEKLY) },
                     onReorder = { navController.navigate(Routes.REORDER) },
+                    onOpenAchievements = { navController.navigate(Routes.ACHIEVEMENTS) },
                 )
             }
             composable(Routes.CALENDAR, enterTransition = { fadeIn(tween(ANIMATION_MILLIS)) }) {
@@ -146,6 +148,7 @@ fun AppNavHost(
                 StatsScreen(
                     onAddHabit = { navController.navigate(Routes.CREATE) },
                     onOpenWeekly = { navController.navigate(Routes.WEEKLY) },
+                    onOpenAchievements = { navController.navigate(Routes.ACHIEVEMENTS) },
                     onUpgrade = { navController.navigate(Routes.premium(it)) },
                 )
             }
@@ -201,6 +204,7 @@ fun AppNavHost(
                 )
             }
             composable(Routes.REORDER) { ReorderScreen(onBack = { navController.popBackStack() }) }
+            composable(Routes.ACHIEVEMENTS) { AchievementsScreen(onBack = { navController.popBackStack() }) }
             composable(Routes.WEEKLY) {
                 WeeklyOverviewScreen(
                     onBack = { navController.popBackStack() },

@@ -19,6 +19,7 @@ object Routes {
     const val REORDER = "reorder"
     const val WEEKLY = "weekly"
     const val CREATE = "create"
+    const val ACHIEVEMENTS = "achievements"
 
     const val ARG_ID = "id"
     const val ARG_FEATURE = "feature"

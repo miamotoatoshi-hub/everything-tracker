@@ -65,6 +65,11 @@ object AppLinks {
         )
     }
 
+    /** Shares a perfect day ("all 5 of 5 habits done"). */
+    fun sharePerfectDay(context: Context, habitCount: Int) {
+        shareText(context, context.getString(R.string.perfect_day_share_message, habitCount, playStoreUrl(context.packageName)))
+    }
+
     private fun shareText(context: Context, text: String) {
         val send = Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, text)
         val chooser = Intent.createChooser(send, context.getString(R.string.settings_share))

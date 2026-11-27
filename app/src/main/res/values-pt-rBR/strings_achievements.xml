@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Achievements, perfect day and rest day (version 1.1). -->
+<resources>
+    <string name="achievements_title">Conquistas</string>
+    <string name="achievements_unlocked">%1$d de %2$d desbloqueadas</string>
+    <string name="achievements_next">Próxima: %1$s</string>
+    <string name="achievements_all_done">Tudo desbloqueado. Lendário!</string>
+    <string name="achievement_unlocked">Conquistada</string>
+    <string name="achv_first_title">Primeiro passo</string>
+    <string name="achv_first_desc">Conclua um hábito pela primeira vez</string>
+    <string name="achv_streak_desc">Mantenha um hábito sem pular nenhum dia</string>
+    <string name="achv_done_desc">Metas diárias cumpridas, somando todos os hábitos</string>
+    <string name="achv_perfect_desc">Dias em que todos os hábitos previstos foram feitos</string>
+    <string name="achv_habits_desc">Monte sua rotina com vários hábitos</string>
+    <string name="achv_days_desc">Dias com pelo menos uma meta cumprida</string>
+    <string name="perfect_day_title">Dia perfeito!</string>
+    <string name="perfect_day_share_message">✨ Um dia perfeito no Trackly: %1$d de %1$d hábitos concluídos! %2$s</string>
+    <string name="action_skip_today">Pular hoje (descanso)</string>
+    <string name="action_unskip_today">Desfazer o descanso de hoje</string>
+    <string name="skip_today_done">Dia de descanso: sua sequência está segura</string>
+    <plurals name="achv_streak_title">
+        <item quantity="one">%d dia seguido</item>
+        <item quantity="many">%d dias seguidos</item>
+        <item quantity="other">%d dias seguidos</item>
+    </plurals>
+    <plurals name="achv_done_title">
+        <item quantity="one">%d meta cumprida</item>
+        <item quantity="many">%d metas cumpridas</item>
+        <item quantity="other">%d metas cumpridas</item>
+    </plurals>
+    <plurals name="achv_perfect_title">
+        <item quantity="one">%d dia perfeito</item>
+        <item quantity="many">%d dias perfeitos</item>
+        <item quantity="other">%d dias perfeitos</item>
+    </plurals>
+    <plurals name="achv_habits_title">
+        <item quantity="one">%d hábito</item>
+        <item quantity="many">%d hábitos</item>
+        <item quantity="other">%d hábitos</item>
+    </plurals>
+    <plurals name="achv_days_title">
+        <item quantity="one">%d dia ativo</item>
+        <item quantity="many">%d dias ativos</item>
+        <item quantity="other">%d dias ativos</item>
+    </plurals>
+    <plurals name="perfect_day_body">
+        <item quantity="one">%d hábito de hoje concluído. Mandou bem!</item>
+        <item quantity="many">Todos os %d hábitos de hoje concluídos. Mandou bem!</item>
+        <item quantity="other">Todos os %d hábitos de hoje concluídos. Mandou bem!</item>
+    </plurals>
+</resources>

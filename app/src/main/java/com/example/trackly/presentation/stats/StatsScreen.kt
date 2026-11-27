@@ -72,6 +72,7 @@ fun StatsScreen(
     onAddHabit: () -> Unit,
     onOpenWeekly: () -> Unit,
     onUpgrade: (PremiumFeature) -> Unit,
+    onOpenAchievements: () -> Unit = {},
 ) {
     val viewModel = appViewModel {
         StatsViewModel(it.habitRepository, it.todayProvider, it.settingsRepository, it.premiumPolicy)
@@ -99,7 +100,7 @@ fun StatsScreen(
                     )
                 } else {
                     CenteredContent(maxWidth = 640.dp) {
-                        StatsBody(data, viewModel, onOpenWeekly) { currentOnUpgrade(it) }
+                        StatsBody(data, viewModel, onOpenWeekly, onOpenAchievements) { currentOnUpgrade(it) }
                     }
                 }
             }
@@ -112,6 +113,7 @@ private fun StatsBody(
     data: StatsData,
     viewModel: StatsViewModel,
     onOpenWeekly: () -> Unit,
+    onOpenAchievements: () -> Unit,
     onUpgrade: (PremiumFeature) -> Unit,
 ) {
     val top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
@@ -179,6 +181,16 @@ private fun StatsBody(
             shape = RoundedCornerShape(16.dp),
         ) {
             Text(stringResource(R.string.stats_weekly_overview))
+            Spacer(Modifier.size(4.dp))
+            Icon(Icons.AutoMirrored.Rounded.KeyboardArrowRight, contentDescription = null, modifier = Modifier.size(18.dp))
+        }
+
+        OutlinedButton(
+            onClick = onOpenAchievements,
+            modifier = Modifier.fillMaxWidth().height(52.dp).testTag("open_achievements_stats"),
+            shape = RoundedCornerShape(16.dp),
+        ) {
+            Text("🏆  " + stringResource(R.string.achievements_title))
             Spacer(Modifier.size(4.dp))
             Icon(Icons.AutoMirrored.Rounded.KeyboardArrowRight, contentDescription = null, modifier = Modifier.size(18.dp))
         }

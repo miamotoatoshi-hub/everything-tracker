@@ -173,4 +173,23 @@ class HomeViewModelTest {
         job.cancel()
         assertEquals(listOf<HomeEvent>(HomeEvent.GoalReached("Yoga")), events)
     }
+
+    @Test
+    fun `finishing the last habit due today is a perfect day, once`() = runTest {
+        fun boolean(id: Long, name: String) =
+            Fixtures.habit(id = id, name = name, type = HabitType.BOOLEAN, goal = 1.0, unit = HabitUnit.TIMES)
+        val repo = FakeHabitRepository(listOf(boolean(1, "Yoga"), boolean(2, "Read")))
+        repo.setEntryValue(1, today, 1.0)
+        val vm = viewModel(repo)
+        val events = mutableListOf<HomeEvent>()
+        val job = launch(Dispatchers.Unconfined) { vm.events.collect { events.add(it) } }
+
+        vm.onQuickAdd(vm.contentWhere { it.todo.size == 1 }.todo.single())
+        assertEquals(HomeEvent.PerfectDay(2), events.last())
+
+        vm.onQuickAdd(vm.contentWhere { it.done.size == 2 }.done.first { it.habit.id == 2L })
+        vm.onQuickAdd(vm.contentWhere { it.todo.size == 1 }.todo.single())
+        job.cancel()
+        assertEquals(HomeEvent.GoalReached("Read"), events.last())
+    }
 }

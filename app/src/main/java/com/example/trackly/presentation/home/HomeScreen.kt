@@ -32,6 +32,7 @@ import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowRight
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Delete
+import androidx.compose.material.icons.rounded.EmojiEvents
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material.icons.rounded.SwapVert
 import androidx.compose.material.icons.rounded.Unarchive
@@ -72,6 +73,7 @@ import com.example.trackly.domain.model.HabitType
 import com.example.trackly.domain.model.PremiumFeature
 import com.example.trackly.presentation.common.AppLinks
 import com.example.trackly.presentation.common.LocalAppContainer
+import com.example.trackly.presentation.common.PerfectDayDialog
 import com.example.trackly.presentation.common.StreakMilestoneDialog
 import com.example.trackly.presentation.common.UiState
 import com.example.trackly.presentation.common.appViewModel
@@ -97,6 +99,7 @@ fun HomeScreen(
     onUpgrade: (PremiumFeature) -> Unit,
     onOpenWeekly: () -> Unit,
     onReorder: () -> Unit,
+    onOpenAchievements: () -> Unit = {},
 ) {
     val viewModel = appViewModel { HomeViewModel(it.habitRepository, it.todayProvider, it.premiumPolicy) }
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -112,6 +115,7 @@ fun HomeScreen(
     var valueDialogFor by remember { mutableStateOf<HabitItem?>(null) }
     var deleteFor by remember { mutableStateOf<HabitItem?>(null) }
     var milestone by remember { mutableStateOf<HomeEvent.StreakMilestone?>(null) }
+    var perfectDay by remember { mutableStateOf<HomeEvent.PerfectDay?>(null) }
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(viewModel) {
@@ -127,6 +131,11 @@ fun HomeScreen(
                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                     snackbar.currentSnackbarData?.dismiss()
                     milestone = event
+                }
+                is HomeEvent.PerfectDay -> {
+                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                    snackbar.currentSnackbarData?.dismiss()
+                    perfectDay = event
                 }
                 is HomeEvent.RequiresPremium -> currentOnUpgrade(event.feature)
                 HomeEvent.ActionFailed -> snackbar.showSnackbar(context.getString(R.string.error_action_failed))
@@ -163,6 +172,7 @@ fun HomeScreen(
                             onLongPressAdd = { valueDialogFor = it },
                             onOpenWeekly = onOpenWeekly,
                             onReorder = onReorder,
+                            onOpenAchievements = onOpenAchievements,
                             onUnarchive = viewModel::onUnarchive,
                             onDelete = { deleteFor = it },
                         )
@@ -230,6 +240,21 @@ fun HomeScreen(
             },
         )
     }
+    perfectDay?.let { event ->
+        PerfectDayDialog(
+            habitCount = event.habitCount,
+            onShare = {
+                perfectDay = null
+                AppLinks.sharePerfectDay(context, event.habitCount)
+            },
+            onDismiss = {
+                perfectDay = null
+                context.findActivity()?.let { activity ->
+                    scope.launch { container.reviewPrompter.onGoalReached(activity) }
+                }
+            },
+        )
+    }
 }
 
 @Composable
@@ -245,6 +270,7 @@ private fun HomeList(
     onLongPressAdd: (HabitItem) -> Unit,
     onOpenWeekly: () -> Unit,
     onReorder: () -> Unit,
+    onOpenAchievements: () -> Unit,
     onUnarchive: (HabitItem) -> Unit,
     onDelete: (HabitItem) -> Unit,
 ) {
@@ -264,6 +290,7 @@ private fun HomeList(
                 onToggleSearch = onToggleSearch,
                 onReorder = onReorder,
                 onOpenWeekly = onOpenWeekly,
+                onOpenAchievements = onOpenAchievements,
             )
         }
         item(key = "filters", span = { GridItemSpan(maxLineSpan) }) {
@@ -382,6 +409,7 @@ private fun HomeHeader(
     onToggleSearch: () -> Unit,
     onReorder: () -> Unit,
     onOpenWeekly: () -> Unit,
+    onOpenAchievements: () -> Unit,
 ) {
     val dates = rememberDateFormats()
     val hour = remember { LocalTime.now().hour }
@@ -408,6 +436,9 @@ private fun HomeHeader(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.testTag("home_date"),
                 )
+            }
+            IconButton(onClick = onOpenAchievements, modifier = Modifier.size(48.dp).testTag("open_achievements")) {
+                Icon(Icons.Rounded.EmojiEvents, contentDescription = stringResource(R.string.achievements_title))
             }
             IconButton(onClick = onToggleSearch, modifier = Modifier.size(48.dp).testTag("search_toggle")) {
                 Icon(Icons.Rounded.Search, contentDescription = stringResource(R.string.home_search))

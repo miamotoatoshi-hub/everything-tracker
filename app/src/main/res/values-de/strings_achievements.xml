@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Achievements, perfect day and rest day (version 1.1). -->
+<resources>
+    <string name="achievements_title">Erfolge</string>
+    <string name="achievements_unlocked">%1$d von %2$d freigeschaltet</string>
+    <string name="achievements_next">Als Nächstes: %1$s</string>
+    <string name="achievements_all_done">Alles freigeschaltet. Legendär!</string>
+    <string name="achievement_unlocked">Freigeschaltet</string>
+    <string name="achv_first_title">Erster Schritt</string>
+    <string name="achv_first_desc">Schließ zum ersten Mal eine Gewohnheit ab</string>
+    <string name="achv_streak_desc">Bleib bei einer Gewohnheit, ohne einen Tag auszulassen</string>
+    <string name="achv_done_desc">Erreichte Tagesziele, alle Gewohnheiten zusammen</string>
+    <string name="achv_perfect_desc">Tage, an denen alle fälligen Gewohnheiten erledigt waren</string>
+    <string name="achv_habits_desc">Bau deine Routine aus mehreren Gewohnheiten</string>
+    <string name="achv_days_desc">Tage mit mindestens einem erreichten Ziel</string>
+    <string name="perfect_day_title">Perfekter Tag!</string>
+    <string name="perfect_day_share_message">✨ Ein perfekter Tag in Trackly: %1$d von %1$d Gewohnheiten erledigt! %2$s</string>
+    <string name="action_skip_today">Heute aussetzen (Ruhetag)</string>
+    <string name="action_unskip_today">Ruhetag rückgängig machen</string>
+    <string name="skip_today_done">Ruhetag: deine Serie bleibt erhalten</string>
+    <plurals name="achv_streak_title">
+        <item quantity="one">%d Tag in Folge</item>
+        <item quantity="other">%d Tage in Folge</item>
+    </plurals>
+    <plurals name="achv_done_title">
+        <item quantity="one">%d Ziel erreicht</item>
+        <item quantity="other">%d Ziele erreicht</item>
+    </plurals>
+    <plurals name="achv_perfect_title">
+        <item quantity="one">%d perfekter Tag</item>
+        <item quantity="other">%d perfekte Tage</item>
+    </plurals>
+    <plurals name="achv_habits_title">
+        <item quantity="one">%d Gewohnheit</item>
+        <item quantity="other">%d Gewohnheiten</item>
+    </plurals>
+    <plurals name="achv_days_title">
+        <item quantity="one">%d aktiver Tag</item>
+        <item quantity="other">%d aktive Tage</item>
+    </plurals>
+    <plurals name="perfect_day_body">
+        <item quantity="one">Deine %d Gewohnheit für heute ist erledigt. Super!</item>
+        <item quantity="other">Alle %d Gewohnheiten für heute sind erledigt. Super!</item>
+    </plurals>
+</resources>

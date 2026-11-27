@@ -12,6 +12,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.trackly.core.shortcuts.AppShortcuts
 import com.example.trackly.domain.model.PremiumFeature
 import com.example.trackly.navigation.Routes
 import com.example.trackly.notifications.ReminderNotifier
@@ -40,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         // Only a fresh launch carries a new deep link; a recreated activity (rotation, theme, language)
         // must not open the same habit / paywall again.
         if (savedInstanceState == null) handleIntent(intent)
+        AppShortcuts.install(this)
         container.billingRepository.connect()
 
         setContent {
@@ -74,6 +76,9 @@ class MainActivity : AppCompatActivity() {
                 if (id > 0L) deepLinkRoute.value = Routes.habit(id)
             }
             ACTION_OPEN_PREMIUM -> deepLinkRoute.value = Routes.premium(PremiumFeature.HOME_WIDGET)
+            AppShortcuts.ACTION_NEW_HABIT -> deepLinkRoute.value = Routes.CREATE
+            AppShortcuts.ACTION_OPEN_STATS -> deepLinkRoute.value = Routes.STATS
+            AppShortcuts.ACTION_OPEN_ACHIEVEMENTS -> deepLinkRoute.value = Routes.ACHIEVEMENTS
         }
     }
 

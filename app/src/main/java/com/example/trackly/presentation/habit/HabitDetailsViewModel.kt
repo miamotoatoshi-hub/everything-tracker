@@ -59,6 +59,7 @@ data class HabitDetails(
 sealed interface DetailsEvent {
     data object Deleted : DetailsEvent
     data object Archived : DetailsEvent
+    data object RestDayTaken : DetailsEvent
     data class GoalReached(val habitName: String) : DetailsEvent
     data class StreakMilestone(val habitName: String, val icon: String, val days: Int) : DetailsEvent
     data class RequiresPremium(val feature: PremiumFeature) : DetailsEvent
@@ -168,6 +169,14 @@ class HabitDetailsViewModel(
     fun setPaused(paused: Boolean) {
         launchSafely(onError = { _events.emit(DetailsEvent.Failed) }) {
             habits.setPaused(habitId, paused, todayProvider.current())
+        }
+    }
+
+    /** "Skip today": a one-day pause that keeps the streak (see RestDay). */
+    fun setRestDay(rest: Boolean) {
+        launchSafely(onError = { _events.emit(DetailsEvent.Failed) }) {
+            habits.setRestDay(habitId, todayProvider.current(), rest)
+            if (rest) _events.emit(DetailsEvent.RestDayTaken)
         }
     }
 

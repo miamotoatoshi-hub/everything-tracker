@@ -97,6 +97,18 @@ class FakeHabitRepository(initialHabits: List<Habit> = emptyList()) : HabitRepos
         }
     }
 
+    override suspend fun setRestDay(habitId: Long, date: LocalDate, rest: Boolean) {
+        val day = PauseRange(date, date)
+        habits.value = habits.value.map {
+            when {
+                it.id != habitId -> it
+                rest && day !in it.pauses -> it.copy(pauses = it.pauses + day)
+                rest -> it
+                else -> it.copy(pauses = it.pauses - day)
+            }
+        }
+    }
+
     override suspend fun deleteHabit(habitId: Long) {
         habits.value = habits.value.filterNot { it.id == habitId }
         entries.value = entries.value.filterNot { it.habitId == habitId }

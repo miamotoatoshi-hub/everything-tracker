@@ -73,6 +73,9 @@ sealed interface HomeEvent {
 
     /** Today's goal completed a streak milestone (see [StreakMilestones]); shown instead of [GoalReached]. */
     data class StreakMilestone(val habitName: String, val icon: String, val days: Int) : HomeEvent
+
+    /** The last habit due today was just completed (at least two were due). */
+    data class PerfectDay(val habitCount: Int) : HomeEvent
     data class RequiresPremium(val feature: PremiumFeature) : HomeEvent
     data object ActionFailed : HomeEvent
 }
@@ -159,11 +162,17 @@ class HomeViewModel(
         val habit = item.habit
         val after = StreakMilestones.afterCompletingToday(item.streak, item.scheduledToday)
         val milestone = StreakMilestones.reached(item.streak, after)
-        return if (milestone != null && celebrated.add("${habit.id}:$milestone:$today")) {
-            HomeEvent.StreakMilestone(habit.name, habit.icon, milestone)
-        } else {
-            HomeEvent.GoalReached(habit.name)
+        if (milestone != null && celebrated.add("${habit.id}:$milestone:$today")) {
+            return HomeEvent.StreakMilestone(habit.name, habit.icon, milestone)
         }
+        val current = snapshot.state.value
+        val active = if (current is UiState.Content) current.data.active else emptyList()
+        val due = active.filter { it.scheduledToday }
+        val othersDone = due.filter { it.habit.id != habit.id }.all { it.completed }
+        if (item.scheduledToday && due.size >= 2 && othersDone && celebrated.add("perfect:$today")) {
+            return HomeEvent.PerfectDay(due.size)
+        }
+        return HomeEvent.GoalReached(habit.name)
     }
 
     fun onUnarchive(item: HabitItem) {

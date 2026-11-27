@@ -31,6 +31,7 @@ import androidx.compose.material.icons.rounded.Pause
 import androidx.compose.material.icons.rounded.PlayArrow
 import androidx.compose.material.icons.rounded.Remove
 import androidx.compose.material.icons.rounded.Unarchive
+import androidx.compose.material.icons.rounded.Weekend
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -73,6 +74,7 @@ import com.example.trackly.domain.logic.DayStateResolver
 import com.example.trackly.domain.logic.GoalProgress
 import com.example.trackly.domain.model.HabitType
 import com.example.trackly.domain.model.PremiumFeature
+import com.example.trackly.domain.logic.RestDay
 import com.example.trackly.presentation.common.AppLinks
 import com.example.trackly.presentation.common.StreakMilestoneDialog
 import com.example.trackly.presentation.common.UiState
@@ -131,6 +133,10 @@ fun HabitDetailsScreen(
         viewModel.events.collect { event ->
             when (event) {
                 DetailsEvent.Deleted, DetailsEvent.Archived -> currentOnBack()
+                DetailsEvent.RestDayTaken -> {
+                    snackbar.currentSnackbarData?.dismiss()
+                    snackbar.showSnackbar(context.getString(R.string.skip_today_done))
+                }
                 is DetailsEvent.GoalReached -> {
                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                     snackbar.currentSnackbarData?.dismiss()
@@ -175,6 +181,24 @@ fun HabitDetailsScreen(
                             }
                             DropdownMenu(expanded = menuOpen, onDismissRequest = { menuOpen = false }) {
                                 if (!details.habit.isArchived) {
+                                    val restToday = RestDay.isRestDay(details.habit, details.today)
+                                    if (restToday || RestDay.canTake(details.habit, details.today, details.todayCompleted)) {
+                                        DropdownMenuItem(
+                                            text = {
+                                                Text(
+                                                    stringResource(
+                                                        if (restToday) R.string.action_unskip_today else R.string.action_skip_today,
+                                                    ),
+                                                )
+                                            },
+                                            leadingIcon = { Icon(Icons.Rounded.Weekend, contentDescription = null) },
+                                            onClick = {
+                                                menuOpen = false
+                                                viewModel.setRestDay(!restToday)
+                                            },
+                                            modifier = Modifier.testTag("menu_rest_day"),
+                                        )
+                                    }
                                     val paused = details.habit.isPaused
                                     DropdownMenuItem(
                                         text = { Text(stringResource(if (paused) R.string.action_resume else R.string.action_pause)) },

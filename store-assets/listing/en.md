@@ -18,6 +18,8 @@ Trackly helps you build the habits you want and keep them — one simple check a
 
 🔥 STAY MOTIVATED
 • Streaks that respect your schedule, with milestone celebrations you can share
+• 19 achievements and a perfect-day celebration
+• Rest days: skip a day without breaking your streak
 • Progress ring for today and gentle reminders that actually help
 • Mark habits done right from the notification
 • Celebrate every goal you reach
@@ -61,6 +63,9 @@ Productivity (alternative: Health & Fitness). Tags: Habit tracker, Productivity,
 6. Reminders at the perfect time
 7. Private & offline. No ads. No account.
 8. Dark mode included
+
+## Release notes 1.1.0
+New: 19 achievements, a perfect-day celebration, rest days that keep your streak, and shortcuts on the app icon.
 
 ## Release notes 1.0.0
 Welcome to Trackly! Track habits with streaks, reminders, statistics, a home-screen widget and backups.

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Achievements, perfect day and rest day (version 1.1). -->
+<resources>
+    <string name="achievements_title">Достижения</string>
+    <string name="achievements_unlocked">Открыто %1$d из %2$d</string>
+    <string name="achievements_next">Следующее: %1$s</string>
+    <string name="achievements_all_done">Все достижения открыты. Легенда!</string>
+    <string name="achievement_unlocked">Получено</string>
+    <string name="achv_first_title">Первый шаг</string>
+    <string name="achv_first_desc">Выполни привычку в первый раз</string>
+    <string name="achv_streak_desc">Выполняй одну привычку без пропусков</string>
+    <string name="achv_done_desc">Цели дня, выполненные по всем привычкам</string>
+    <string name="achv_perfect_desc">Дни, когда выполнены все привычки на день</string>
+    <string name="achv_habits_desc">Собери распорядок из нескольких привычек</string>
+    <string name="achv_days_desc">Дни, когда выполнена хотя бы одна цель</string>
+    <string name="perfect_day_title">Идеальный день!</string>
+    <string name="perfect_day_share_message">✨ Идеальный день в Trackly: все привычки выполнены (%1$d/%1$d)! %2$s</string>
+    <string name="action_skip_today">Пропустить сегодня (отдых)</string>
+    <string name="action_unskip_today">Отменить день отдыха</string>
+    <string name="skip_today_done">День отдыха: серия не прервётся</string>
+    <plurals name="achv_streak_title">
+        <item quantity="one">%d день подряд</item>
+        <item quantity="few">%d дня подряд</item>
+        <item quantity="many">%d дней подряд</item>
+        <item quantity="other">%d дня подряд</item>
+    </plurals>
+    <plurals name="achv_done_title">
+        <item quantity="one">%d цель выполнена</item>
+        <item quantity="few">%d цели выполнены</item>
+        <item quantity="many">%d целей выполнено</item>
+        <item quantity="other">%d цели выполнено</item>
+    </plurals>
+    <plurals name="achv_perfect_title">
+        <item quantity="one">%d идеальный день</item>
+        <item quantity="few">%d идеальных дня</item>
+        <item quantity="many">%d идеальных дней</item>
+        <item quantity="other">%d идеального дня</item>
+    </plurals>
+    <plurals name="achv_habits_title">
+        <item quantity="one">%d привычка</item>
+        <item quantity="few">%d привычки</item>
+        <item quantity="many">%d привычек</item>
+        <item quantity="other">%d привычки</item>
+    </plurals>
+    <plurals name="achv_days_title">
+        <item quantity="one">%d активный день</item>
+        <item quantity="few">%d активных дня</item>
+        <item quantity="many">%d активных дней</item>
+        <item quantity="other">%d активного дня</item>
+    </plurals>
+    <plurals name="perfect_day_body">
+        <item quantity="one">Выполнена %d привычка на сегодня. Отличная работа!</item>
+        <item quantity="few">Все %d привычки на сегодня выполнены. Отличная работа!</item>
+        <item quantity="many">Все %d привычек на сегодня выполнены. Отличная работа!</item>
+        <item quantity="other">Все %d привычки на сегодня выполнены. Отличная работа!</item>
+    </plurals>
+</resources>

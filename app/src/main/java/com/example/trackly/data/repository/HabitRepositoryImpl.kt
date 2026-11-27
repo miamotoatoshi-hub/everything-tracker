@@ -155,6 +155,21 @@ class HabitRepositoryImpl(
         onHabitsChanged()
     }
 
+    override suspend fun setRestDay(habitId: Long, date: LocalDate, rest: Boolean) {
+        val day = date.toEpochDay()
+        database.withTransaction {
+            val existing = habitDao.getDayPauses(habitId, day)
+            if (rest) {
+                if (existing.isEmpty()) {
+                    habitDao.insertPause(HabitPauseEntity(habitId = habitId, fromEpochDay = day, toEpochDay = day))
+                }
+            } else {
+                existing.forEach { habitDao.deletePause(it.id) }
+            }
+        }
+        onHabitsChanged()
+    }
+
     override suspend fun deleteHabit(habitId: Long) {
         habitDao.deleteById(habitId)
         onHabitsChanged()

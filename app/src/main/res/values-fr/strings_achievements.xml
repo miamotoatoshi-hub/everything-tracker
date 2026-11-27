@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Achievements, perfect day and rest day (version 1.1). -->
+<resources>
+    <string name="achievements_title">Succès</string>
+    <string name="achievements_unlocked">%1$d sur %2$d débloqués</string>
+    <string name="achievements_next">Prochain : %1$s</string>
+    <string name="achievements_all_done">Tout est débloqué. Légendaire !</string>
+    <string name="achievement_unlocked">Débloqué</string>
+    <string name="achv_first_title">Premier pas</string>
+    <string name="achv_first_desc">Termine une habitude pour la première fois</string>
+    <string name="achv_streak_desc">Tiens une habitude sans sauter un seul jour</string>
+    <string name="achv_done_desc">Objectifs quotidiens atteints, toutes habitudes confondues</string>
+    <string name="achv_perfect_desc">Jours où toutes les habitudes prévues ont été faites</string>
+    <string name="achv_habits_desc">Construis ta routine avec plusieurs habitudes</string>
+    <string name="achv_days_desc">Jours avec au moins un objectif atteint</string>
+    <string name="perfect_day_title">Journée parfaite !</string>
+    <string name="perfect_day_share_message">✨ Une journée parfaite dans Trackly : %1$d habitudes sur %1$d faites ! %2$s</string>
+    <string name="action_skip_today">Sauter aujourd’hui (repos)</string>
+    <string name="action_unskip_today">Annuler le repos d’aujourd’hui</string>
+    <string name="skip_today_done">Jour de repos : ta série est préservée</string>
+    <plurals name="achv_streak_title">
+        <item quantity="one">%d jour d’affilée</item>
+        <item quantity="many">%d jours d’affilée</item>
+        <item quantity="other">%d jours d’affilée</item>
+    </plurals>
+    <plurals name="achv_done_title">
+        <item quantity="one">%d objectif atteint</item>
+        <item quantity="many">%d objectifs atteints</item>
+        <item quantity="other">%d objectifs atteints</item>
+    </plurals>
+    <plurals name="achv_perfect_title">
+        <item quantity="one">%d journée parfaite</item>
+        <item quantity="many">%d journées parfaites</item>
+        <item quantity="other">%d journées parfaites</item>
+    </plurals>
+    <plurals name="achv_habits_title">
+        <item quantity="one">%d habitude</item>
+        <item quantity="many">%d habitudes</item>
+        <item quantity="other">%d habitudes</item>
+    </plurals>
+    <plurals name="achv_days_title">
+        <item quantity="one">%d jour actif</item>
+        <item quantity="many">%d jours actifs</item>
+        <item quantity="other">%d jours actifs</item>
+    </plurals>
+    <plurals name="perfect_day_body">
+        <item quantity="one">%d habitude du jour faite. Bravo !</item>
+        <item quantity="many">Les %d habitudes du jour sont faites. Bravo !</item>
+        <item quantity="other">Les %d habitudes du jour sont faites. Bravo !</item>
+    </plurals>
+</resources>
