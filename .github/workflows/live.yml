@@ -1,7 +1,7 @@
 name: Live test session
 
 # Try the app without a phone: boots an Android emulator, installs the debug APK and shows the
-# emulator's screen in a browser for an hour (see .github/scripts/live-session.sh).
+# emulator's screen in a browser for two hours (see .github/scripts/live-session.sh).
 # It also publishes the debug APK as the "test-build" pre-release, so it can be installed on a phone
 # from https://github.com/<owner>/<repo>/releases/download/test-build/trackly-test.apk
 #
@@ -27,10 +27,10 @@ jobs:
     if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[live]')
     name: Emulator in the browser
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 150
     env:
       GH_TOKEN: ${{ github.token }}
-      LIVE_MINUTES: 60
+      LIVE_MINUTES: 120
     steps:
       - uses: actions/checkout@v4
 
@@ -72,7 +72,7 @@ jobs:
           # Libraries the emulator's window needs; names differ between Ubuntu releases, so each is optional.
           for p in libxcb-cursor0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 \
                    libxcb-shape0 libxcb-xfixes0 libxcb-xinerama0 libxcb-xkb1 libxkbcommon-x11-0 libxkbfile1 \
-                   libpulse0 libnss3 libgl1 libegl1; do
+                   libpulse0 libnss3 libgl1 libegl1 imagemagick; do
             sudo apt-get install -y -q --no-install-recommends "$p" > /dev/null 2>&1 || echo "skipped $p"
           done
 

@@ -16,6 +16,8 @@ adb shell settings put system screen_off_timeout 2147483647 || true
 # Back / Home / Recents buttons are much easier to use with a mouse than gesture navigation.
 adb shell cmd overlay enable com.android.internal.systemui.navbar.threebutton || true
 adb shell input keyevent 82 || true
+# Keep Android's on-screen keyboard visible: on a phone browser you type by tapping its keys.
+adb shell settings put secure show_ime_with_hard_keyboard 1 || true
 
 adb install -r app/build/outputs/apk/debug/app-debug.apk
 adb shell cmd locale set-app-locales "$PKG" --locales "${LIVE_LOCALE:-ru-RU}" || true
@@ -53,5 +55,14 @@ gh api "repos/$GITHUB_REPOSITORY/check-runs" \
   -f name="Live session link" -f head_sha="$GITHUB_SHA" -f status=completed -f conclusion=neutral \
   -f "output[title]=Live session (encrypted link)" -f "output[summary]=$SECRET" > /dev/null
 echo "Live session is up for $MINUTES minutes; the encrypted link is in the 'Live session link' check."
+
+# A small picture of what the browser shows, so whoever started the session can check it without the link.
+sleep 15
+if import -display "$DISPLAY" -window root -resize 360x -quality 60 /tmp/screen.jpg 2> /dev/null; then
+  gh api "repos/$GITHUB_REPOSITORY/check-runs" \
+    -f name="Live session screen" -f head_sha="$GITHUB_SHA" -f status=completed -f conclusion=neutral \
+    -f "output[title]=Screen (base64 JPEG)" -f "output[summary]=Emulator display a few seconds after start" \
+    -f "output[text]=$(base64 -w0 /tmp/screen.jpg)" > /dev/null || true
+fi
 
 sleep $((MINUTES * 60))
