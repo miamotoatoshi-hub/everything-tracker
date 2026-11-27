@@ -11,6 +11,7 @@ import com.example.trackly.domain.logic.HabitPeriodStats
 import com.example.trackly.domain.logic.StatsCalculator
 import com.example.trackly.domain.logic.StreakCalculator
 import com.example.trackly.domain.logic.StreakInfo
+import com.example.trackly.domain.logic.StreakMilestones
 import com.example.trackly.domain.model.Habit
 import com.example.trackly.domain.model.HabitEntry
 import com.example.trackly.domain.model.PremiumFeature
@@ -59,6 +60,7 @@ sealed interface DetailsEvent {
     data object Deleted : DetailsEvent
     data object Archived : DetailsEvent
     data class GoalReached(val habitName: String) : DetailsEvent
+    data class StreakMilestone(val habitName: String, val icon: String, val days: Int) : DetailsEvent
     data class RequiresPremium(val feature: PremiumFeature) : DetailsEvent
     data object Failed : DetailsEvent
 }
@@ -78,6 +80,7 @@ class HabitDetailsViewModel(
     val selectedDate: StateFlow<LocalDate?> = _selectedDate.asStateFlow()
 
     private val _events = MutableSharedFlow<DetailsEvent>(extraBufferCapacity = 8)
+    private val celebrated = mutableSetOf<String>()
     val events: SharedFlow<DetailsEvent> = _events.asSharedFlow()
 
     private val source = RetryableState<HabitDetails?>(viewModelScope) {
@@ -138,9 +141,24 @@ class HabitDetailsViewModel(
             val wasComplete = details.byDate[date]?.completed == true
             val result = block()
             if (!wasComplete && result?.completed == true) {
-                _events.emit(DetailsEvent.GoalReached(details.habit.name))
+                _events.emit(completionEvent(details, date))
             }
         }
+    }
+
+    private fun completionEvent(details: HabitDetails, date: LocalDate): DetailsEvent {
+        val habit = details.habit
+        if (date == details.today) {
+            val before = details.streak.current
+            val milestone = StreakMilestones.reached(
+                before,
+                StreakMilestones.afterCompletingToday(before, habit.isActiveOn(date)),
+            )
+            if (milestone != null && celebrated.add("$milestone:$date")) {
+                return DetailsEvent.StreakMilestone(habit.name, habit.icon, milestone)
+            }
+        }
+        return DetailsEvent.GoalReached(habit.name)
     }
 
     // endregion

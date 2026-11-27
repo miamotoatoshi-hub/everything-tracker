@@ -23,6 +23,8 @@ jobs:
     name: Test, lint, build AAB
     runs-on: ubuntu-latest
     timeout-minutes: 45
+    permissions:
+      contents: write   # the "latest-build" draft release below
     steps:
       - uses: actions/checkout@v4
 
@@ -111,6 +113,32 @@ jobs:
           name: trackly-release-aab
           path: app/build/outputs/bundle/release/*.aab
           if-no-files-found: warn
+
+      - name: Put the AAB in the "latest-build" draft release (Releases page, visible only to the repo owner)
+        if: github.event_name != 'pull_request' && github.ref_name == github.event.repository.default_branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version=$(sed -n 's/^TRACKLY_VERSION_NAME=//p' gradle.properties)
+          code=$(sed -n 's/^TRACKLY_VERSION_CODE=//p' gradle.properties)
+          if [ -n "${KEYSTORE_PATH:-}" ]; then kind=signed; else kind=unsigned; fi
+          aab="trackly-$version-$code-$kind.aab"
+          cp app/build/outputs/bundle/release/app-release.aab "$aab"
+          files=("$aab")
+          if [ -f app/build/outputs/mapping/release/mapping.txt ]; then
+            cp app/build/outputs/mapping/release/mapping.txt "mapping-$version-$code.txt"
+            files+=("mapping-$version-$code.txt")
+          fi
+          for id in $(gh api "repos/$GITHUB_REPOSITORY/releases" --jq '.[] | select(.draft and .tag_name == "latest-build") | .id'); do
+            gh api -X DELETE "repos/$GITHUB_REPOSITORY/releases/$id"
+          done
+          if [ "$kind" = signed ]; then
+            notes="Signed with your upload key: ready to upload to Google Play Console. Upload the mapping file under App bundle explorer > Downloads > ReTrace mapping file."
+          else
+            notes="UNSIGNED: Google Play will not accept it. Add the KEYSTORE_BASE64, KEYSTORE_PASSWORD, KEY_ALIAS and KEY_PASSWORD secrets (docs/PUBLISHING.md) and run Android CI again."
+          fi
+          gh release create latest-build "${files[@]}" --draft --target "$GITHUB_SHA" \
+            --title "Latest build: $version ($code), $kind" --notes "$notes"
 
       - name: Upload debug APK
         if: always()

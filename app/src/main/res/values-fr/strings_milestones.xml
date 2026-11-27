@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Streak milestone celebration (3, 7, 14, 21, 30… days in a row), see StreakMilestones. -->
+<resources>
+    <plurals name="milestone_title">
+        <item quantity="one">%d jour d’affilée !</item>
+        <item quantity="many">%d jours d’affilée !</item>
+        <item quantity="other">%d jours d’affilée !</item>
+    </plurals>
+    <string name="milestone_body">Continue comme ça ! Coche-la aussi demain pour faire grandir ta série.</string>
+    <string name="milestone_ok">Génial</string>
+    <string name="milestone_share">Partager</string>
+    <!-- %1$s: the title above ("7 days in a row!"), %2$s: habit icon and name, %3$s: Google Play link. -->
+    <string name="milestone_share_message">%1$s %2$s — ma série dans Trackly 🔥 %3$s</string>
+</resources>

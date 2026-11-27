@@ -135,4 +135,42 @@ class HomeViewModelTest {
         assertTrue(events.any { it is HomeEvent.RequiresPremium && it.feature == PremiumFeature.UNLIMITED_HABITS })
         assertTrue(repo.getHabit(6)?.isArchived == true)
     }
+
+    @Test
+    fun `the seventh day in a row is celebrated once`() = runTest {
+        val repo = FakeHabitRepository(
+            listOf(Fixtures.habit(id = 1, name = "Yoga", type = HabitType.BOOLEAN, goal = 1.0, unit = HabitUnit.TIMES)),
+        )
+        for (daysAgo in 1L..6L) repo.setEntryValue(1, today.minusDays(daysAgo), 1.0)
+        val vm = viewModel(repo)
+        val events = mutableListOf<HomeEvent>()
+        val job = launch(Dispatchers.Unconfined) { vm.events.collect { events.add(it) } }
+
+        val item = vm.contentWhere { it.todo.isNotEmpty() }.todo.single()
+        assertEquals(6, item.streak)
+        vm.onQuickAdd(item)
+        assertEquals(HomeEvent.StreakMilestone("Yoga", "💧", 7), events.last())
+
+        // Unchecking and checking again the same day does not celebrate twice.
+        vm.onQuickAdd(vm.contentWhere { it.done.isNotEmpty() }.done.single())
+        vm.onQuickAdd(vm.contentWhere { it.todo.isNotEmpty() }.todo.single())
+        job.cancel()
+        assertEquals(HomeEvent.GoalReached("Yoga"), events.last())
+        assertEquals(1, events.count { it is HomeEvent.StreakMilestone })
+    }
+
+    @Test
+    fun `an ordinary day is a plain goal reached`() = runTest {
+        val repo = FakeHabitRepository(
+            listOf(Fixtures.habit(id = 1, name = "Yoga", type = HabitType.BOOLEAN, goal = 1.0, unit = HabitUnit.TIMES)),
+        )
+        for (daysAgo in 1L..7L) repo.setEntryValue(1, today.minusDays(daysAgo), 1.0)
+        val vm = viewModel(repo)
+        val events = mutableListOf<HomeEvent>()
+        val job = launch(Dispatchers.Unconfined) { vm.events.collect { events.add(it) } }
+
+        vm.onQuickAdd(vm.contentWhere { it.todo.isNotEmpty() }.todo.single()) // day 8
+        job.cancel()
+        assertEquals(listOf<HomeEvent>(HomeEvent.GoalReached("Yoga")), events)
+    }
 }

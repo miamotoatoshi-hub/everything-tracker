@@ -69,7 +69,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.trackly.R
 import com.example.trackly.domain.model.HabitType
 import com.example.trackly.domain.model.PremiumFeature
+import com.example.trackly.presentation.common.AppLinks
 import com.example.trackly.presentation.common.LocalAppContainer
+import com.example.trackly.presentation.common.StreakMilestoneDialog
 import com.example.trackly.presentation.common.UiState
 import com.example.trackly.presentation.common.appViewModel
 import com.example.trackly.presentation.common.findActivity
@@ -107,6 +109,7 @@ fun HomeScreen(
 
     var valueDialogFor by remember { mutableStateOf<HabitItem?>(null) }
     var deleteFor by remember { mutableStateOf<HabitItem?>(null) }
+    var milestone by remember { mutableStateOf<HomeEvent.StreakMilestone?>(null) }
 
     LaunchedEffect(viewModel) {
         viewModel.events.collect { event ->
@@ -116,6 +119,11 @@ fun HomeScreen(
                     snackbar.currentSnackbarData?.dismiss()
                     snackbar.showSnackbar(context.getString(R.string.home_goal_reached, event.habitName))
                     context.findActivity()?.let { activity -> container.reviewPrompter.onGoalReached(activity) }
+                }
+                is HomeEvent.StreakMilestone -> {
+                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                    snackbar.currentSnackbarData?.dismiss()
+                    milestone = event
                 }
                 is HomeEvent.RequiresPremium -> currentOnUpgrade(event.feature)
                 HomeEvent.ActionFailed -> snackbar.showSnackbar(context.getString(R.string.error_action_failed))
@@ -199,6 +207,22 @@ fun HomeScreen(
                 deleteFor = null
             },
             onDismiss = { deleteFor = null },
+        )
+    }
+    milestone?.let { event ->
+        StreakMilestoneDialog(
+            days = event.days,
+            habitName = event.habitName,
+            icon = event.icon,
+            onShare = {
+                milestone = null
+                AppLinks.shareMilestone(context, event.days, event.icon, event.habitName)
+            },
+            onDismiss = {
+                milestone = null
+                // A happy moment: the best time to (maybe) ask for a rating.
+                context.findActivity()?.let { activity -> container.reviewPrompter.onGoalReached(activity) }
+            },
         )
     }
 }

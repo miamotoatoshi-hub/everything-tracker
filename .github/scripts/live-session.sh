@@ -6,7 +6,8 @@
 # https://….trycloudflare.com address. The link (with its access token) is encrypted with
 # .github/live-session.pub.pem before it leaves the job, because this repository's checks are public.
 set -u
-PKG=com.example.trackly
+PKG=$(sed -n 's/^TRACKLY_APPLICATION_ID=//p' gradle.properties)
+export LIVE_PACKAGE="$PKG"
 RECEIVER="$PKG/com.example.trackly.debug.LiveSessionReceiver"
 MINUTES="${LIVE_MINUTES:-60}"
 

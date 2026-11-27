@@ -73,6 +73,8 @@ import com.example.trackly.domain.logic.DayStateResolver
 import com.example.trackly.domain.logic.GoalProgress
 import com.example.trackly.domain.model.HabitType
 import com.example.trackly.domain.model.PremiumFeature
+import com.example.trackly.presentation.common.AppLinks
+import com.example.trackly.presentation.common.StreakMilestoneDialog
 import com.example.trackly.presentation.common.UiState
 import com.example.trackly.presentation.common.appViewModel
 import com.example.trackly.presentation.common.formatValue
@@ -123,6 +125,7 @@ fun HabitDetailsScreen(
     val currentOnUpgrade by rememberUpdatedState(onUpgrade)
     var menuOpen by remember { mutableStateOf(false) }
     var confirmDelete by remember { mutableStateOf(false) }
+    var milestone by remember { mutableStateOf<DetailsEvent.StreakMilestone?>(null) }
 
     LaunchedEffect(viewModel) {
         viewModel.events.collect { event ->
@@ -132,6 +135,11 @@ fun HabitDetailsScreen(
                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                     snackbar.currentSnackbarData?.dismiss()
                     snackbar.showSnackbar(context.getString(R.string.home_goal_reached, event.habitName))
+                }
+                is DetailsEvent.StreakMilestone -> {
+                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                    snackbar.currentSnackbarData?.dismiss()
+                    milestone = event
                 }
                 is DetailsEvent.RequiresPremium -> currentOnUpgrade(event.feature)
                 DetailsEvent.Failed -> snackbar.showSnackbar(context.getString(R.string.error_action_failed))
@@ -251,6 +259,18 @@ fun HabitDetailsScreen(
                 viewModel.delete()
             },
             onDismiss = { confirmDelete = false },
+        )
+    }
+    milestone?.let { event ->
+        StreakMilestoneDialog(
+            days = event.days,
+            habitName = event.habitName,
+            icon = event.icon,
+            onShare = {
+                milestone = null
+                AppLinks.shareMilestone(context, event.days, event.icon, event.habitName)
+            },
+            onDismiss = { milestone = null },
         )
     }
 }

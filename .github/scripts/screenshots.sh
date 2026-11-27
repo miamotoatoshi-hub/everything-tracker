@@ -2,7 +2,7 @@
 # Runs the screenshot tour on the connected emulator and prints every image as base64
 # between "=== SCREEN <name>" / "=== END" markers, so the UI can be reviewed from the job log.
 set -u
-APP=com.example.trackly
+APP=$(sed -n 's/^TRACKLY_APPLICATION_ID=//p' gradle.properties)
 ./gradlew --console=plain installDebug installDebugAndroidTest
 adb shell run-as "$APP" rm -rf files/screens || true
 # A slow CI emulator can show "Pixel Launcher isn't responding" over the app: hide such system

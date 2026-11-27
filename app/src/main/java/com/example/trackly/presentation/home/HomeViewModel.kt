@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.trackly.core.time.TodayProvider
 import com.example.trackly.domain.logic.GoalProgress
 import com.example.trackly.domain.logic.StreakCalculator
+import com.example.trackly.domain.logic.StreakMilestones
 import com.example.trackly.domain.model.Habit
 import com.example.trackly.domain.model.HabitEntry
 import com.example.trackly.domain.model.HabitType
@@ -69,6 +70,9 @@ data class HomeContent(
 
 sealed interface HomeEvent {
     data class GoalReached(val habitName: String) : HomeEvent
+
+    /** Today's goal completed a streak milestone (see [StreakMilestones]); shown instead of [GoalReached]. */
+    data class StreakMilestone(val habitName: String, val icon: String, val days: Int) : HomeEvent
     data class RequiresPremium(val feature: PremiumFeature) : HomeEvent
     data object ActionFailed : HomeEvent
 }
@@ -87,6 +91,9 @@ class HomeViewModel(
     val currentQuery: StateFlow<String> = query.asStateFlow()
 
     private val _events = MutableSharedFlow<HomeEvent>(extraBufferCapacity = 8)
+
+    /** "habitId:days:date" already celebrated, so unchecking and checking again does not repeat it. */
+    private val celebrated = mutableSetOf<String>()
     val events: SharedFlow<HomeEvent> = _events.asSharedFlow()
 
     private val snapshot = RetryableState(viewModelScope) {
@@ -132,7 +139,7 @@ class HomeViewModel(
                 habits.addToEntry(habit.id, today, habit.stepValue)
             }
             if (!item.completed && result?.completed == true) {
-                _events.emit(HomeEvent.GoalReached(habit.name))
+                _events.emit(completionEvent(item, today))
             }
         }
     }
@@ -140,10 +147,22 @@ class HomeViewModel(
     /** Long-press dialog: set an exact value for today. */
     fun onSetValue(item: HabitItem, value: Double) {
         launchSafely(onError = { _events.emit(HomeEvent.ActionFailed) }) {
-            val result = habits.setEntryValue(item.habit.id, todayProvider.current(), value)
+            val today = todayProvider.current()
+            val result = habits.setEntryValue(item.habit.id, today, value)
             if (!item.completed && result?.completed == true) {
-                _events.emit(HomeEvent.GoalReached(item.habit.name))
+                _events.emit(completionEvent(item, today))
             }
+        }
+    }
+
+    private fun completionEvent(item: HabitItem, today: LocalDate): HomeEvent {
+        val habit = item.habit
+        val after = StreakMilestones.afterCompletingToday(item.streak, item.scheduledToday)
+        val milestone = StreakMilestones.reached(item.streak, after)
+        return if (milestone != null && celebrated.add("${habit.id}:$milestone:$today")) {
+            HomeEvent.StreakMilestone(habit.name, habit.icon, milestone)
+        } else {
+            HomeEvent.GoalReached(habit.name)
         }
     }
 

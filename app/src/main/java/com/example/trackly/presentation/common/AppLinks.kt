@@ -52,7 +52,20 @@ object AppLinks {
 
     /** Opens the system share sheet with a short message and the Google Play link. */
     fun share(context: Context) {
-        val text = context.getString(R.string.share_message, playStoreUrl(context.packageName))
+        shareText(context, context.getString(R.string.share_message, playStoreUrl(context.packageName)))
+    }
+
+    /** Shares a streak milestone ("7 days in a row! 💧 Water — my streak in Trackly 🔥 <link>"). */
+    fun shareMilestone(context: Context, days: Int, icon: String, habitName: String) {
+        val title = context.resources.getQuantityString(R.plurals.milestone_title, days, days)
+        val habit = "$icon $habitName".trim()
+        shareText(
+            context,
+            context.getString(R.string.milestone_share_message, title, habit, playStoreUrl(context.packageName)),
+        )
+    }
+
+    private fun shareText(context: Context, text: String) {
         val send = Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, text)
         val chooser = Intent.createChooser(send, context.getString(R.string.settings_share))
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
