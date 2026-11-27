@@ -22,3 +22,4 @@ signing.properties
 # Misc
 *.log
 /release-artifacts/
+__pycache__/
