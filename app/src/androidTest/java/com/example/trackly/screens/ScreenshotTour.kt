@@ -135,6 +135,11 @@ class ScreenshotTour {
         // Back through the app itself: Espresso.pressBack() needs window focus, which a system dialog can steal.
         scenario?.onActivity { it.onBackPressedDispatcher.onBackPressed() }
         compose.waitForTag("stats_body")
+        compose.onNodeWithTag("open_achievements_stats").performScrollTo().performClick()
+        compose.waitForTag("achievements_grid")
+        shot("${prefix}09b_achievements", store = storeShots)
+        scenario?.onActivity { it.onBackPressedDispatcher.onBackPressed() }
+        compose.waitForTag("stats_body")
 
         tab("settings", "settings_body")
         shot("${prefix}10_settings")
@@ -258,4 +263,35 @@ class PaywallPlansShot {
     @Test fun plansLight() = render(dark = false, name = "plans_light")
 
     @Test fun plansDark() = render(dark = true, name = "plans_dark")
+}
+
+/** The streak-milestone and perfect-day celebrations, rendered on their own. */
+@RunWith(AndroidJUnit4::class)
+class CelebrationShot {
+    @get:Rule val compose = createComposeRule()
+
+    private fun capture(name: String, content: @androidx.compose.runtime.Composable () -> Unit) {
+        compose.setContent {
+            TracklyTheme(darkTheme = false) {
+                Surface(color = MaterialTheme.colorScheme.background, modifier = Modifier.fillMaxSize()) { content() }
+            }
+        }
+        compose.waitForIdle()
+        Thread.sleep(700)
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val full = instrumentation.uiAutomation.takeScreenshot() ?: return
+        val scaled = Bitmap.createScaledBitmap(full, 720, full.height * 720 / full.width, true)
+        val dir = File(instrumentation.targetContext.filesDir, "screens").apply { mkdirs() }
+        FileOutputStream(File(dir, "$name.jpg")).use { scaled.compress(Bitmap.CompressFormat.JPEG, 82, it) }
+    }
+
+    @Test fun milestone() = capture("celebration_milestone") {
+        com.example.trackly.presentation.common.StreakMilestoneDialog(
+            days = 7, habitName = "Drink Water", icon = "💧", onShare = {}, onDismiss = {},
+        )
+    }
+
+    @Test fun perfectDay() = capture("celebration_perfect_day") {
+        com.example.trackly.presentation.common.PerfectDayDialog(habitCount = 5, onShare = {}, onDismiss = {})
+    }
 }
