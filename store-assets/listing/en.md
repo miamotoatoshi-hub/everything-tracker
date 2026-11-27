@@ -40,14 +40,18 @@ Free forever for up to 5 habits. Premium unlocks:
 • Home-screen widget: check off today's habits without opening the app
 • Monthly and yearly statistics, full history and the whole calendar
 • Premium insights: your best day, most consistent habit and trends
+• Focus timer for time-based habits: the minutes are logged for you
+• Monthly reports and your year in pixels
+• Evening summary of the habits still left today
+• App lock with PIN and fingerprint
 • Export to CSV (Excel, Google Sheets)
-• Extra colors and premium themes
+• Extra colors, premium themes and pure black (AMOLED)
 
 Choose monthly, yearly (best value, with a free trial for new users) or pay once and own Premium forever.
 Prices are shown in your currency in Google Play. Subscriptions renew automatically unless cancelled at least
 24 hours before the renewal date; manage them anytime in Google Play ▸ Payments & subscriptions.
 
-Available in English, Русский, Español, Deutsch, Français and Português (Brasil). Light and dark theme.
+Available in 11 languages: English, Русский, Español, Deutsch, Français, Português (Brasil), Italiano, Polski, Türkçe, Українська and 日本語. Light and dark theme.
 
 Start small. Show up every day. Trackly keeps the streak.
 
@@ -63,6 +67,9 @@ Productivity (alternative: Health & Fitness). Tags: Habit tracker, Productivity,
 6. Reminders at the perfect time
 7. Private & offline. No ads. No account.
 8. Dark mode included
+
+## Release notes 2.0.0
+Trackly 2.0: focus timer, monthly reports and year in pixels, evening summary, app lock with PIN and fingerprint, pure black theme, and 5 new languages.
 
 ## Release notes 1.1.0
 New: 19 achievements, a perfect-day celebration, rest days that keep your streak, and shortcuts on the app icon.

@@ -18,14 +18,14 @@
 
 ## Самое короткое: что делать по порядку
 
-У вас уже есть всё для загрузки: **подписанный файл `trackly-1.1.0-2-signed.aab`**, ключ загрузки
+У вас уже есть всё для загрузки: **подписанный файл `trackly-2.0.0-3-signed.aab`**, ключ загрузки
 `trackly-upload-key.jks` и файл `trackly-signing-secrets.txt` с паролями (их передали вам вместе с этой инструкцией —
 **сохраните все три файла в облако и ещё в одно место**). Компьютер для шагов ниже не обязателен: всё делается в браузере.
 
 1. **Зарегистрируйтесь в Google Play Console** и оплатите $25 (шаг 1). Проверьте, что ваша страна поддерживает
    продажи (шаг 1.4).
 2. **Create app**: название `Trackly`, App, **Free** (шаг 4).
-3. **Internal testing** ▸ загрузите `trackly-1.1.0-2-signed.aab` (шаг 5).
+3. **Internal testing** ▸ загрузите `trackly-2.0.0-3-signed.aab` (шаг 5).
 4. **Создайте подписку и покупку «навсегда»** с ID `trackly_premium` и `trackly_premium_lifetime` (шаг 6).
 5. **App content** ▸ Privacy policy — вставьте ссылку
    `https://github.com/miamotoatoshi-hub/everything-tracker/blob/HEAD/docs/privacy-policy.md` и пройдите анкеты
@@ -60,7 +60,7 @@
 
 **Готово в проекте (проверено сборкой и тестами в GitHub Actions):**
 * нативное Android-приложение (Kotlin + Jetpack Compose), собирается в `.aab` для Google Play;
-* package name `io.github.miamotoatoshi.trackly` уже вписан (шаг 2.1), ключ загрузки создан, версия 1.1.0 (2)
+* package name `io.github.miamotoatoshi.trackly` уже вписан (шаг 2.1), ключ загрузки создан, версия 2.0.0 (3)
   подписана и готова к загрузке;
 * поздравления с сериями (3, 7, 14, 21, 30, 50, 100… дней подряд) и «Идеальный день» (все привычки на сегодня
   выполнены) — с конфетти и кнопкой «Поделиться»: люди возвращаются, чтобы не потерять серию, а поделившиеся
@@ -116,7 +116,7 @@ TRACKLY_APPLICATION_ID=io.github.miamotoatoshi.trackly
 ```
 * Это уникальное имя по стандартной схеме `io.github.<логин GitHub>`: оно точно не занято в Google Play.
 * После первой загрузки в Play Console его **нельзя изменить никогда**. Если хотите другое — поменяйте **до**
-  первой загрузки и пересоберите AAB (готовый `trackly-1.1.0-2-signed.aab` собран именно с этим именем).
+  первой загрузки и пересоберите AAB (готовый `trackly-2.0.0-3-signed.aab` собран именно с этим именем).
 
 ### 2.2 Версия
 ```properties
@@ -343,7 +343,7 @@ Play Console не даёт создавать подписки, пока не з
 ## 9. Страница в магазине
 
 *Grow users ▸ Store presence ▸ Main store listing.* Готовые тексты лежат в `store-assets/listing/`:
-`en.md` (английский — основной) и `ru.md` (русский — добавьте как перевод: *Manage translations ▸ Add your own*).
+`en.md` (английский — основной) и переводы `ru.md`, `it.md`, `pl.md`, `tr.md`, `uk.md`, `ja.md` (добавьте каждый: *Manage translations ▸ Add your own translation text* ▸ язык ▸ вставьте название, краткое и полное описание). Для es/de/fr/pt-BR можно нажать *Translate* — Google переведёт страницу сам, а интерфейс приложения на этих языках уже готов.
 
 | Поле | Ограничение | Файл |
 |---|---|---|
@@ -359,7 +359,7 @@ Play Console не даёт создавать подписки, пока не з
 ### Скриншоты — уже готовы
 В `store-assets/screenshots/` лежат готовые скриншоты телефона 1080×1920 с подписями:
 `en_*.png` — для английской страницы, `ru_*.png` — для русской. Загрузите их в *Phone screenshots*
-(порядок: home → details → calendar → stats → weekly → achievements → form).
+(порядок: home → details → calendar → stats → weekly → achievements → reports → form; это 8 — максимум Google Play).
 
 Они сняты на эмуляторе автоматически (CI, тест `ScreenshotTour`, демо-данные, «чистая» строка состояния 9:41)
 и оформлены скриптом `store-assets/tools/frame_screenshots.py`. Чтобы обновить их после изменений интерфейса:
