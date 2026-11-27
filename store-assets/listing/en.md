@@ -17,7 +17,7 @@ Trackly helps you build the habits you want and keep them — one simple check a
 • Ready-made templates to start in seconds
 
 🔥 STAY MOTIVATED
-• Streaks that respect your schedule
+• Streaks that respect your schedule, with milestone celebrations you can share
 • Progress ring for today and gentle reminders that actually help
 • Mark habits done right from the notification
 • Celebrate every goal you reach

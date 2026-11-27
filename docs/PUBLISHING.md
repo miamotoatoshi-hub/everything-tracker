@@ -16,6 +16,27 @@
 
 ---
 
+## Самое короткое: что делать по порядку
+
+У вас уже есть всё для загрузки: **подписанный файл `trackly-1.0.0-1-signed.aab`**, ключ загрузки
+`trackly-upload-key.jks` и файл `trackly-signing-secrets.txt` с паролями (их передали вам вместе с этой инструкцией —
+**сохраните все три файла в облако и ещё в одно место**). Компьютер для шагов ниже не обязателен: всё делается в браузере.
+
+1. **Зарегистрируйтесь в Google Play Console** и оплатите $25 (шаг 1). Проверьте, что ваша страна поддерживает
+   продажи (шаг 1.4).
+2. **Create app**: название `Trackly`, App, **Free** (шаг 4).
+3. **Internal testing** ▸ загрузите `trackly-1.0.0-1-signed.aab` (шаг 5).
+4. **Создайте подписку и покупку «навсегда»** с ID `trackly_premium` и `trackly_premium_lifetime` (шаг 6).
+5. **App content** ▸ Privacy policy — вставьте ссылку
+   `https://github.com/miamotoatoshi-hub/everything-tracker/blob/HEAD/docs/privacy-policy.md` и пройдите анкеты
+   по таблице из шага 8.
+6. **Store listing**: тексты из `store-assets/listing/`, иконка, баннер и скриншоты из `store-assets/` (шаг 9).
+7. **Закрытый тест 12 человек × 14 дней** (шаг 10), затем **Production** (шаг 11).
+8. **Добавьте 4 секрета в GitHub** (шаг 3.2, вариант Б) — тогда каждое обновление будет подписываться
+   само, и вы сможете выпускать новые версии прямо с телефона (шаг 12).
+
+---
+
 ## Оглавление
 0. [Что уже готово, а что сделать вам](#0-что-уже-готово-а-что-сделать-вам)
 1. [Аккаунт разработчика Google Play](#1-аккаунт-разработчика-google-play)
@@ -39,6 +60,10 @@
 
 **Готово в проекте (проверено сборкой и тестами в GitHub Actions):**
 * нативное Android-приложение (Kotlin + Jetpack Compose), собирается в `.aab` для Google Play;
+* package name `io.github.miamotoatoshi.trackly` уже вписан (шаг 2.1), ключ загрузки создан, версия 1.0.0 (1)
+  подписана и готова к загрузке;
+* поздравления с сериями (3, 7, 14, 21, 30, 50, 100… дней подряд) с кнопкой «Поделиться» — люди возвращаются,
+  чтобы не потерять серию, а поделившиеся приводят новых пользователей;
 * покупки через **Google Play Billing**: подписка с месячным и годовым планом + разовая покупка «Premium навсегда»
   (цены берутся из Google Play, в коде их нет);
 * бесплатный план (до 5 привычек) и Premium; виджет на главный экран (Premium); резервная копия и восстановление;
@@ -49,12 +74,11 @@
 
 **Сделать вам (это нельзя сделать за вас — нужны ваши аккаунты, документы и решения):**
 1. зарегистрировать аккаунт разработчика и пройти проверку личности;
-2. выбрать уникальный package name и вписать его в проект;
-3. создать ключ подписи и хранить его в безопасности;
-4. указать в `gradle.properties` своё имя и e-mail и опубликовать готовый сайт с политикой (шаг 2.4);
-5. создать в Play Console подписку и разовую покупку с ценами;
-6. проверить готовые скриншоты в `store-assets/screenshots/` (или заменить своими);
-7. пройти тестирование и отправить приложение на проверку.
+2. хранить ключ загрузки и пароли в безопасности (и добавить их в секреты GitHub — шаг 3.2);
+3. создать в Play Console подписку и разовую покупку с ценами;
+4. заполнить страницу в магазине готовыми текстами и картинками;
+5. пройти тестирование и отправить приложение на проверку;
+6. по желанию — вписать в `gradle.properties` своё имя и e-mail (шаг 2.4).
 
 ---
 
@@ -82,13 +106,13 @@
 
 Все настройки — в одном файле **`gradle.properties`** в корне проекта.
 
-### 2.1 Package name (applicationId) — один раз и навсегда
+### 2.1 Package name (applicationId) — уже задан
 ```properties
-TRACKLY_APPLICATION_ID=com.yourname.trackly
+TRACKLY_APPLICATION_ID=io.github.miamotoatoshi.trackly
 ```
-* Google Play **не принимает** `com.example.*`.
-* Формат: латиница в нижнем регистре, точки, например `io.github.ivanov.trackly`, `com.mystudio.habits`.
-* После первой загрузки его **нельзя изменить никогда**.
+* Это уникальное имя по стандартной схеме `io.github.<логин GitHub>`: оно точно не занято в Google Play.
+* После первой загрузки в Play Console его **нельзя изменить никогда**. Если хотите другое — поменяйте **до**
+  первой загрузки и пересоберите AAB (готовый `trackly-1.0.0-1-signed.aab` собран именно с этим именем).
 
 ### 2.2 Версия
 ```properties
@@ -114,7 +138,13 @@ LEGAL_EFFECTIVE_DATE=2026-11-25       # дата вступления в сил�
 Если оставить `DEVELOPER_NAME`/`SUPPORT_EMAIL` пустыми, тексты корректно ссылаются на «независимого разработчика»
 и на e-mail со страницы Trackly в Google Play. Эти же значения используются пунктом «Написать разработчику».
 
-**Сайт с публичной ссылкой на политику** (её требует Google Play) лежит в `website/`: главная страница приложения,
+**Ссылка на политику для Play Console уже работает, ничего настраивать не нужно:**
+`https://github.com/miamotoatoshi-hub/everything-tracker/blob/HEAD/docs/privacy-policy.md`
+(условия использования: `…/docs/terms-of-use.md`). Это тот же текст, что в приложении, на английском и русском;
+файлы `docs/*.md` пересоздаёт `python3 website/build.py`. Репозиторий должен оставаться **публичным**, иначе ссылка
+перестанет открываться.
+
+**Красивее — сайт приложения** (по желанию) лежит в `website/`: главная страница приложения,
 `privacy.html`, `terms.html` и русские версии в `website/ru/`. Опубликовать бесплатно через GitHub Pages:
 1. GitHub ▸ репозиторий ▸ *Settings ▸ Pages ▸ Build and deployment ▸ Source:* **GitHub Actions**.
 2. *Actions ▸ Website ▸ Run workflow*. Через минуту сайт будет по адресу
@@ -143,8 +173,13 @@ LEGAL_EFFECTIVE_DATE=2026-11-25       # дата вступления в сил�
 Google Play принимает только **подписанный** `.aab`. Подписывает его ваш **ключ загрузки (upload key)**;
 финальную подпись для пользователей делает Google (**Play App Signing** — включено по умолчанию для новых приложений).
 
-### 3.1 Создайте ключ (один раз)
-В терминале (keytool идёт вместе с Android Studio/JDK):
+### 3.1 Ключ загрузки — уже создан
+Файл `trackly-upload-key.jks` (alias `upload`, действует до 2054 года) и пароль к нему передали вам вместе с этой
+инструкцией; там же `trackly-signing-secrets.txt` — готовые значения для секретов GitHub. **Ключа нет в
+репозитории** — только у вас. Храните его в двух местах (например, Google Drive и iCloud): им подписываются все
+обновления. Если ключ всё-таки пропадёт: Play Console ▸ *Setup ▸ App signing ▸ Request upload key reset*.
+
+Новый ключ (если когда-нибудь понадобится) создаётся так (keytool идёт вместе с Android Studio/JDK):
 ```bash
 keytool -genkeypair -v -keystore upload-keystore.jks -alias upload \
   -keyalg RSA -keysize 2048 -validity 10000
@@ -164,13 +199,17 @@ export KEYSTORE_PASSWORD=…   KEY_ALIAS=upload   KEY_PASSWORD=…
 Файл: `app/build/outputs/bundle/release/app-release.aab`.
 (Или в Android Studio: *Build ▸ Generate Signed App Bundle*, указав тот же ключ.)
 
-**Вариант Б — через GitHub Actions (ничего не нужно ставить):**
-1. GitHub ▸ репозиторий ▸ *Settings ▸ Secrets and variables ▸ Actions ▸ New repository secret*. Добавьте:
-   * `KEYSTORE_BASE64` — содержимое ключа в base64 (`base64 -w0 upload-keystore.jks` на Linux,
-     `base64 -i upload-keystore.jks` на macOS);
-   * `KEYSTORE_PASSWORD`, `KEY_ALIAS`, `KEY_PASSWORD`.
-2. Сделайте любой push (или *Actions ▸ Android CI ▸ Run workflow*).
-3. Откройте запуск ▸ внизу **Artifacts ▸ trackly-release-aab** — это подписанный AAB, готовый к загрузке.
+**Вариант Б — через GitHub Actions (ничего не нужно ставить, можно с телефона):**
+1. GitHub ▸ репозиторий ▸ *Settings ▸ Secrets and variables ▸ Actions ▸ New repository secret*. Добавьте четыре
+   секрета — имена и значения есть в `trackly-signing-secrets.txt` (копируйте значение целиком, без пробелов
+   и переносов в начале и конце):
+   * `KEYSTORE_BASE64` — ключ в виде текста (длинная строка);
+   * `KEYSTORE_PASSWORD`, `KEY_ALIAS` (`upload`), `KEY_PASSWORD`.
+2. *Actions ▸ Android CI ▸ Run workflow ▸ Run workflow* (или измените любой файл — шаг 12).
+3. Через ~10 минут: репозиторий ▸ **Releases ▸ Latest build: … signed** (черновик, его видите только вы) ▸
+   скачайте `trackly-<версия>-<code>-signed.aab` и `mapping-….txt`. AAB загружается в Play Console, а mapping —
+   в *App bundle explorer ▸ Downloads ▸ ReTrace mapping file* (тогда отчёты о сбоях будут читаемыми).
+   То же есть в запуске ▸ внизу **Artifacts ▸ trackly-release-aab**.
 
 Проверка: без этих секретов CI собирает **неподписанный** AAB — такой Google Play не примет.
 
@@ -359,9 +398,19 @@ Play Console не даёт создавать подписки, пока не з
 
 ## 12. Как выпускать обновления
 
-1. Увеличьте `TRACKLY_VERSION_CODE` (обязательно) и `TRACKLY_VERSION_NAME` (например, 1.0.1).
-2. Соберите подписанный AAB (шаг 3).
-3. Загрузите в нужный трек ▸ release notes ▸ rollout.
+**С телефона или любого браузера, без компьютера** (нужны 4 секрета из шага 3.2):
+1. GitHub ▸ репозиторий ▸ файл `gradle.properties` ▸ значок карандаша (*Edit*).
+2. Увеличьте `TRACKLY_VERSION_CODE` на 1 (обязательно: 1 → 2 → 3…) и `TRACKLY_VERSION_NAME` (например, 1.0.1).
+   Здесь же можно поменять имя разработчика, e-mail и ID покупок.
+3. *Commit changes* ▸ *Commit changes*. GitHub сам соберёт, проверит тестами и подпишет новую версию.
+4. Через ~10 минут: **Releases ▸ Latest build: <версия> (<code>), signed** ▸ скачайте `.aab`.
+   Если там написано **unsigned** — секреты не добавлены или с ошибкой (шаг 3.2).
+5. Play Console ▸ нужный трек ▸ *Create new release* ▸ загрузите `.aab` ▸ release notes ▸ rollout.
+
+Тексты в приложении правятся так же, в браузере: `app/src/main/res/values*/strings*.xml`. Если сборка в *Actions*
+стала красной — откройте её: в логе написано, что сломалось (часто это кавычка `'` без `\` в тексте).
+
+**На компьютере:** увеличьте версию, соберите подписанный AAB (шаг 3, вариант А) и загрузите его.
 4. Если меняли структуру базы данных — см. README, раздел «Миграции БД» (иначе данные пользователей могут пропасть;
    CI это проверяет).
 
@@ -405,12 +454,13 @@ HabitNow, Habitify и др.). Trackly технически сделан на у�
 
 | Проблема | Решение |
 |---|---|
-| «Package name com.example… is restricted» | шаг 2.1 |
+| «Package name com.example… is restricted» | шаг 2.1 (уже исправлено: `io.github.miamotoatoshi.trackly`) |
+| «Your APK or Android App Bundle needs to have the package name …» | в Play Console уже есть приложение с другим именем — загружайте AAB в то приложение, для которого он собран |
 | «You uploaded an APK or Android App Bundle that was signed in debug mode» / неподписанный AAB | шаг 3 |
 | «Version code 1 has already been used» | увеличьте `TRACKLY_VERSION_CODE` |
 | Нет кнопки создания подписки | не загружен билд (шаг 5) или не настроен платёжный профиль (шаг 1.4) |
 | Подписка «недоступна» в приложении | шаг 7, последний абзац |
-| Отказ из-за политики конфиденциальности | ссылка не открывается (сайт не опубликован, шаг 2.4) или в Play Console не указан e-mail разработчика |
+| Отказ из-за политики конфиденциальности | ссылка не открывается (репозиторий стал приватным или сайт не опубликован, шаг 2.4) или в Play Console не указан e-mail разработчика |
 | Отказ из-за метаданных | в описании слова «#1», «best», упоминание чужих брендов, эмодзи-спам — уберите |
 | Отказ «Subscriptions policy» | на экране оплаты должны быть цена, период и условия отмены — в Trackly это уже есть, не убирайте |
 | Нельзя подать заявку на Production | не выполнены 12 тестировщиков × 14 дней (шаг 10) |

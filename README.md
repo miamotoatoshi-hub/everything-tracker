@@ -11,7 +11,7 @@ Trackly — нативное Android-приложение (Kotlin + Jetpack Comp
 > готовые скриншоты (EN/RU): [`store-assets/screenshots/`](store-assets/screenshots/).
 
 **Что умеет:** любые привычки (да/нет, счётчик, время, расстояние, количество), гибкое расписание, напоминания
-с отметкой из уведомления, серии, календарь, статистика, недельный обзор, виджет «Сегодня» на главный экран,
+с отметкой из уведомления, серии с поздравлениями (3, 7, 30, 100… дней) и «Поделиться», календарь, статистика, недельный обзор, виджет «Сегодня» на главный экран,
 резервная копия и восстановление (JSON), экспорт в CSV, светлая/тёмная тема, 6 языков
 (English, Русский, Español, Deutsch, Français, Português (Brasil)), запрос оценки в Google Play.
 
@@ -71,7 +71,7 @@ Premium для проверки UI. Этого кода **нет в release** (�
 Всё, что вы меняете перед публикацией, находится в **`gradle.properties`** (корень проекта):
 
 ```properties
-TRACKLY_APPLICATION_ID=com.example.trackly      # package name в Google Play (applicationId)
+TRACKLY_APPLICATION_ID=io.github.miamotoatoshi.trackly  # package name в Google Play (навсегда после загрузки)
 TRACKLY_VERSION_NAME=1.0.0                       # версия для пользователей
 TRACKLY_VERSION_CODE=1                           # номер сборки: увеличивайте при каждой загрузке в Play
 BILLING_PREMIUM_PRODUCT_ID=trackly_premium        # подписка в Play Console (base plans: monthly + yearly)
@@ -93,10 +93,9 @@ TERMS_OF_SERVICE_URL=
 * Значения можно переопределять через `-P` или `~/.gradle/gradle.properties`:
   `./gradlew bundleRelease -PTRACKLY_VERSION_CODE=7 -PTRACKLY_APPLICATION_ID=com.yourcompany.trackly`.
 
-> ⚠️ **Google Play не принимает package name, начинающийся с `com.example`.** По вашему ТЗ в проекте оставлен
-> placeholder `com.example.trackly`. Перед загрузкой в Play Console замените `TRACKLY_APPLICATION_ID` на свой.
-> Менять исходники для этого **не нужно**: Kotlin-пакет (`namespace`) остаётся `com.example.trackly`, а Google Play
-> видит только `applicationId`.
+> ℹ️ Google Play не принимает package name `com.example.*`, поэтому `TRACKLY_APPLICATION_ID` уже заменён на
+> уникальный `io.github.miamotoatoshi.trackly`. Kotlin-пакет (`namespace`) остался `com.example.trackly` —
+> Google Play видит только `applicationId`, менять исходники не нужно.
 
 ---
 

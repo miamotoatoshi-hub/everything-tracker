@@ -52,6 +52,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -87,6 +88,7 @@ import com.example.trackly.ui.components.ValueDialog
 import com.example.trackly.ui.components.adaptiveColumns
 import com.example.trackly.ui.theme.TracklyTheme
 import java.time.LocalTime
+import kotlinx.coroutines.launch
 
 @Composable
 fun HomeScreen(
@@ -110,6 +112,7 @@ fun HomeScreen(
     var valueDialogFor by remember { mutableStateOf<HabitItem?>(null) }
     var deleteFor by remember { mutableStateOf<HabitItem?>(null) }
     var milestone by remember { mutableStateOf<HomeEvent.StreakMilestone?>(null) }
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(viewModel) {
         viewModel.events.collect { event ->
@@ -221,7 +224,9 @@ fun HomeScreen(
             onDismiss = {
                 milestone = null
                 // A happy moment: the best time to (maybe) ask for a rating.
-                context.findActivity()?.let { activity -> container.reviewPrompter.onGoalReached(activity) }
+                context.findActivity()?.let { activity ->
+                    scope.launch { container.reviewPrompter.onGoalReached(activity) }
+                }
             },
         )
     }
