@@ -140,6 +140,13 @@ class ScreenshotTour {
         shot("${prefix}09b_achievements", store = storeShots)
         scenario?.onActivity { it.onBackPressedDispatcher.onBackPressed() }
         compose.waitForTag("stats_body")
+        compose.onNodeWithTag("open_reports").performScrollTo().performClick()
+        compose.waitForTag("reports_body")
+        shot("${prefix}09c_reports", store = storeShots)
+        swipeUp("reports_body")
+        shot("${prefix}09d_reports_more", store = storeShots)
+        scenario?.onActivity { it.onBackPressedDispatcher.onBackPressed() }
+        compose.waitForTag("stats_body")
 
         tab("settings", "settings_body")
         shot("${prefix}10_settings")
@@ -293,5 +300,60 @@ class CelebrationShot {
 
     @Test fun perfectDay() = capture("celebration_perfect_day") {
         com.example.trackly.presentation.common.PerfectDayDialog(habitCount = 5, onShare = {}, onDismiss = {})
+    }
+}
+
+/** Premium screens rendered on their own: the focus timer (with demo data) and the PIN lock. */
+@RunWith(AndroidJUnit4::class)
+class PremiumScreensShot {
+    @get:Rule val compose = createComposeRule()
+
+    private fun save(name: String) {
+        compose.waitForIdle()
+        Thread.sleep(700)
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val full = instrumentation.uiAutomation.takeScreenshot() ?: return
+        val scaled = Bitmap.createScaledBitmap(full, 720, full.height * 720 / full.width, true)
+        val dir = File(instrumentation.targetContext.filesDir, "screens").apply { mkdirs() }
+        FileOutputStream(File(dir, "$name.jpg")).use { scaled.compress(Bitmap.CompressFormat.JPEG, 82, it) }
+        FileOutputStream(File(dir, "store_$name.png")).use { full.compress(Bitmap.CompressFormat.PNG, 100, it) }
+    }
+
+    @Test
+    fun focusTimer() {
+        resetApp()
+        runBlocking { DebugTools.seedDemoData(container) }
+        val habit = runBlocking {
+            container.habitRepository.getHabits().first { it.type == com.example.trackly.domain.model.HabitType.DURATION }
+        }
+        compose.setContent {
+            androidx.compose.runtime.CompositionLocalProvider(
+                com.example.trackly.presentation.common.LocalAppContainer provides container,
+            ) {
+                TracklyTheme(darkTheme = false) {
+                    com.example.trackly.presentation.focus.FocusTimerScreen(habitId = habit.id, onBack = {})
+                }
+            }
+        }
+        compose.waitForTag("focus_start")
+        save("focus_timer")
+        compose.onNodeWithTag("focus_start").performClick()
+        Thread.sleep(1500)
+        save("focus_running")
+    }
+
+    @Test
+    fun lockScreen() {
+        compose.setContent {
+            TracklyTheme(darkTheme = false) {
+                com.example.trackly.presentation.lock.LockScreen(
+                    pinHash = com.example.trackly.core.security.PinHasher.hash("1234"),
+                    biometric = false,
+                    onUnlocked = {},
+                )
+            }
+        }
+        compose.waitForTag("pin_dots")
+        save("lock_screen")
     }
 }
