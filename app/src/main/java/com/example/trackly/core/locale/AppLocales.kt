@@ -9,7 +9,7 @@ import java.util.Locale
  * [supportedTags] and in `res/xml/locales_config.xml`.
  */
 object AppLocales {
-    val supportedTags: List<String> = listOf("en", "ru", "es", "de", "fr", "pt-BR")
+    val supportedTags: List<String> = listOf("en", "ru", "es", "de", "fr", "pt-BR", "it", "pl", "tr", "uk", "ja")
 
     /** The explicitly chosen language tag, or null when following the system language. */
     fun currentTag(): String? {

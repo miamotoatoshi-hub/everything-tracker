@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onboarding_title_1">Segui ciò che conta.</string>
+    <string name="onboarding_body_1">Crea qualsiasi abitudine o obiettivo — acqua, allenamenti, lettura, risparmi — e tienili in un unico posto tranquillo.</string>
+    <string name="onboarding_title_2">Costruisci abitudini migliori.</string>
+    <string name="onboarding_body_2">Imposta obiettivi, scegli i giorni e aggiungi promemoria gentili adatti alla tua routine.</string>
+    <string name="onboarding_title_3">Resta costante.</string>
+    <string name="onboarding_body_3">Serie, calendari e statistiche mostrano quanta strada hai fatto.</string>
+    <string name="onboarding_skip">Salta</string>
+    <string name="onboarding_next">Avanti</string>
+    <string name="onboarding_templates_title">Crea la tua prima abitudine</string>
+    <string name="onboarding_templates_body">Scegline qualcuna per iniziare: potrai cambiare tutto in seguito.</string>
+    <string name="onboarding_start">Inizia</string>
+    <string name="onboarding_start_count">Inizia (%1$d)</string>
+    <string name="onboarding_custom">Crea un\'abitudine personalizzata</string>
+    <string name="onboarding_later">Lo farò più tardi</string>
+    <string name="onboarding_limit">Il piano gratuito include fino a %1$d abitudini.</string>
+</resources>

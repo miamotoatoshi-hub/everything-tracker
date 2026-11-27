@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onboarding_title_1">大切なことを記録しよう。</string>
+    <string name="onboarding_body_1">水分補給、運動、読書、貯金など、気になる習慣や目標をなんでも作って、ひとつの落ち着いた場所にまとめましょう。</string>
+    <string name="onboarding_title_2">より良い習慣を。</string>
+    <string name="onboarding_body_2">目標を決め、曜日を選び、ルーティンに合わせたやさしいリマインダーを追加しましょう。</string>
+    <string name="onboarding_title_3">続けることが力に。</string>
+    <string name="onboarding_body_3">連続記録、カレンダー、統計で、どこまで来たかがわかります。</string>
+    <string name="onboarding_skip">スキップ</string>
+    <string name="onboarding_next">次へ</string>
+    <string name="onboarding_templates_title">最初の習慣を作りましょう</string>
+    <string name="onboarding_templates_body">まずはいくつか選んでください。あとからすべて変更できます。</string>
+    <string name="onboarding_start">記録を始める</string>
+    <string name="onboarding_start_count">記録を始める（%1$d）</string>
+    <string name="onboarding_custom">オリジナルの習慣を作成</string>
+    <string name="onboarding_later">あとで設定する</string>
+    <string name="onboarding_limit">無料プランでは習慣を%1$d個まで作成できます。</string>
+</resources>

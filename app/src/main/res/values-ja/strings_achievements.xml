@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="achievements_title">実績</string>
+    <string name="achievements_unlocked">%2$d個中%1$d個を達成</string>
+    <string name="achievements_next">次: %1$s</string>
+    <string name="achievements_all_done">すべて達成しました。伝説級です！</string>
+    <string name="achievement_unlocked">達成</string>
+    <string name="achv_first_title">はじめの一歩</string>
+    <string name="achv_first_desc">初めて習慣を完了する</string>
+    <string name="achv_streak_desc">1つの習慣を1日も休まず続ける</string>
+    <string name="achv_done_desc">すべての習慣で達成した1日の目標</string>
+    <string name="achv_perfect_desc">予定した習慣をすべて完了した日</string>
+    <string name="achv_habits_desc">いくつかの習慣で自分のルーティンを作る</string>
+    <string name="achv_days_desc">1つ以上の目標を達成した日</string>
+    <string name="perfect_day_title">パーフェクトな1日！</string>
+    <string name="perfect_day_share_message">✨ Trackly でパーフェクトな1日: %1$d個中%1$d個の習慣を完了！ %2$s</string>
+    <string name="action_skip_today">今日はお休み（休息日）</string>
+    <string name="action_unskip_today">今日の休息日を取り消す</string>
+    <string name="skip_today_done">休息日: 連続記録は途切れません</string>
+    <plurals name="achv_streak_title">
+        <item quantity="other">%d日連続</item>
+    </plurals>
+    <plurals name="achv_done_title">
+        <item quantity="other">目標達成%d回</item>
+    </plurals>
+    <plurals name="achv_perfect_title">
+        <item quantity="other">パーフェクトな日 %d日</item>
+    </plurals>
+    <plurals name="achv_habits_title">
+        <item quantity="other">習慣%d個</item>
+    </plurals>
+    <plurals name="achv_days_title">
+        <item quantity="other">アクティブな日 %d日</item>
+    </plurals>
+    <plurals name="perfect_day_body">
+        <item quantity="other">今日の習慣%d個をすべて完了しました。素晴らしい！</item>
+    </plurals>
+</resources>

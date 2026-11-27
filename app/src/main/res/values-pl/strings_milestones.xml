@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="milestone_title">
+        <item quantity="one">%d dzień z rzędu!</item>
+        <item quantity="few">%d dni z rzędu!</item>
+        <item quantity="many">%d dni z rzędu!</item>
+        <item quantity="other">%d dnia z rzędu!</item>
+    </plurals>
+    <string name="milestone_body">Tak trzymaj: odhacz go też jutro i patrz, jak rośnie seria.</string>
+    <string name="milestone_ok">Super</string>
+    <string name="milestone_share">Udostępnij</string>
+    <string name="milestone_share_message">%1$s %2$s — moja seria w Trackly 🔥 %3$s</string>
+</resources>

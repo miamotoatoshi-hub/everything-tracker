@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_greeting_morning">Günaydın 👋</string>
+    <string name="home_greeting_afternoon">İyi günler 👋</string>
+    <string name="home_greeting_evening">İyi akşamlar 👋</string>
+    <string name="home_today_progress">Bugünkü ilerleme</string>
+    <string name="home_progress_summary">%2$d alışkanlıktan %1$d tanesi tamam</string>
+    <string name="home_nothing_scheduled">Bugün planlanan bir şey yok</string>
+    <string name="home_start_streak">Seri başlatmak için bir alışkanlığı tamamla</string>
+    <string name="home_this_week">Bu hafta</string>
+    <string name="home_add_habit">Alışkanlık ekle</string>
+    <string name="home_create_habit">Alışkanlık oluştur</string>
+    <string name="home_search">Alışkanlıklarda ara</string>
+    <string name="home_search_hint">Alışkanlıklarda ara</string>
+    <string name="home_reorder">Alışkanlıkları sırala</string>
+    <string name="home_empty_title">Henüz takip edilecek bir şey yok.</string>
+    <string name="home_empty_message">İlk alışkanlığını oluştur ve rutinini kurmaya başla.</string>
+    <string name="home_goal_reached">%1$s tamamlandı! 🎉</string>
+    <string name="home_all_done_title">Bugünlük her şey tamam</string>
+    <string name="home_all_done_message">Harika iş — yarın görüşürüz.</string>
+    <string name="filter_today">Bugün</string>
+    <string name="filter_all">Tümü</string>
+    <string name="filter_completed">Tamamlanan</string>
+    <string name="filter_incomplete">Kalan</string>
+    <string name="filter_archived">Arşiv</string>
+    <string name="section_todo">Yapılacak · %1$d</string>
+    <string name="section_done">Tamamlanan · %1$d</string>
+    <string name="empty_today_title">Bugün planlanan bir şey yok</string>
+    <string name="empty_today_message">Günün tadını çıkar ya da tüm alışkanlıkları görmek için \"Tümü\"ne bak.</string>
+    <string name="empty_search_title">Sonuç yok</string>
+    <string name="empty_search_message">Aramana uyan alışkanlık yok.</string>
+    <string name="empty_completed_title">Henüz tamamlanan yok</string>
+    <string name="empty_completed_message">Tamamlanan alışkanlıklar burada görünecek.</string>
+    <string name="empty_incomplete_title">Her şey tamam!</string>
+    <string name="empty_incomplete_message">Bugün yapılacak bir şey kalmadı.</string>
+    <string name="empty_archived_title">Arşivlenmiş alışkanlık yok</string>
+    <string name="empty_archived_message">Bir alışkanlığı geçmişini kaybetmeden gizlemek için arşivle.</string>
+    <string name="habit_card_add">%3$s için %1$s %2$s ekle</string>
+    <string name="habit_card_mark_done">%1$s alışkanlığını yapıldı olarak işaretle</string>
+    <string name="habit_card_mark_not_done">%1$s alışkanlığını yapılmadı olarak işaretle</string>
+    <string name="habit_card_set_value">Kesin değer gir</string>
+    <string name="reorder_title">Alışkanlıkları sırala</string>
+    <string name="reorder_hint">Alışkanlıkların sırasını değiştirmek için okları kullan.</string>
+    <string name="reorder_move_up">%1$s yukarı taşı</string>
+    <string name="reorder_move_down">%1$s aşağı taşı</string>
+</resources>

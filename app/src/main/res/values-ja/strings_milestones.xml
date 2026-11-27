@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="milestone_title">
+        <item quantity="other">%d日連続！</item>
+    </plurals>
+    <string name="milestone_body">この調子！明日もチェックして、連続記録を伸ばしましょう。</string>
+    <string name="milestone_ok">やった！</string>
+    <string name="milestone_share">シェア</string>
+    <string name="milestone_share_message">%1$s %2$s — Trackly での連続記録 🔥 %3$s</string>
+</resources>

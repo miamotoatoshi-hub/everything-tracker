@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="achievements_title">Başarımlar</string>
+    <string name="achievements_unlocked">%1$d / %2$d açıldı</string>
+    <string name="achievements_next">Sıradaki: %1$s</string>
+    <string name="achievements_all_done">Hepsi açıldı. Efsanesin!</string>
+    <string name="achievement_unlocked">Açıldı</string>
+    <string name="achv_first_title">İlk adım</string>
+    <string name="achv_first_desc">Bir alışkanlığı ilk kez tamamla</string>
+    <string name="achv_streak_desc">Bir alışkanlığı tek gün kaçırmadan sürdür</string>
+    <string name="achv_done_desc">Ulaşılan günlük hedefler, tüm alışkanlıklar birlikte</string>
+    <string name="achv_perfect_desc">Planlanan tüm alışkanlıkların yapıldığı günler</string>
+    <string name="achv_habits_desc">Rutinini birkaç alışkanlıktan kur</string>
+    <string name="achv_days_desc">En az bir hedefe ulaşılan günler</string>
+    <string name="perfect_day_title">Mükemmel gün!</string>
+    <string name="perfect_day_share_message">✨ Trackly\'de mükemmel bir gün: %1$d alışkanlığın %1$d tanesi tamam! %2$s</string>
+    <string name="action_skip_today">Bugünü atla (dinlenme)</string>
+    <string name="action_unskip_today">Bugünkü dinlenmeyi geri al</string>
+    <string name="skip_today_done">Dinlenme günü: serin güvende</string>
+    <plurals name="achv_streak_title">
+        <item quantity="one">Üst üste %d gün</item>
+        <item quantity="other">Üst üste %d gün</item>
+    </plurals>
+    <plurals name="achv_done_title">
+        <item quantity="one">%d hedefe ulaşıldı</item>
+        <item quantity="other">%d hedefe ulaşıldı</item>
+    </plurals>
+    <plurals name="achv_perfect_title">
+        <item quantity="one">%d mükemmel gün</item>
+        <item quantity="other">%d mükemmel gün</item>
+    </plurals>
+    <plurals name="achv_habits_title">
+        <item quantity="one">%d alışkanlık</item>
+        <item quantity="other">%d alışkanlık</item>
+    </plurals>
+    <plurals name="achv_days_title">
+        <item quantity="one">%d aktif gün</item>
+        <item quantity="other">%d aktif gün</item>
+    </plurals>
+    <plurals name="perfect_day_body">
+        <item quantity="one">Bugünkü %d alışkanlığın tamam. Harika iş!</item>
+        <item quantity="other">Bugünkü %d alışkanlığın hepsi tamam. Harika iş!</item>
+    </plurals>
+</resources>

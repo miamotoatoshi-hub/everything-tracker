@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="channel_reminders_sound_vibration">リマインダー（音とバイブ）</string>
+    <string name="channel_reminders_sound">リマインダー（音のみ）</string>
+    <string name="channel_reminders_vibration">リマインダー（バイブのみ）</string>
+    <string name="channel_reminders_silent">リマインダー（サイレント）</string>
+    <string name="channel_reminders_description">記録している習慣のリマインダー</string>
+    <string name="notification_default_message">%1$s %2$sの時間です</string>
+    <string name="notification_action_done">完了</string>
+    <string name="notification_action_add">追加</string>
+</resources>

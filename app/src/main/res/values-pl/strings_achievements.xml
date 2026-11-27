@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="achievements_title">Osiągnięcia</string>
+    <string name="achievements_unlocked">Odblokowano %1$d z %2$d</string>
+    <string name="achievements_next">Następne: %1$s</string>
+    <string name="achievements_all_done">Wszystko odblokowane. Legenda!</string>
+    <string name="achievement_unlocked">Odblokowane</string>
+    <string name="achv_first_title">Pierwszy krok</string>
+    <string name="achv_first_desc">Wykonaj nawyk po raz pierwszy</string>
+    <string name="achv_streak_desc">Kontynuuj jeden nawyk bez opuszczenia dnia</string>
+    <string name="achv_done_desc">Osiągnięte cele dzienne, wszystkie nawyki razem</string>
+    <string name="achv_perfect_desc">Dni, w które wykonano wszystkie zaplanowane nawyki</string>
+    <string name="achv_habits_desc">Zbuduj rutynę z kilku nawyków</string>
+    <string name="achv_days_desc">Dni z co najmniej jednym osiągniętym celem</string>
+    <string name="perfect_day_title">Idealny dzień!</string>
+    <string name="perfect_day_share_message">✨ Idealny dzień w Trackly: wykonano %1$d z %1$d nawyków! %2$s</string>
+    <string name="action_skip_today">Pomiń dziś (odpoczynek)</string>
+    <string name="action_unskip_today">Cofnij dzisiejszy odpoczynek</string>
+    <string name="skip_today_done">Dzień odpoczynku: twoja seria jest bezpieczna</string>
+    <plurals name="achv_streak_title">
+        <item quantity="one">%d dzień z rzędu</item>
+        <item quantity="few">%d dni z rzędu</item>
+        <item quantity="many">%d dni z rzędu</item>
+        <item quantity="other">%d dnia z rzędu</item>
+    </plurals>
+    <plurals name="achv_done_title">
+        <item quantity="one">%d osiągnięty cel</item>
+        <item quantity="few">%d osiągnięte cele</item>
+        <item quantity="many">%d osiągniętych celów</item>
+        <item quantity="other">%d osiągniętego celu</item>
+    </plurals>
+    <plurals name="achv_perfect_title">
+        <item quantity="one">%d idealny dzień</item>
+        <item quantity="few">%d idealne dni</item>
+        <item quantity="many">%d idealnych dni</item>
+        <item quantity="other">%d idealnego dnia</item>
+    </plurals>
+    <plurals name="achv_habits_title">
+        <item quantity="one">%d nawyk</item>
+        <item quantity="few">%d nawyki</item>
+        <item quantity="many">%d nawyków</item>
+        <item quantity="other">%d nawyku</item>
+    </plurals>
+    <plurals name="achv_days_title">
+        <item quantity="one">%d aktywny dzień</item>
+        <item quantity="few">%d aktywne dni</item>
+        <item quantity="many">%d aktywnych dni</item>
+        <item quantity="other">%d aktywnego dnia</item>
+    </plurals>
+    <plurals name="perfect_day_body">
+        <item quantity="one">Twój %d nawyk na dziś jest wykonany. Świetna robota!</item>
+        <item quantity="few">Wszystkie %d nawyki na dziś są wykonane. Świetna robota!</item>
+        <item quantity="many">Wszystkie %d nawyków na dziś jest wykonanych. Świetna robota!</item>
+        <item quantity="other">Wszystkie %d nawyku na dziś są wykonane. Świetna robota!</item>
+    </plurals>
+</resources>

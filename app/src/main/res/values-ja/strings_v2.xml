@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="premium_reason_focus">集中タイマーは Premium の機能です。</string>
+    <string name="premium_reason_reports">月間レポートと年間ピクセルは Premium の機能です。</string>
+    <string name="premium_reason_lock">アプリのロックは Premium の機能です。</string>
+    <string name="premium_reason_summary">夜のまとめは Premium の機能です。</string>
+    <string name="premium_feature_focus">時間を自動で記録する集中タイマー</string>
+    <string name="premium_feature_reports">月間レポートと年間ピクセル</string>
+    <string name="premium_feature_lock">PIN と指紋によるアプリのロック</string>
+    <string name="premium_feature_summary">残りの習慣を知らせる夜のまとめ</string>
+    <string name="settings_pure_black">ピュアブラック（AMOLED）</string>
+    <string name="settings_pure_black_desc">ダークテーマの背景を真っ黒にしてバッテリーを節約</string>
+    <string name="settings_daily_summary">夜のまとめ</string>
+    <string name="settings_daily_summary_desc">今日まだ残っている習慣を1回だけお知らせ</string>
+    <string name="settings_daily_summary_time">まとめの時刻</string>
+    <string name="settings_security">プライバシーとセキュリティ</string>
+    <string name="settings_app_lock">アプリのロック</string>
+    <string name="settings_app_lock_desc">Trackly を開くときに PIN を要求する</string>
+    <string name="settings_app_lock_biometric">指紋または顔でロック解除</string>
+    <string name="lock_title">Trackly はロックされています</string>
+    <string name="lock_enter_pin">PIN を入力してください</string>
+    <string name="lock_wrong_pin">PIN が違います。もう一度お試しください</string>
+    <string name="lock_biometric_title">Trackly のロックを解除</string>
+    <string name="lock_use_pin">PIN を使用</string>
+    <string name="lock_biometric_button">指紋または顔</string>
+    <string name="lock_forgot_hint">PIN を忘れた場合は、Android の設定でアプリのデータを消去することでのみリセットできます。</string>
+    <string name="lock_setup_title">4桁の PIN を設定</string>
+    <string name="lock_setup_confirm">もう一度 PIN を入力</string>
+    <string name="lock_setup_mismatch">PIN が一致しません。もう一度お試しください。</string>
+    <string name="summary_text">%1$s。今日はまだ間に合います！</string>
+    <string name="focus_title">集中タイマー</string>
+    <string name="focus_minutes">%1$d分</string>
+    <string name="focus_start">集中を始める</string>
+    <string name="focus_pause">一時停止</string>
+    <string name="focus_resume">再開</string>
+    <string name="focus_add_five">+5分</string>
+    <string name="focus_finish">終了して保存</string>
+    <string name="focus_hint">タイマー作動中は画面がオンのままです。終了すると、時間が今日の記録に追加されます。</string>
+    <string name="focus_nothing_logged">1分未満のため、記録されませんでした</string>
+    <string name="reports_title">レポート</string>
+    <string name="reports_open">月間レポートと年間ピクセル</string>
+    <string name="reports_rate_label">1日の目標を達成</string>
+    <string name="reports_vs_previous">前月比 %1$s</string>
+    <string name="reports_no_previous">Trackly で迎える最初の月</string>
+    <string name="reports_goals_done">達成した目標</string>
+    <string name="reports_perfect_days">パーフェクトな日</string>
+    <string name="reports_active_days">アクティブな日</string>
+    <string name="reports_best_streak">最長連続記録（日）</string>
+    <string name="reports_top_habits">トップの習慣</string>
+    <string name="reports_needs_attention">もう少し頑張りたい習慣</string>
+    <string name="reports_best_weekday">いちばん調子の良い曜日</string>
+    <string name="reports_best_weekday_value">%1$s · 目標の%2$d%%を達成</string>
+    <string name="reports_year_pixels">年間ピクセル</string>
+    <string name="reports_less">少</string>
+    <string name="reports_more">多</string>
+    <string name="reports_empty">今月はまだ予定がありません。習慣を作って、また見に来てください。</string>
+    <string name="reports_share_message">📈 Trackly の %1$s: 目標達成率 %2$d%%、パーフェクトな日 %3$d日、最長連続記録 %4$d。 %5$s</string>
+    <plurals name="summary_title">
+        <item quantity="other">今日の残り: %2$d個中%1$d個の習慣</item>
+    </plurals>
+    <plurals name="focus_logged">
+        <item quantity="other">+%d分を記録しました</item>
+    </plurals>
+</resources>

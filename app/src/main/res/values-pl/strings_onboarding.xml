@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onboarding_title_1">Śledź to, co ważne.</string>
+    <string name="onboarding_body_1">Twórz dowolne nawyki i cele — woda, treningi, czytanie, oszczędzanie — i trzymaj je w jednym spokojnym miejscu.</string>
+    <string name="onboarding_title_2">Buduj lepsze nawyki.</string>
+    <string name="onboarding_body_2">Ustal cele, wybierz dni i dodaj delikatne przypomnienia dopasowane do twojej rutyny.</string>
+    <string name="onboarding_title_3">Bądź konsekwentny.</string>
+    <string name="onboarding_body_3">Serie, kalendarze i statystyki pokazują, jak daleko zaszedłeś.</string>
+    <string name="onboarding_skip">Pomiń</string>
+    <string name="onboarding_next">Dalej</string>
+    <string name="onboarding_templates_title">Utwórz pierwszy nawyk</string>
+    <string name="onboarding_templates_body">Wybierz kilka na start — wszystko możesz później zmienić.</string>
+    <string name="onboarding_start">Zacznij</string>
+    <string name="onboarding_start_count">Zacznij (%1$d)</string>
+    <string name="onboarding_custom">Utwórz własny nawyk</string>
+    <string name="onboarding_later">Zrobię to później</string>
+    <string name="onboarding_limit">Plan darmowy obejmuje do %1$d nawyków.</string>
+</resources>

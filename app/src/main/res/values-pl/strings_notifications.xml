@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="channel_reminders_sound_vibration">Przypomnienia (dźwięk i wibracje)</string>
+    <string name="channel_reminders_sound">Przypomnienia (tylko dźwięk)</string>
+    <string name="channel_reminders_vibration">Przypomnienia (tylko wibracje)</string>
+    <string name="channel_reminders_silent">Przypomnienia (ciche)</string>
+    <string name="channel_reminders_description">Przypomnienia o śledzonych nawykach</string>
+    <string name="notification_default_message">Czas na: %1$s %2$s</string>
+    <string name="notification_action_done">Zrobione</string>
+    <string name="notification_action_add">Dodaj</string>
+</resources>

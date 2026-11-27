@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="stats_overall">全体</string>
+    <string name="stats_per_habit">習慣別</string>
+    <string name="stats_week">週</string>
+    <string name="stats_month">月</string>
+    <string name="stats_year">年</string>
+    <string name="stats_completion_rate">達成率</string>
+    <string name="stats_rate_caption">予定した日のうち完了した日の割合です。</string>
+    <string name="stats_total_completions">合計完了回数</string>
+    <string name="stats_average_completion">平均達成度</string>
+    <string name="stats_weekly_activity">週間のアクティビティ</string>
+    <string name="stats_monthly_activity">月間のアクティビティ</string>
+    <string name="stats_yearly_activity">年間のアクティビティ</string>
+    <string name="stats_by_habit">習慣別</string>
+    <string name="stats_weekly_overview">週間の概要</string>
+    <string name="stats_premium_section">Premium インサイト</string>
+    <string name="stats_locked_message">月間・年間の統計で全体像を確認しましょう。</string>
+    <string name="stats_empty_title">まだ統計がありません</string>
+    <string name="stats_empty_message">数日間習慣を記録すると、ここに統計が表示されます。</string>
+    <string name="insights_locked_title">Premium インサイト</string>
+    <string name="insights_locked_message">得意な曜日、最も続いている習慣、週ごとの傾向がわかります。</string>
+    <string name="insights_not_enough_data">インサイトを解放するには、あと数日記録を続けてください。</string>
+    <string name="insights_overall_only">インサイトはすべての習慣を比較します。「全体」に切り替えると表示されます。</string>
+    <string name="insight_best_day">いちばん調子の良い曜日</string>
+    <string name="insight_weakest_day">いちばん苦手な曜日</string>
+    <string name="insight_top_habit">最も続いている習慣（30日間）</string>
+    <string name="insight_trend">先週と比べた傾向</string>
+    <string name="insight_trend_up">%1$dポイント上昇</string>
+    <string name="insight_trend_down">%1$dポイント低下</string>
+    <string name="insight_trend_flat">変化なし</string>
+    <string name="insight_perfect_days">パーフェクトな日（直近30日）</string>
+    <string name="weekly_title">今週</string>
+    <string name="weekly_completion_rate">達成率</string>
+    <string name="weekly_daily_progress">日ごとの進捗</string>
+    <string name="weekly_by_habit">習慣別</string>
+    <string name="weekly_day_description">%1$s: %3$d個中%2$d個の習慣を完了</string>
+</resources>

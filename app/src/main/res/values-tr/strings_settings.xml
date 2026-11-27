@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_appearance">Görünüm</string>
+    <string name="settings_theme">Tema</string>
+    <string name="settings_accent">Vurgu rengi</string>
+    <string name="settings_notifications">Bildirimler</string>
+    <string name="settings_enable_notifications">Bildirimleri aç</string>
+    <string name="settings_enable_notifications_desc">Alışkanlıkların için hatırlatıcılar</string>
+    <string name="settings_notifications_blocked">Bildirimler kapalı</string>
+    <string name="settings_notifications_blocked_desc">Sistem ayarlarında izin vermek için dokun</string>
+    <string name="settings_sound">Ses</string>
+    <string name="settings_vibration">Titreşim</string>
+    <string name="settings_system_notifications">Sistem bildirim ayarları</string>
+    <string name="settings_general">Genel</string>
+    <string name="settings_first_day">Haftanın ilk günü</string>
+    <string name="settings_units">Birimler</string>
+    <string name="settings_language">Dil</string>
+    <string name="settings_language_system">Sistem varsayılanı</string>
+    <string name="settings_premium">Premium</string>
+    <string name="settings_premium_active">Trackly Premium</string>
+    <string name="settings_premium_active_desc">Desteğin için teşekkürler</string>
+    <string name="settings_premium_canceled">Trackly Premium (yakında bitiyor)</string>
+    <string name="settings_premium_pending">Ödeme bekliyor</string>
+    <string name="settings_premium_expired">Premium\'un süresi doldu</string>
+    <string name="settings_premium_free">Ücretsiz plan</string>
+    <string name="settings_premium_upgrade_desc">Sınırsız alışkanlık ve gelişmiş istatistiklerin kilidini aç</string>
+    <string name="settings_manage_subscription">Aboneliği yönet</string>
+    <string name="settings_restore_purchases">Satın alımları geri yükle</string>
+    <string name="settings_about">Hakkında</string>
+    <string name="settings_privacy_policy">Gizlilik Politikası</string>
+    <string name="settings_terms">Kullanım Koşulları</string>
+    <string name="settings_version">Uygulama sürümü</string>
+</resources>

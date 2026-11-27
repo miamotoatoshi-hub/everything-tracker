@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="channel_reminders_sound_vibration">Нагадування (звук і вібрація)</string>
+    <string name="channel_reminders_sound">Нагадування (лише звук)</string>
+    <string name="channel_reminders_vibration">Нагадування (лише вібрація)</string>
+    <string name="channel_reminders_silent">Нагадування (без звуку)</string>
+    <string name="channel_reminders_description">Нагадування про звички, які ти відстежуєш</string>
+    <string name="notification_default_message">Час для: %1$s %2$s</string>
+    <string name="notification_action_done">Виконано</string>
+    <string name="notification_action_add">Додати</string>
+</resources>

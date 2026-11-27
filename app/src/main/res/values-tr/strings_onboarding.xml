@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onboarding_title_1">Önemli olanı takip et.</string>
+    <string name="onboarding_body_1">Önem verdiğin her alışkanlığı ya da hedefi oluştur — su, egzersiz, okuma, birikim — ve hepsini sakin tek bir yerde tut.</string>
+    <string name="onboarding_title_2">Daha iyi alışkanlıklar edin.</string>
+    <string name="onboarding_body_2">Hedefler koy, günlerini seç ve rutinine uyan nazik hatırlatıcılar ekle.</string>
+    <string name="onboarding_title_3">İstikrarlı kal.</string>
+    <string name="onboarding_body_3">Seriler, takvimler ve istatistikler ne kadar yol aldığını gösterir.</string>
+    <string name="onboarding_skip">Atla</string>
+    <string name="onboarding_next">İleri</string>
+    <string name="onboarding_templates_title">İlk alışkanlığını oluştur</string>
+    <string name="onboarding_templates_body">Başlamak için birkaç tane seç — sonra her şeyi değiştirebilirsin.</string>
+    <string name="onboarding_start">Başla</string>
+    <string name="onboarding_start_count">Başla (%1$d)</string>
+    <string name="onboarding_custom">Özel alışkanlık oluştur</string>
+    <string name="onboarding_later">Sonra yaparım</string>
+    <string name="onboarding_limit">Ücretsiz plan en fazla %1$d alışkanlık içerir.</string>
+</resources>

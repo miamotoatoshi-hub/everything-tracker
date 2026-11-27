@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_appearance">外観</string>
+    <string name="settings_theme">テーマ</string>
+    <string name="settings_accent">アクセントカラー</string>
+    <string name="settings_notifications">通知</string>
+    <string name="settings_enable_notifications">通知を有効にする</string>
+    <string name="settings_enable_notifications_desc">習慣のリマインダー</string>
+    <string name="settings_notifications_blocked">通知がオフになっています</string>
+    <string name="settings_notifications_blocked_desc">タップしてシステム設定で通知を許可</string>
+    <string name="settings_sound">サウンド</string>
+    <string name="settings_vibration">バイブレーション</string>
+    <string name="settings_system_notifications">システムの通知設定</string>
+    <string name="settings_general">一般</string>
+    <string name="settings_first_day">週の始まり</string>
+    <string name="settings_units">単位</string>
+    <string name="settings_language">言語</string>
+    <string name="settings_language_system">システムの設定</string>
+    <string name="settings_premium">Premium</string>
+    <string name="settings_premium_active">Trackly Premium</string>
+    <string name="settings_premium_active_desc">ご支援ありがとうございます</string>
+    <string name="settings_premium_canceled">Trackly Premium（まもなく終了）</string>
+    <string name="settings_premium_pending">支払い確認待ち</string>
+    <string name="settings_premium_expired">Premium の期限が切れました</string>
+    <string name="settings_premium_free">無料プラン</string>
+    <string name="settings_premium_upgrade_desc">習慣の無制限作成と詳細な統計を解放</string>
+    <string name="settings_manage_subscription">定期購入を管理</string>
+    <string name="settings_restore_purchases">購入を復元</string>
+    <string name="settings_about">このアプリについて</string>
+    <string name="settings_privacy_policy">プライバシーポリシー</string>
+    <string name="settings_terms">利用規約</string>
+    <string name="settings_version">アプリのバージョン</string>
+</resources>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="achievements_title">Traguardi</string>
+    <string name="achievements_unlocked">%1$d su %2$d sbloccati</string>
+    <string name="achievements_next">Prossimo: %1$s</string>
+    <string name="achievements_all_done">Tutto sbloccato. Leggendario!</string>
+    <string name="achievement_unlocked">Sbloccato</string>
+    <string name="achv_first_title">Primo passo</string>
+    <string name="achv_first_desc">Completa un\'abitudine per la prima volta</string>
+    <string name="achv_streak_desc">Porta avanti un\'abitudine senza saltare un giorno</string>
+    <string name="achv_done_desc">Obiettivi giornalieri raggiunti, tutte le abitudini insieme</string>
+    <string name="achv_perfect_desc">Giorni in cui hai fatto tutte le abitudini previste</string>
+    <string name="achv_habits_desc">Costruisci la tua routine con più abitudini</string>
+    <string name="achv_days_desc">Giorni con almeno un obiettivo raggiunto</string>
+    <string name="perfect_day_title">Giornata perfetta!</string>
+    <string name="perfect_day_share_message">✨ Una giornata perfetta su Trackly: %1$d abitudini su %1$d completate! %2$s</string>
+    <string name="action_skip_today">Salta oggi (riposo)</string>
+    <string name="action_unskip_today">Annulla il riposo di oggi</string>
+    <string name="skip_today_done">Giorno di riposo: la tua serie è salva</string>
+    <plurals name="achv_streak_title">
+        <item quantity="one">%d giorno di fila</item>
+        <item quantity="many">%d giorni di fila</item>
+        <item quantity="other">%d giorni di fila</item>
+    </plurals>
+    <plurals name="achv_done_title">
+        <item quantity="one">%d obiettivo raggiunto</item>
+        <item quantity="many">%d obiettivi raggiunti</item>
+        <item quantity="other">%d obiettivi raggiunti</item>
+    </plurals>
+    <plurals name="achv_perfect_title">
+        <item quantity="one">%d giornata perfetta</item>
+        <item quantity="many">%d giornate perfette</item>
+        <item quantity="other">%d giornate perfette</item>
+    </plurals>
+    <plurals name="achv_habits_title">
+        <item quantity="one">%d abitudine</item>
+        <item quantity="many">%d abitudini</item>
+        <item quantity="other">%d abitudini</item>
+    </plurals>
+    <plurals name="achv_days_title">
+        <item quantity="one">%d giorno attivo</item>
+        <item quantity="many">%d giorni attivi</item>
+        <item quantity="other">%d giorni attivi</item>
+    </plurals>
+    <plurals name="perfect_day_body">
+        <item quantity="one">La tua %d abitudine di oggi è fatta. Ottimo lavoro!</item>
+        <item quantity="many">Tutte le %d abitudini di oggi sono fatte. Ottimo lavoro!</item>
+        <item quantity="other">Tutte le %d abitudini di oggi sono fatte. Ottimo lavoro!</item>
+    </plurals>
+</resources>

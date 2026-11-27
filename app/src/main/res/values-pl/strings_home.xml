@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_greeting_morning">Dzień dobry 👋</string>
+    <string name="home_greeting_afternoon">Dzień dobry 👋</string>
+    <string name="home_greeting_evening">Dobry wieczór 👋</string>
+    <string name="home_today_progress">Dzisiejsze postępy</string>
+    <string name="home_progress_summary">Wykonano %1$d z %2$d nawyków</string>
+    <string name="home_nothing_scheduled">Na dziś nic nie zaplanowano</string>
+    <string name="home_start_streak">Wykonaj nawyk, aby zacząć serię</string>
+    <string name="home_this_week">Ten tydzień</string>
+    <string name="home_add_habit">Dodaj nawyk</string>
+    <string name="home_create_habit">Utwórz nawyk</string>
+    <string name="home_search">Szukaj nawyków</string>
+    <string name="home_search_hint">Szukaj nawyków</string>
+    <string name="home_reorder">Zmień kolejność nawyków</string>
+    <string name="home_empty_title">Nie ma jeszcze nic do śledzenia.</string>
+    <string name="home_empty_message">Utwórz pierwszy nawyk i zacznij budować swoją rutynę.</string>
+    <string name="home_goal_reached">%1$s — wykonane! 🎉</string>
+    <string name="home_all_done_title">Na dziś wszystko zrobione</string>
+    <string name="home_all_done_message">Świetna robota — do jutra.</string>
+    <string name="filter_today">Dziś</string>
+    <string name="filter_all">Wszystkie</string>
+    <string name="filter_completed">Zrobione</string>
+    <string name="filter_incomplete">Do zrobienia</string>
+    <string name="filter_archived">Archiwum</string>
+    <string name="section_todo">Do zrobienia · %1$d</string>
+    <string name="section_done">Zrobione · %1$d</string>
+    <string name="empty_today_title">Na dziś nic nie zaplanowano</string>
+    <string name="empty_today_message">Ciesz się dniem albo wybierz „Wszystkie”, aby zobaczyć każdy nawyk.</string>
+    <string name="empty_search_title">Brak wyników</string>
+    <string name="empty_search_message">Żaden nawyk nie pasuje do wyszukiwania.</string>
+    <string name="empty_completed_title">Nic jeszcze nie zrobiono</string>
+    <string name="empty_completed_message">Tu pojawią się wykonane nawyki.</string>
+    <string name="empty_incomplete_title">Wszystko zrobione!</string>
+    <string name="empty_incomplete_message">Na dziś nie zostało nic do zrobienia.</string>
+    <string name="empty_archived_title">Brak zarchiwizowanych nawyków</string>
+    <string name="empty_archived_message">Zarchiwizuj nawyk, aby go ukryć bez utraty historii.</string>
+    <string name="habit_card_add">Dodaj %1$s %2$s do: %3$s</string>
+    <string name="habit_card_mark_done">Oznacz %1$s jako zrobione</string>
+    <string name="habit_card_mark_not_done">Oznacz %1$s jako niezrobione</string>
+    <string name="habit_card_set_value">Ustaw dokładną wartość</string>
+    <string name="reorder_title">Zmień kolejność nawyków</string>
+    <string name="reorder_hint">Użyj strzałek, aby zmienić kolejność nawyków.</string>
+    <string name="reorder_move_up">Przesuń %1$s w górę</string>
+    <string name="reorder_move_down">Przesuń %1$s w dół</string>
+</resources>

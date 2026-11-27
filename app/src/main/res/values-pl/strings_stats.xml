@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="stats_overall">Ogółem</string>
+    <string name="stats_per_habit">Według nawyku</string>
+    <string name="stats_week">Tydzień</string>
+    <string name="stats_month">Miesiąc</string>
+    <string name="stats_year">Rok</string>
+    <string name="stats_completion_rate">Skuteczność</string>
+    <string name="stats_rate_caption">Wykonane dni w stosunku do zaplanowanych.</string>
+    <string name="stats_total_completions">Wszystkie wykonania</string>
+    <string name="stats_average_completion">Średnie wykonanie</string>
+    <string name="stats_weekly_activity">Aktywność tygodniowa</string>
+    <string name="stats_monthly_activity">Aktywność miesięczna</string>
+    <string name="stats_yearly_activity">Aktywność roczna</string>
+    <string name="stats_by_habit">Według nawyku</string>
+    <string name="stats_weekly_overview">Podsumowanie tygodnia</string>
+    <string name="stats_premium_section">Analizy Premium</string>
+    <string name="stats_locked_message">Odblokuj statystyki miesięczne i roczne i zobacz pełny obraz.</string>
+    <string name="stats_empty_title">Brak statystyk</string>
+    <string name="stats_empty_message">Śledź nawyk przez kilka dni, a statystyki pojawią się tutaj.</string>
+    <string name="insights_locked_title">Analizy Premium</string>
+    <string name="insights_locked_message">Poznaj swój najlepszy dzień, najbardziej regularny nawyk i trend tygodniowy.</string>
+    <string name="insights_not_enough_data">Śledź jeszcze kilka dni, aby odblokować analizy.</string>
+    <string name="insights_overall_only">Analizy porównują wszystkie nawyki. Przełącz na „Ogółem”, aby je zobaczyć.</string>
+    <string name="insight_best_day">Twój najlepszy dzień</string>
+    <string name="insight_weakest_day">Twój najtrudniejszy dzień</string>
+    <string name="insight_top_habit">Najbardziej regularny nawyk (30 dni)</string>
+    <string name="insight_trend">Trend względem poprzedniego tygodnia</string>
+    <string name="insight_trend_up">Wzrost o %1$d pkt</string>
+    <string name="insight_trend_down">Spadek o %1$d pkt</string>
+    <string name="insight_trend_flat">Bez zmian</string>
+    <string name="insight_perfect_days">Idealne dni (ostatnie 30 dni)</string>
+    <string name="weekly_title">Ten tydzień</string>
+    <string name="weekly_completion_rate">skuteczność</string>
+    <string name="weekly_daily_progress">Postępy dzienne</string>
+    <string name="weekly_by_habit">Według nawyku</string>
+    <string name="weekly_day_description">%1$s: wykonano %2$d z %3$d nawyków</string>
+</resources>

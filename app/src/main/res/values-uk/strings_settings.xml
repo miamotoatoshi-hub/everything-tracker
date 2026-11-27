@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_appearance">Вигляд</string>
+    <string name="settings_theme">Тема</string>
+    <string name="settings_accent">Колір акценту</string>
+    <string name="settings_notifications">Сповіщення</string>
+    <string name="settings_enable_notifications">Увімкнути сповіщення</string>
+    <string name="settings_enable_notifications_desc">Нагадування про твої звички</string>
+    <string name="settings_notifications_blocked">Сповіщення вимкнено</string>
+    <string name="settings_notifications_blocked_desc">Торкнись, щоб дозволити їх у налаштуваннях системи</string>
+    <string name="settings_sound">Звук</string>
+    <string name="settings_vibration">Вібрація</string>
+    <string name="settings_system_notifications">Системні налаштування сповіщень</string>
+    <string name="settings_general">Загальні</string>
+    <string name="settings_first_day">Перший день тижня</string>
+    <string name="settings_units">Одиниці</string>
+    <string name="settings_language">Мова</string>
+    <string name="settings_language_system">Як у системі</string>
+    <string name="settings_premium">Premium</string>
+    <string name="settings_premium_active">Trackly Premium</string>
+    <string name="settings_premium_active_desc">Дякуємо за підтримку</string>
+    <string name="settings_premium_canceled">Trackly Premium (скоро закінчиться)</string>
+    <string name="settings_premium_pending">Оплата очікує</string>
+    <string name="settings_premium_expired">Premium закінчився</string>
+    <string name="settings_premium_free">Безкоштовний план</string>
+    <string name="settings_premium_upgrade_desc">Безліміт звичок і розширена статистика</string>
+    <string name="settings_manage_subscription">Керувати підпискою</string>
+    <string name="settings_restore_purchases">Відновити покупки</string>
+    <string name="settings_about">Про застосунок</string>
+    <string name="settings_privacy_policy">Політика конфіденційності</string>
+    <string name="settings_terms">Умови використання</string>
+    <string name="settings_version">Версія застосунку</string>
+</resources>

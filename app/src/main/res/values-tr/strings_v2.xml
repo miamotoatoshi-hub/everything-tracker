@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="premium_reason_focus">Odak zamanlayıcı Premium\'un bir parçasıdır.</string>
+    <string name="premium_reason_reports">Aylık raporlar ve piksellerle yıl Premium\'un bir parçasıdır.</string>
+    <string name="premium_reason_lock">Uygulama kilidi Premium\'un bir parçasıdır.</string>
+    <string name="premium_reason_summary">Akşam özeti Premium\'un bir parçasıdır.</string>
+    <string name="premium_feature_focus">Dakikalarını kaydeden odak zamanlayıcı</string>
+    <string name="premium_feature_reports">Aylık raporlar ve piksellerle yıl</string>
+    <string name="premium_feature_lock">PIN ve parmak iziyle uygulama kilidi</string>
+    <string name="premium_feature_summary">Kalanların akşam özeti</string>
+    <string name="settings_pure_black">Saf siyah (AMOLED)</string>
+    <string name="settings_pure_black_desc">Koyu temada gerçek siyah arka planlar pil tasarrufu sağlar</string>
+    <string name="settings_daily_summary">Akşam özeti</string>
+    <string name="settings_daily_summary_desc">Bugün kalan alışkanlıkları listeleyen tek bir hatırlatıcı</string>
+    <string name="settings_daily_summary_time">Özet saati</string>
+    <string name="settings_security">Gizlilik ve güvenlik</string>
+    <string name="settings_app_lock">Uygulama kilidi</string>
+    <string name="settings_app_lock_desc">Trackly açılırken PIN iste</string>
+    <string name="settings_app_lock_biometric">Parmak izi veya yüzle aç</string>
+    <string name="lock_title">Trackly kilitli</string>
+    <string name="lock_enter_pin">PIN\'ini gir</string>
+    <string name="lock_wrong_pin">Yanlış PIN, tekrar dene</string>
+    <string name="lock_biometric_title">Trackly kilidini aç</string>
+    <string name="lock_use_pin">PIN kullan</string>
+    <string name="lock_biometric_button">Parmak izi veya yüz</string>
+    <string name="lock_forgot_hint">PIN\'i mi unuttun? Yalnızca Android ayarlarından uygulamanın verileri silinerek sıfırlanabilir.</string>
+    <string name="lock_setup_title">4 haneli bir PIN oluştur</string>
+    <string name="lock_setup_confirm">PIN\'i tekrarla</string>
+    <string name="lock_setup_mismatch">PIN\'ler eşleşmedi. Tekrar dene.</string>
+    <string name="summary_text">%1$s. Bugün hâlâ zaman var!</string>
+    <string name="focus_title">Odak zamanlayıcı</string>
+    <string name="focus_minutes">%1$d dk</string>
+    <string name="focus_start">Başla</string>
+    <string name="focus_pause">Duraklat</string>
+    <string name="focus_resume">Devam et</string>
+    <string name="focus_add_five">+5 dk</string>
+    <string name="focus_finish">Bitir ve kaydet</string>
+    <string name="focus_hint">Zamanlayıcı çalışırken ekran açık kalır. Bittiğinde dakikalar bugüne eklenir.</string>
+    <string name="focus_nothing_logged">Bir dakikadan az: hiçbir şey kaydedilmedi</string>
+    <string name="reports_title">Raporlar</string>
+    <string name="reports_open">Aylık rapor ve piksellerle yıl</string>
+    <string name="reports_rate_label">günlük hedef tamamlandı</string>
+    <string name="reports_vs_previous">Önceki aya göre %1$s</string>
+    <string name="reports_no_previous">Trackly ile ilk ayın</string>
+    <string name="reports_goals_done">Ulaşılan hedefler</string>
+    <string name="reports_perfect_days">Mükemmel günler</string>
+    <string name="reports_active_days">Aktif günler</string>
+    <string name="reports_best_streak">En iyi seri, gün</string>
+    <string name="reports_top_habits">En iyi alışkanlıklar</string>
+    <string name="reports_needs_attention">İlgi bekliyor</string>
+    <string name="reports_best_weekday">En iyi günün</string>
+    <string name="reports_best_weekday_value">%1$s · hedeflerin %%%2$d kadarı tamam</string>
+    <string name="reports_year_pixels">Piksellerle yıl</string>
+    <string name="reports_less">Az</string>
+    <string name="reports_more">Çok</string>
+    <string name="reports_empty">Bu ay henüz planlanan bir şey yoktu. Bir alışkanlık oluştur ve yakında tekrar bak.</string>
+    <string name="reports_share_message">📈 Trackly\'de %1$s: hedeflerin %%%2$d kadarı tamam, %3$d mükemmel gün, en iyi seri %4$d. %5$s</string>
+    <plurals name="summary_title">
+        <item quantity="one">Bugün kalan: %2$d alışkanlıktan %1$d</item>
+        <item quantity="other">Bugün kalan: %2$d alışkanlıktan %1$d</item>
+    </plurals>
+    <plurals name="focus_logged">
+        <item quantity="one">+%d dakika kaydedildi</item>
+        <item quantity="other">+%d dakika kaydedildi</item>
+    </plurals>
+</resources>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_greeting_morning">おはようございます 👋</string>
+    <string name="home_greeting_afternoon">こんにちは 👋</string>
+    <string name="home_greeting_evening">こんばんは 👋</string>
+    <string name="home_today_progress">今日の進捗</string>
+    <string name="home_progress_summary">%2$d個中%1$d個の習慣を完了</string>
+    <string name="home_nothing_scheduled">今日の予定はありません</string>
+    <string name="home_start_streak">習慣を完了して連続記録を始めましょう</string>
+    <string name="home_this_week">今週</string>
+    <string name="home_add_habit">習慣を追加</string>
+    <string name="home_create_habit">習慣を作成</string>
+    <string name="home_search">習慣を検索</string>
+    <string name="home_search_hint">習慣を検索</string>
+    <string name="home_reorder">習慣を並べ替え</string>
+    <string name="home_empty_title">まだ記録するものがありません。</string>
+    <string name="home_empty_message">最初の習慣を作って、ルーティン作りを始めましょう。</string>
+    <string name="home_goal_reached">%1$s 完了！ 🎉</string>
+    <string name="home_all_done_title">今日はすべて完了</string>
+    <string name="home_all_done_message">お疲れさまでした。また明日。</string>
+    <string name="filter_today">今日</string>
+    <string name="filter_all">すべて</string>
+    <string name="filter_completed">完了</string>
+    <string name="filter_incomplete">未完了</string>
+    <string name="filter_archived">アーカイブ</string>
+    <string name="section_todo">未完了 · %1$d</string>
+    <string name="section_done">完了 · %1$d</string>
+    <string name="empty_today_title">今日の予定はありません</string>
+    <string name="empty_today_message">今日はゆっくり。すべての習慣は「すべて」で確認できます。</string>
+    <string name="empty_search_title">該当なし</string>
+    <string name="empty_search_message">検索に一致する習慣はありません。</string>
+    <string name="empty_completed_title">まだ完了したものはありません</string>
+    <string name="empty_completed_message">完了した習慣はここに表示されます。</string>
+    <string name="empty_incomplete_title">すべて完了！</string>
+    <string name="empty_incomplete_message">今日やることは残っていません。</string>
+    <string name="empty_archived_title">アーカイブした習慣はありません</string>
+    <string name="empty_archived_message">履歴を残したまま習慣を非表示にするにはアーカイブします。</string>
+    <string name="habit_card_add">%3$sに%1$s %2$sを追加</string>
+    <string name="habit_card_mark_done">%1$sを完了にする</string>
+    <string name="habit_card_mark_not_done">%1$sを未完了にする</string>
+    <string name="habit_card_set_value">値を直接入力</string>
+    <string name="reorder_title">習慣を並べ替え</string>
+    <string name="reorder_hint">矢印で習慣の順番を変えられます。</string>
+    <string name="reorder_move_up">%1$sを上へ</string>
+    <string name="reorder_move_down">%1$sを下へ</string>
+</resources>

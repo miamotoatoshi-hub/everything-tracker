@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onboarding_title_1">Відстежуй важливе.</string>
+    <string name="onboarding_body_1">Створюй будь-які звички й цілі — вода, тренування, читання, заощадження — і тримай їх в одному спокійному місці.</string>
+    <string name="onboarding_title_2">Формуй корисні звички.</string>
+    <string name="onboarding_body_2">Став цілі, вибирай дні й додавай делікатні нагадування під свій розпорядок.</string>
+    <string name="onboarding_title_3">Будь послідовним.</string>
+    <string name="onboarding_body_3">Серії, календар і статистика показують, скільки ти вже пройшов.</string>
+    <string name="onboarding_skip">Пропустити</string>
+    <string name="onboarding_next">Далі</string>
+    <string name="onboarding_templates_title">Створи першу звичку</string>
+    <string name="onboarding_templates_body">Вибери кілька для початку — усе можна змінити пізніше.</string>
+    <string name="onboarding_start">Почати</string>
+    <string name="onboarding_start_count">Почати (%1$d)</string>
+    <string name="onboarding_custom">Створити свою звичку</string>
+    <string name="onboarding_later">Зроблю пізніше</string>
+    <string name="onboarding_limit">Безкоштовний план — до %1$d звичок.</string>
+</resources>

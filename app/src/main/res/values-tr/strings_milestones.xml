@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="milestone_title">
+        <item quantity="one">Üst üste %d gün!</item>
+        <item quantity="other">Üst üste %d gün!</item>
+    </plurals>
+    <string name="milestone_body">Böyle devam: yarın da işaretle ve serinin büyümesini izle.</string>
+    <string name="milestone_ok">Harika</string>
+    <string name="milestone_share">Paylaş</string>
+    <string name="milestone_share_message">%1$s %2$s — Trackly\'deki serim 🔥 %3$s</string>
+</resources>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_appearance">Aspetto</string>
+    <string name="settings_theme">Tema</string>
+    <string name="settings_accent">Colore principale</string>
+    <string name="settings_notifications">Notifiche</string>
+    <string name="settings_enable_notifications">Attiva le notifiche</string>
+    <string name="settings_enable_notifications_desc">Promemoria per le tue abitudini</string>
+    <string name="settings_notifications_blocked">Le notifiche sono disattivate</string>
+    <string name="settings_notifications_blocked_desc">Tocca per consentirle nelle impostazioni di sistema</string>
+    <string name="settings_sound">Suono</string>
+    <string name="settings_vibration">Vibrazione</string>
+    <string name="settings_system_notifications">Impostazioni di notifica di sistema</string>
+    <string name="settings_general">Generali</string>
+    <string name="settings_first_day">Primo giorno della settimana</string>
+    <string name="settings_units">Unità</string>
+    <string name="settings_language">Lingua</string>
+    <string name="settings_language_system">Predefinita di sistema</string>
+    <string name="settings_premium">Premium</string>
+    <string name="settings_premium_active">Trackly Premium</string>
+    <string name="settings_premium_active_desc">Grazie per il tuo sostegno</string>
+    <string name="settings_premium_canceled">Trackly Premium (in scadenza)</string>
+    <string name="settings_premium_pending">Pagamento in attesa</string>
+    <string name="settings_premium_expired">Premium scaduto</string>
+    <string name="settings_premium_free">Piano gratuito</string>
+    <string name="settings_premium_upgrade_desc">Sblocca abitudini illimitate e statistiche avanzate</string>
+    <string name="settings_manage_subscription">Gestisci abbonamento</string>
+    <string name="settings_restore_purchases">Ripristina acquisti</string>
+    <string name="settings_about">Informazioni</string>
+    <string name="settings_privacy_policy">Informativa sulla privacy</string>
+    <string name="settings_terms">Termini di servizio</string>
+    <string name="settings_version">Versione dell\'app</string>
+</resources>

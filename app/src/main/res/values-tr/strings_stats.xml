@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="stats_overall">Genel</string>
+    <string name="stats_per_habit">Alışkanlığa göre</string>
+    <string name="stats_week">Hafta</string>
+    <string name="stats_month">Ay</string>
+    <string name="stats_year">Yıl</string>
+    <string name="stats_completion_rate">Tamamlama oranı</string>
+    <string name="stats_rate_caption">Planladığın günlere göre tamamlanan günler.</string>
+    <string name="stats_total_completions">Toplam tamamlama</string>
+    <string name="stats_average_completion">Ortalama tamamlama</string>
+    <string name="stats_weekly_activity">Haftalık etkinlik</string>
+    <string name="stats_monthly_activity">Aylık etkinlik</string>
+    <string name="stats_yearly_activity">Yıllık etkinlik</string>
+    <string name="stats_by_habit">Alışkanlığa göre</string>
+    <string name="stats_weekly_overview">Haftalık özet</string>
+    <string name="stats_premium_section">Premium analizler</string>
+    <string name="stats_locked_message">Aylık ve yıllık istatistikleri aç, büyük resmi gör.</string>
+    <string name="stats_empty_title">Henüz istatistik yok</string>
+    <string name="stats_empty_message">Bir alışkanlığı birkaç gün takip et, istatistiklerin burada görünecek.</string>
+    <string name="insights_locked_title">Premium analizler</string>
+    <string name="insights_locked_message">En iyi gününü, en istikrarlı alışkanlığını ve haftalık eğilimini keşfet.</string>
+    <string name="insights_not_enough_data">Analizlerin açılması için birkaç gün daha takip et.</string>
+    <string name="insights_overall_only">Analizler tüm alışkanlıklarını karşılaştırır. Görmek için \"Genel\"e geç.</string>
+    <string name="insight_best_day">En iyi günün</string>
+    <string name="insight_weakest_day">En zor günün</string>
+    <string name="insight_top_habit">En istikrarlı alışkanlık (30 gün)</string>
+    <string name="insight_trend">Önceki haftaya göre eğilim</string>
+    <string name="insight_trend_up">%1$d puan artış</string>
+    <string name="insight_trend_down">%1$d puan düşüş</string>
+    <string name="insight_trend_flat">Değişiklik yok</string>
+    <string name="insight_perfect_days">Mükemmel günler (son 30 gün)</string>
+    <string name="weekly_title">Bu hafta</string>
+    <string name="weekly_completion_rate">tamamlama oranı</string>
+    <string name="weekly_daily_progress">Günlük ilerleme</string>
+    <string name="weekly_by_habit">Alışkanlığa göre</string>
+    <string name="weekly_day_description">%1$s: %3$d alışkanlıktan %2$d tanesi tamam</string>
+</resources>

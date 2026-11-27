@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="stats_overall">Generale</string>
+    <string name="stats_per_habit">Per abitudine</string>
+    <string name="stats_week">Settimana</string>
+    <string name="stats_month">Mese</string>
+    <string name="stats_year">Anno</string>
+    <string name="stats_completion_rate">Tasso di completamento</string>
+    <string name="stats_rate_caption">Giorni completati rispetto ai giorni pianificati.</string>
+    <string name="stats_total_completions">Completamenti totali</string>
+    <string name="stats_average_completion">Completamento medio</string>
+    <string name="stats_weekly_activity">Attività settimanale</string>
+    <string name="stats_monthly_activity">Attività mensile</string>
+    <string name="stats_yearly_activity">Attività annuale</string>
+    <string name="stats_by_habit">Per abitudine</string>
+    <string name="stats_weekly_overview">Riepilogo settimanale</string>
+    <string name="stats_premium_section">Analisi Premium</string>
+    <string name="stats_locked_message">Sblocca le statistiche mensili e annuali e guarda il quadro completo.</string>
+    <string name="stats_empty_title">Ancora nessuna statistica</string>
+    <string name="stats_empty_message">Segui un\'abitudine per qualche giorno e qui appariranno le statistiche.</string>
+    <string name="insights_locked_title">Analisi Premium</string>
+    <string name="insights_locked_message">Scopri il tuo giorno migliore, l\'abitudine più costante e l\'andamento settimanale.</string>
+    <string name="insights_not_enough_data">Continua ancora qualche giorno per sbloccare le analisi.</string>
+    <string name="insights_overall_only">Le analisi confrontano tutte le abitudini. Passa a \"Generale\" per vederle.</string>
+    <string name="insight_best_day">Il tuo giorno migliore</string>
+    <string name="insight_weakest_day">Il tuo giorno più difficile</string>
+    <string name="insight_top_habit">Abitudine più costante (30 giorni)</string>
+    <string name="insight_trend">Andamento rispetto alla settimana scorsa</string>
+    <string name="insight_trend_up">In crescita di %1$d punti</string>
+    <string name="insight_trend_down">In calo di %1$d punti</string>
+    <string name="insight_trend_flat">Nessun cambiamento</string>
+    <string name="insight_perfect_days">Giornate perfette (ultimi 30 giorni)</string>
+    <string name="weekly_title">Questa settimana</string>
+    <string name="weekly_completion_rate">tasso di completamento</string>
+    <string name="weekly_daily_progress">Progressi giornalieri</string>
+    <string name="weekly_by_habit">Per abitudine</string>
+    <string name="weekly_day_description">%1$s: %2$d di %3$d abitudini fatte</string>
+</resources>

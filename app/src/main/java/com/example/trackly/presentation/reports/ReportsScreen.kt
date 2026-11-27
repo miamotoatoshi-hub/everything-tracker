@@ -64,6 +64,7 @@ import com.example.trackly.presentation.common.rememberLocale
 import com.example.trackly.ui.components.CenteredContent
 import com.example.trackly.ui.components.ErrorState
 import com.example.trackly.ui.components.LoadingState
+import com.example.trackly.ui.theme.TracklyTheme
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
@@ -204,7 +205,7 @@ private fun Hero(report: MonthlyReport) {
                 style = MaterialTheme.typography.labelLarge,
                 color = when {
                     delta == null || delta == 0 -> MaterialTheme.colorScheme.onPrimaryContainer
-                    delta > 0 -> Color(0xFF1B8F4E)
+                    delta > 0 -> if (TracklyTheme.extras.isDark) Color(0xFF7EE2A8) else Color(0xFF1B8F4E)
                     else -> MaterialTheme.colorScheme.error
                 },
             )

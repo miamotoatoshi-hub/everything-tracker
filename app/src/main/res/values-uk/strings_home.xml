@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_greeting_morning">Доброго ранку 👋</string>
+    <string name="home_greeting_afternoon">Доброго дня 👋</string>
+    <string name="home_greeting_evening">Доброго вечора 👋</string>
+    <string name="home_today_progress">Прогрес за сьогодні</string>
+    <string name="home_progress_summary">Виконано звичок: %1$d з %2$d</string>
+    <string name="home_nothing_scheduled">На сьогодні нічого не заплановано</string>
+    <string name="home_start_streak">Виконай звичку, щоб почати серію</string>
+    <string name="home_this_week">Цей тиждень</string>
+    <string name="home_add_habit">Додати звичку</string>
+    <string name="home_create_habit">Створити звичку</string>
+    <string name="home_search">Пошук звичок</string>
+    <string name="home_search_hint">Пошук звичок</string>
+    <string name="home_reorder">Змінити порядок</string>
+    <string name="home_empty_title">Поки нічого відстежувати.</string>
+    <string name="home_empty_message">Створи першу звичку й почни будувати свій розпорядок.</string>
+    <string name="home_goal_reached">%1$s — виконано! 🎉</string>
+    <string name="home_all_done_title">На сьогодні все</string>
+    <string name="home_all_done_message">Чудова робота — до завтра.</string>
+    <string name="filter_today">Сьогодні</string>
+    <string name="filter_all">Усі</string>
+    <string name="filter_completed">Виконані</string>
+    <string name="filter_incomplete">Невиконані</string>
+    <string name="filter_archived">Архів</string>
+    <string name="section_todo">Залишилось · %1$d</string>
+    <string name="section_done">Виконано · %1$d</string>
+    <string name="empty_today_title">На сьогодні нічого не заплановано</string>
+    <string name="empty_today_message">Насолоджуйся днем або відкрий «Усі», щоб побачити всі звички.</string>
+    <string name="empty_search_title">Нічого не знайдено</string>
+    <string name="empty_search_message">Жодна звичка не відповідає пошуку.</string>
+    <string name="empty_completed_title">Поки нічого не виконано</string>
+    <string name="empty_completed_message">Тут з\'являться виконані звички.</string>
+    <string name="empty_incomplete_title">Усе виконано!</string>
+    <string name="empty_incomplete_message">На сьогодні нічого не залишилось.</string>
+    <string name="empty_archived_title">В архіві порожньо</string>
+    <string name="empty_archived_message">Заархівуй звичку, щоб приховати її без втрати історії.</string>
+    <string name="habit_card_add">Додати %1$s %2$s до «%3$s»</string>
+    <string name="habit_card_mark_done">Позначити «%1$s» виконаною</string>
+    <string name="habit_card_mark_not_done">Позначити «%1$s» невиконаною</string>
+    <string name="habit_card_set_value">Задати точне значення</string>
+    <string name="reorder_title">Порядок звичок</string>
+    <string name="reorder_hint">Змінюй порядок звичок стрілками.</string>
+    <string name="reorder_move_up">Підняти «%1$s»</string>
+    <string name="reorder_move_down">Опустити «%1$s»</string>
+</resources>

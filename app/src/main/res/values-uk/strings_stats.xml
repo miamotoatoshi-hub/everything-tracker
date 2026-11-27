@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="stats_overall">Загалом</string>
+    <string name="stats_per_habit">За звичкою</string>
+    <string name="stats_week">Тиждень</string>
+    <string name="stats_month">Місяць</string>
+    <string name="stats_year">Рік</string>
+    <string name="stats_completion_rate">Відсоток виконання</string>
+    <string name="stats_rate_caption">Виконані дні від запланованих.</string>
+    <string name="stats_total_completions">Усього виконань</string>
+    <string name="stats_average_completion">Середнє виконання</string>
+    <string name="stats_weekly_activity">Активність за тиждень</string>
+    <string name="stats_monthly_activity">Активність за місяць</string>
+    <string name="stats_yearly_activity">Активність за рік</string>
+    <string name="stats_by_habit">За звичками</string>
+    <string name="stats_weekly_overview">Огляд тижня</string>
+    <string name="stats_premium_section">Аналітика Premium</string>
+    <string name="stats_locked_message">Відкрий статистику за місяць і рік і побач повну картину.</string>
+    <string name="stats_empty_title">Статистики ще немає</string>
+    <string name="stats_empty_message">Відстежуй звичку кілька днів, і тут з\'явиться статистика.</string>
+    <string name="insights_locked_title">Аналітика Premium</string>
+    <string name="insights_locked_message">Дізнайся свій найкращий день, найстабільнішу звичку і тренд тижня.</string>
+    <string name="insights_not_enough_data">Відстежуй ще кілька днів, щоб відкрити аналітику.</string>
+    <string name="insights_overall_only">Аналітика порівнює всі звички. Перемкнись на «Загалом», щоб її побачити.</string>
+    <string name="insight_best_day">Твій найкращий день</string>
+    <string name="insight_weakest_day">Твій найважчий день</string>
+    <string name="insight_top_habit">Найстабільніша звичка (30 днів)</string>
+    <string name="insight_trend">Тренд щодо минулого тижня</string>
+    <string name="insight_trend_up">Зростання на %1$d п.</string>
+    <string name="insight_trend_down">Спад на %1$d п.</string>
+    <string name="insight_trend_flat">Без змін</string>
+    <string name="insight_perfect_days">Ідеальні дні (останні 30 днів)</string>
+    <string name="weekly_title">Цей тиждень</string>
+    <string name="weekly_completion_rate">виконання</string>
+    <string name="weekly_daily_progress">Прогрес по днях</string>
+    <string name="weekly_by_habit">За звичками</string>
+    <string name="weekly_day_description">%1$s: виконано %2$d з %3$d звичок</string>
+</resources>

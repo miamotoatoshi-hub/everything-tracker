@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="channel_reminders_sound_vibration">Hatırlatıcılar (ses ve titreşim)</string>
+    <string name="channel_reminders_sound">Hatırlatıcılar (yalnızca ses)</string>
+    <string name="channel_reminders_vibration">Hatırlatıcılar (yalnızca titreşim)</string>
+    <string name="channel_reminders_silent">Hatırlatıcılar (sessiz)</string>
+    <string name="channel_reminders_description">Takip ettiğin alışkanlıklar için hatırlatıcılar</string>
+    <string name="notification_default_message">%1$s %2$s zamanı</string>
+    <string name="notification_action_done">Yapıldı</string>
+    <string name="notification_action_add">Ekle</string>
+</resources>
