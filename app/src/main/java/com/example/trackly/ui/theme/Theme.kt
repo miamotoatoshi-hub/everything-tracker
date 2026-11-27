@@ -157,13 +157,29 @@ private fun darkScheme(accent: AccentTheme): ColorScheme {
     )
 }
 
+/** Premium "AMOLED": true black backgrounds, the containers stepping up from black. */
+private fun ColorScheme.pureBlack(): ColorScheme = copy(
+    background = Color.Black,
+    surface = Color.Black,
+    surfaceContainerLowest = Color.Black,
+    surfaceContainerLow = Color(0xFF0B0B0F),
+    surfaceContainer = Color(0xFF121217),
+    surfaceContainerHigh = Color(0xFF1A1A20),
+    surfaceContainerHighest = Color(0xFF24242B),
+)
+
 @Composable
 fun TracklyTheme(
     darkTheme: Boolean,
     accent: AccentTheme = AccentTheme.INDIGO,
+    pureBlack: Boolean = false,
     content: @Composable () -> Unit,
 ) {
-    val scheme = if (darkTheme) darkScheme(accent) else lightScheme(accent)
+    val scheme = when {
+        darkTheme && pureBlack -> darkScheme(accent).pureBlack()
+        darkTheme -> darkScheme(accent)
+        else -> lightScheme(accent)
+    }
     CompositionLocalProvider(LocalExtraColors provides if (darkTheme) DarkExtras else LightExtras) {
         MaterialTheme(
             colorScheme = scheme,

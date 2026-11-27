@@ -32,6 +32,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.trackly.presentation.focus.FocusTimerScreen
+import com.example.trackly.presentation.reports.ReportsScreen
 import com.example.trackly.presentation.achievements.AchievementsScreen
 import com.example.trackly.domain.model.PremiumFeature
 import com.example.trackly.presentation.calendar.CalendarScreen
@@ -149,6 +151,7 @@ fun AppNavHost(
                     onAddHabit = { navController.navigate(Routes.CREATE) },
                     onOpenWeekly = { navController.navigate(Routes.WEEKLY) },
                     onOpenAchievements = { navController.navigate(Routes.ACHIEVEMENTS) },
+                    onOpenReports = { navController.navigate(Routes.REPORTS) },
                     onUpgrade = { navController.navigate(Routes.premium(it)) },
                 )
             }
@@ -189,6 +192,7 @@ fun AppNavHost(
                     onBack = { navController.popBackStack() },
                     onEdit = { navController.navigate(Routes.edit(it)) },
                     onHistory = { navController.navigate(Routes.history(it)) },
+                    onFocus = { navController.navigate(Routes.focus(it)) },
                     onUpgrade = { navController.navigate(Routes.premium(it)) },
                 )
             }
@@ -205,6 +209,13 @@ fun AppNavHost(
             }
             composable(Routes.REORDER) { ReorderScreen(onBack = { navController.popBackStack() }) }
             composable(Routes.ACHIEVEMENTS) { AchievementsScreen(onBack = { navController.popBackStack() }) }
+            composable(Routes.REPORTS) { ReportsScreen(onBack = { navController.popBackStack() }) }
+            composable(
+                Routes.FOCUS,
+                arguments = listOf(navArgument(Routes.ARG_ID) { type = NavType.LongType }),
+            ) { entry ->
+                FocusTimerScreen(habitId = entry.arguments?.getLong(Routes.ARG_ID) ?: 0L, onBack = { navController.popBackStack() })
+            }
             composable(Routes.WEEKLY) {
                 WeeklyOverviewScreen(
                     onBack = { navController.popBackStack() },

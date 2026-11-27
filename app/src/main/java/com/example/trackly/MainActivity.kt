@@ -62,6 +62,16 @@ class MainActivity : AppCompatActivity() {
         handleIntent(intent)
     }
 
+    override fun onStart() {
+        super.onStart()
+        container.appLock.onForeground(lockEnabled = mainViewModel.settings.value?.appLockEnabled == true)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        container.appLock.onBackground()
+    }
+
     override fun onResume() {
         super.onResume()
         // Midnight may have passed while the app was in the background; also re-check Premium.

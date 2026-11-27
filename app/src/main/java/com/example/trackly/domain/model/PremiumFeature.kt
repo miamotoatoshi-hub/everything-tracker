@@ -17,6 +17,10 @@ enum class PremiumFeature {
     PREMIUM_INSIGHTS,
     DATA_EXPORT,
     HOME_WIDGET,
+    FOCUS_TIMER,
+    REPORTS,
+    APP_LOCK,
+    DAILY_SUMMARY,
 }
 
 /** Limits of the free plan. Change them here — nothing else in the app hard-codes them. */

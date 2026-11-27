@@ -231,13 +231,21 @@ private fun reasonText(feature: PremiumFeature): Int = when (feature) {
     PremiumFeature.PREMIUM_INSIGHTS -> R.string.premium_reason_insights
     PremiumFeature.DATA_EXPORT -> R.string.premium_reason_export
     PremiumFeature.HOME_WIDGET -> R.string.premium_reason_widget
+    PremiumFeature.FOCUS_TIMER -> R.string.premium_reason_focus
+    PremiumFeature.REPORTS -> R.string.premium_reason_reports
+    PremiumFeature.APP_LOCK -> R.string.premium_reason_lock
+    PremiumFeature.DAILY_SUMMARY -> R.string.premium_reason_summary
 }
 
 @Composable
 private fun Features() {
     val items = listOf(
         R.string.premium_feature_habits,
+        R.string.premium_feature_focus,
+        R.string.premium_feature_reports,
         R.string.premium_feature_widget,
+        R.string.premium_feature_lock,
+        R.string.premium_feature_summary,
         R.string.premium_feature_stats,
         R.string.premium_feature_reminders,
         R.string.premium_feature_themes,

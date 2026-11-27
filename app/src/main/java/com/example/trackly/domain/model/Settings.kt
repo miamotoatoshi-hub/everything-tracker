@@ -40,4 +40,16 @@ data class AppSettings(
     val firstDayOfWeek: FirstDayOfWeekSetting = FirstDayOfWeekSetting.SYSTEM,
     val unitSystem: UnitSystem = UnitSystem.METRIC,
     val onboardingCompleted: Boolean = false,
-)
+    /** Premium: true black backgrounds in the dark theme (AMOLED). */
+    val pureBlack: Boolean = false,
+    /** Premium: salted hash of the app-lock PIN (see PinHasher); null = no lock. */
+    val appLockPinHash: String? = null,
+    /** Premium: unlock with fingerprint / face as well as the PIN. */
+    val appLockBiometric: Boolean = false,
+    /** Premium: an evening notification listing the habits still left today. */
+    val dailySummaryEnabled: Boolean = false,
+    /** Minutes after midnight for the evening summary. */
+    val dailySummaryMinutes: Int = 21 * 60,
+) {
+    val appLockEnabled: Boolean get() = appLockPinHash != null
+}

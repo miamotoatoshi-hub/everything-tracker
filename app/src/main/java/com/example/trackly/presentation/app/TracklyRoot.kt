@@ -22,6 +22,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.ui.Alignment
@@ -37,6 +38,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.trackly.presentation.lock.LockScreen
 import com.example.trackly.domain.model.AccentTheme
 import com.example.trackly.domain.model.AppSettings
 import com.example.trackly.domain.model.ThemeMode
@@ -64,6 +66,11 @@ fun TracklyRoot(
     val introDone by mainViewModel.brandIntroDone.collectAsStateWithLifecycle()
 
     val settings = loadedSettings ?: AppSettings()
+    val locked by container.appLock.locked.collectAsStateWithLifecycle()
+    // No PIN set: nothing to unlock. (The lock starts "locked" so a PIN set before launch shows it at once.)
+    LaunchedEffect(loadedSettings != null, settings.appLockEnabled) {
+        if (loadedSettings != null && !settings.appLockEnabled) container.appLock.unlock()
+    }
     val systemDark = isSystemInDarkTheme()
     val darkTheme = when (settings.themeMode) {
         ThemeMode.SYSTEM -> systemDark
@@ -82,7 +89,7 @@ fun TracklyRoot(
         onDispose { }
     }
 
-    TracklyTheme(darkTheme = darkTheme, accent = accent) {
+    TracklyTheme(darkTheme = darkTheme, accent = accent, pureBlack = settings.pureBlack && isPremium) {
         Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
             Box(modifier = Modifier.fillMaxSize()) {
                 val startRoute = start
@@ -91,6 +98,14 @@ fun TracklyRoot(
                         startDestination = startRoute,
                         deepLinkRoute = deepLinkRoute,
                         onDeepLinkConsumed = onDeepLinkConsumed,
+                    )
+                }
+                val pinHash = settings.appLockPinHash
+                if (loadedSettings != null && pinHash != null && locked) {
+                    LockScreen(
+                        pinHash = pinHash,
+                        biometric = settings.appLockBiometric,
+                        onUnlocked = container.appLock::unlock,
                     )
                 }
                 AnimatedVisibility(

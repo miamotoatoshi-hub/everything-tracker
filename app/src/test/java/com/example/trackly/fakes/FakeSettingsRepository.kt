@@ -26,6 +26,11 @@ class FakeSettingsRepository(initial: AppSettings = AppSettings()) : SettingsRep
     override suspend fun setFirstDayOfWeek(value: FirstDayOfWeekSetting) = state.update { it.copy(firstDayOfWeek = value) }
     override suspend fun setUnitSystem(value: UnitSystem) = state.update { it.copy(unitSystem = value) }
     override suspend fun setOnboardingCompleted(completed: Boolean) = state.update { it.copy(onboardingCompleted = completed) }
+    override suspend fun setPureBlack(enabled: Boolean) = state.update { it.copy(pureBlack = enabled) }
+    override suspend fun setAppLock(pinHash: String?, biometric: Boolean) =
+        state.update { it.copy(appLockPinHash = pinHash, appLockBiometric = pinHash != null && biometric) }
+    override suspend fun setDailySummary(enabled: Boolean, minutesOfDay: Int) =
+        state.update { it.copy(dailySummaryEnabled = enabled, dailySummaryMinutes = minutesOfDay) }
     override suspend fun loadCachedEntitlement(): PremiumEntitlement = cachedEntitlement
     override suspend fun saveCachedEntitlement(entitlement: PremiumEntitlement) {
         cachedEntitlement = entitlement

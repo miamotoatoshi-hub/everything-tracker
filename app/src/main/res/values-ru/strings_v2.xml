@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Trackly 2.0: focus timer, reports, app lock, evening summary, pure black. -->
+<resources>
+    <string name="premium_reason_focus">Фокус-таймер доступен в Premium.</string>
+    <string name="premium_reason_reports">Отчёты за месяц и год в пикселях доступны в Premium.</string>
+    <string name="premium_reason_lock">Замок приложения доступен в Premium.</string>
+    <string name="premium_reason_summary">Вечерний итог доступен в Premium.</string>
+    <string name="premium_feature_focus">Фокус-таймер, который сам записывает минуты</string>
+    <string name="premium_feature_reports">Отчёты за месяц и год в пикселях</string>
+    <string name="premium_feature_lock">Замок приложения: PIN и отпечаток</string>
+    <string name="premium_feature_summary">Вечерний итог: что осталось на сегодня</string>
+    <string name="settings_pure_black">Чёрная тема (AMOLED)</string>
+    <string name="settings_pure_black_desc">Настоящий чёрный фон в тёмной теме экономит батарею</string>
+    <string name="settings_daily_summary">Вечерний итог</string>
+    <string name="settings_daily_summary_desc">Одно напоминание со списком привычек, которые остались на сегодня</string>
+    <string name="settings_daily_summary_time">Время итога</string>
+    <string name="settings_security">Приватность и безопасность</string>
+    <string name="settings_app_lock">Замок приложения</string>
+    <string name="settings_app_lock_desc">Спрашивать PIN-код при открытии Trackly</string>
+    <string name="settings_app_lock_biometric">Разблокировка отпечатком или лицом</string>
+    <string name="lock_title">Trackly заблокирован</string>
+    <string name="lock_enter_pin">Введи PIN-код</string>
+    <string name="lock_wrong_pin">Неверный PIN-код, попробуй ещё раз</string>
+    <string name="lock_biometric_title">Разблокировать Trackly</string>
+    <string name="lock_use_pin">Ввести PIN</string>
+    <string name="lock_biometric_button">Отпечаток или лицо</string>
+    <string name="lock_forgot_hint">Забыли PIN? Сбросить его можно только очисткой данных приложения в настройках Android.</string>
+    <string name="lock_setup_title">Придумай PIN из 4 цифр</string>
+    <string name="lock_setup_confirm">Повтори PIN-код</string>
+    <string name="lock_setup_mismatch">PIN-коды не совпали. Попробуй ещё раз.</string>
+    <string name="summary_text">%1$s. Ещё есть время!</string>
+    <string name="focus_title">Фокус-таймер</string>
+    <string name="focus_minutes">%1$d мин</string>
+    <string name="focus_start">Начать</string>
+    <string name="focus_pause">Пауза</string>
+    <string name="focus_resume">Продолжить</string>
+    <string name="focus_add_five">+5 мин</string>
+    <string name="focus_finish">Завершить и записать</string>
+    <string name="focus_hint">Пока идёт таймер, экран не гаснет. Когда он закончится, минуты добавятся к сегодняшнему дню.</string>
+    <string name="focus_nothing_logged">Меньше минуты — ничего не записано</string>
+    <string name="reports_title">Отчёты</string>
+    <string name="reports_open">Отчёт за месяц и год в пикселях</string>
+    <string name="reports_rate_label">целей дня выполнено</string>
+    <string name="reports_vs_previous">%1$s к прошлому месяцу</string>
+    <string name="reports_no_previous">Твой первый месяц с Trackly</string>
+    <string name="reports_goals_done">Целей выполнено</string>
+    <string name="reports_perfect_days">Идеальных дней</string>
+    <string name="reports_active_days">Активных дней</string>
+    <string name="reports_best_streak">Лучшая серия, дней</string>
+    <string name="reports_top_habits">Лучшие привычки</string>
+    <string name="reports_needs_attention">Нужно внимание</string>
+    <string name="reports_best_weekday">Твой лучший день недели</string>
+    <string name="reports_best_weekday_value">%1$s · выполнено %2$d%% целей</string>
+    <string name="reports_year_pixels">Год в пикселях</string>
+    <string name="reports_less">Меньше</string>
+    <string name="reports_more">Больше</string>
+    <string name="reports_empty">В этом месяце пока ничего не запланировано. Создай привычку и загляни позже.</string>
+    <string name="reports_share_message">📈 %1$s в Trackly: выполнено %2$d%% целей, идеальных дней: %3$d, лучшая серия: %4$d. %5$s</string>
+    <plurals name="summary_title">
+        <item quantity="one">Осталась %1$d привычка из %2$d</item>
+        <item quantity="few">Осталось %1$d привычки из %2$d</item>
+        <item quantity="many">Осталось %1$d привычек из %2$d</item>
+        <item quantity="other">Осталось %1$d привычки из %2$d</item>
+    </plurals>
+    <plurals name="focus_logged">
+        <item quantity="one">+%d минута записана</item>
+        <item quantity="few">+%d минуты записаны</item>
+        <item quantity="many">+%d минут записано</item>
+        <item quantity="other">+%d минуты записано</item>
+    </plurals>
+</resources>

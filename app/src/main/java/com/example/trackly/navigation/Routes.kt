@@ -20,6 +20,7 @@ object Routes {
     const val WEEKLY = "weekly"
     const val CREATE = "create"
     const val ACHIEVEMENTS = "achievements"
+    const val REPORTS = "reports"
 
     const val ARG_ID = "id"
     const val ARG_FEATURE = "feature"
@@ -28,12 +29,14 @@ object Routes {
     const val HABIT = "habit/{$ARG_ID}"
     const val EDIT = "edit/{$ARG_ID}"
     const val HISTORY = "history/{$ARG_ID}"
+    const val FOCUS = "focus/{$ARG_ID}"
     const val PREMIUM = "premium?$ARG_FEATURE={$ARG_FEATURE}"
     const val LEGAL = "legal/{$ARG_KIND}"
 
     fun habit(id: Long) = "habit/$id"
     fun edit(id: Long) = "edit/$id"
     fun history(id: Long) = "history/$id"
+    fun focus(id: Long) = "focus/$id"
     fun premium(feature: PremiumFeature? = null) =
         if (feature == null) "premium" else "premium?$ARG_FEATURE=${feature.name}"
     fun legal(kind: String) = "legal/$kind"

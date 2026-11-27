@@ -1,11 +1,13 @@
 package com.example.trackly.di
 
+import com.example.trackly.notifications.DailySummaryScheduler
 import android.app.Application
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import androidx.core.content.ContextCompat
+import com.example.trackly.core.security.AppLock
 import com.example.trackly.BuildConfig
 import com.example.trackly.billing.BillingConfig
 import com.example.trackly.billing.BillingRepository
@@ -106,10 +108,14 @@ class AppContainer(
 
     val reviewPrompter: ReviewPrompter by lazy { ReviewPrompter(app, clock) }
 
+    /** Premium app lock: whether the PIN screen is up. */
+    val appLock = AppLock()
+
     /** Called once from [com.example.trackly.TracklyApp.onCreate]. */
     fun start() {
         registerTimeChangeReceiver()
         ReminderSyncWorker.schedule(app)
+        keepDailySummaryScheduled()
         keepWidgetsFresh()
         dismissRemindersOfCompletedHabits()
         appScope.launch {
@@ -118,6 +124,22 @@ class AppContainer(
                 reminderScheduler.syncAll()
             } catch (ignored: Exception) {
                 // Reminders are best-effort; never crash start-up.
+            }
+        }
+    }
+
+    /** Arms (or cancels) the Premium evening summary whenever its switch or time changes. */
+    private fun keepDailySummaryScheduled() {
+        appScope.launch {
+            try {
+                settingsRepository.settings
+                    .map { it.dailySummaryEnabled to it.dailySummaryMinutes }
+                    .distinctUntilChanged()
+                    .collect { (enabled, minutes) ->
+                        if (enabled) DailySummaryScheduler.schedule(app, minutes) else DailySummaryScheduler.cancel(app)
+                    }
+            } catch (ignored: Exception) {
+                // Best-effort, like reminders.
             }
         }
     }

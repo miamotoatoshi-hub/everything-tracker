@@ -2,6 +2,12 @@
 
 package com.example.trackly.presentation.settings
 
+import com.example.trackly.presentation.common.rememberDateFormats
+import com.example.trackly.presentation.lock.PinSetupDialog
+import com.example.trackly.core.security.Biometrics
+import java.time.LocalTime
+import android.text.format.DateFormat
+import android.app.TimePickerDialog
 import android.content.Context
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -170,6 +176,10 @@ private fun SettingsBody(
     var showUnits by remember { mutableStateOf(false) }
     var showLanguage by remember { mutableStateOf(false) }
     var notificationsBlocked by remember { mutableStateOf(false) }
+    var showPinSetup by remember { mutableStateOf(false) }
+    val biometricAvailable = remember { Biometrics.isAvailable(context) }
+    val dates = rememberDateFormats()
+    val premiumSuffix = if (data.isPremium) "" else " · Premium"
 
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
         notificationsBlocked = settings.notificationsEnabled && needsNotificationPermission(context)
@@ -213,6 +223,13 @@ private fun SettingsBody(
                 Text(stringResource(R.string.settings_accent), style = MaterialTheme.typography.titleSmall)
                 AccentPicker(settings.accent, data.isPremium) { viewModel.setAccent(it, data.isPremium) }
             }
+            SwitchRow(
+                title = stringResource(R.string.settings_pure_black),
+                subtitle = stringResource(R.string.settings_pure_black_desc) + premiumSuffix,
+                checked = settings.pureBlack && data.isPremium,
+                onCheckedChange = { viewModel.setPureBlack(it, data.isPremium) },
+                modifier = Modifier.testTag("switch_pure_black"),
+            )
         }
 
         SettingsGroup(stringResource(R.string.settings_widget_group)) {
@@ -264,9 +281,73 @@ private fun SettingsBody(
                 enabled = settings.notificationsEnabled,
                 onCheckedChange = viewModel::setVibration,
             )
+            SwitchRow(
+                title = stringResource(R.string.settings_daily_summary),
+                subtitle = stringResource(R.string.settings_daily_summary_desc) + premiumSuffix,
+                checked = settings.dailySummaryEnabled,
+                enabled = settings.notificationsEnabled,
+                onCheckedChange = { enabled ->
+                    viewModel.setDailySummary(enabled, settings.dailySummaryMinutes, data.isPremium)
+                    if (enabled && data.isPremium && needsNotificationPermission(context)) {
+                        permissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+                    }
+                },
+                modifier = Modifier.testTag("switch_daily_summary"),
+            )
+            if (settings.dailySummaryEnabled) {
+                val minutes = settings.dailySummaryMinutes
+                SettingsRow(
+                    title = stringResource(R.string.settings_daily_summary_time),
+                    subtitle = dates.time(LocalTime.of(minutes / 60, minutes % 60)),
+                    onClick = {
+                        TimePickerDialog(
+                            context,
+                            { _, hour, minute -> viewModel.setDailySummary(true, hour * 60 + minute, data.isPremium) },
+                            minutes / 60,
+                            minutes % 60,
+                            DateFormat.is24HourFormat(context),
+                        ).show()
+                    },
+                    modifier = Modifier.testTag("setting_daily_summary_time"),
+                )
+            }
             SettingsRow(
                 title = stringResource(R.string.settings_system_notifications),
                 onClick = { openAppNotificationSettings(context) },
+            )
+        }
+
+        SettingsGroup(stringResource(R.string.settings_security)) {
+            SwitchRow(
+                title = stringResource(R.string.settings_app_lock),
+                subtitle = stringResource(R.string.settings_app_lock_desc) + premiumSuffix,
+                checked = settings.appLockEnabled,
+                onCheckedChange = { on ->
+                    when {
+                        !on -> viewModel.disableAppLock()
+                        !data.isPremium -> onUpgrade(PremiumFeature.APP_LOCK)
+                        else -> showPinSetup = true
+                    }
+                },
+                modifier = Modifier.testTag("switch_app_lock"),
+            )
+            val pinHash = settings.appLockPinHash
+            if (pinHash != null && biometricAvailable) {
+                SwitchRow(
+                    title = stringResource(R.string.settings_app_lock_biometric),
+                    checked = settings.appLockBiometric,
+                    onCheckedChange = { viewModel.setLockBiometric(pinHash, it) },
+                    modifier = Modifier.testTag("switch_app_lock_biometric"),
+                )
+            }
+        }
+        if (showPinSetup) {
+            PinSetupDialog(
+                onDone = { hash ->
+                    showPinSetup = false
+                    viewModel.enableAppLock(hash, biometricAvailable)
+                },
+                onDismiss = { showPinSetup = false },
             )
         }
 

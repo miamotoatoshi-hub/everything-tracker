@@ -21,6 +21,11 @@ interface SettingsRepository {
     suspend fun setFirstDayOfWeek(value: FirstDayOfWeekSetting)
     suspend fun setUnitSystem(value: UnitSystem)
     suspend fun setOnboardingCompleted(completed: Boolean)
+    suspend fun setPureBlack(enabled: Boolean)
+
+    /** [pinHash] null turns the app lock off. */
+    suspend fun setAppLock(pinHash: String?, biometric: Boolean)
+    suspend fun setDailySummary(enabled: Boolean, minutesOfDay: Int)
 
     /** Last entitlement confirmed by Google Play, used only as an offline fallback. */
     suspend fun loadCachedEntitlement(): PremiumEntitlement

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Trackly 2.0: focus timer, reports, app lock, evening summary, pure black. -->
+<resources>
+    <string name="premium_reason_focus">Der Fokus-Timer ist Teil von Premium.</string>
+    <string name="premium_reason_reports">Monatsberichte und das Jahr in Pixeln sind Teil von Premium.</string>
+    <string name="premium_reason_lock">Die App-Sperre ist Teil von Premium.</string>
+    <string name="premium_reason_summary">Die Abendübersicht ist Teil von Premium.</string>
+    <string name="premium_feature_focus">Fokus-Timer, der deine Minuten einträgt</string>
+    <string name="premium_feature_reports">Monatsberichte und Jahr in Pixeln</string>
+    <string name="premium_feature_lock">App-Sperre mit PIN und Fingerabdruck</string>
+    <string name="premium_feature_summary">Abendübersicht: was heute noch offen ist</string>
+    <string name="settings_pure_black">Echtes Schwarz (AMOLED)</string>
+    <string name="settings_pure_black_desc">Schwarze Hintergründe im dunklen Design sparen Akku</string>
+    <string name="settings_daily_summary">Abendübersicht</string>
+    <string name="settings_daily_summary_desc">Eine Erinnerung mit den Gewohnheiten, die heute noch offen sind</string>
+    <string name="settings_daily_summary_time">Uhrzeit der Übersicht</string>
+    <string name="settings_security">Privatsphäre und Sicherheit</string>
+    <string name="settings_app_lock">App-Sperre</string>
+    <string name="settings_app_lock_desc">Beim Öffnen von Trackly nach der PIN fragen</string>
+    <string name="settings_app_lock_biometric">Mit Fingerabdruck oder Gesicht entsperren</string>
+    <string name="lock_title">Trackly ist gesperrt</string>
+    <string name="lock_enter_pin">Gib deine PIN ein</string>
+    <string name="lock_wrong_pin">Falsche PIN, versuch es noch einmal</string>
+    <string name="lock_biometric_title">Trackly entsperren</string>
+    <string name="lock_use_pin">PIN verwenden</string>
+    <string name="lock_biometric_button">Fingerabdruck oder Gesicht</string>
+    <string name="lock_forgot_hint">PIN vergessen? Sie lässt sich nur zurücksetzen, indem du die App-Daten in den Android-Einstellungen löschst.</string>
+    <string name="lock_setup_title">Lege eine 4-stellige PIN fest</string>
+    <string name="lock_setup_confirm">PIN wiederholen</string>
+    <string name="lock_setup_mismatch">Die PINs stimmen nicht überein. Versuch es noch einmal.</string>
+    <string name="summary_text">%1$s. Heute ist noch Zeit!</string>
+    <string name="focus_title">Fokus-Timer</string>
+    <string name="focus_minutes">%1$d Min.</string>
+    <string name="focus_start">Starten</string>
+    <string name="focus_pause">Pause</string>
+    <string name="focus_resume">Weiter</string>
+    <string name="focus_add_five">+5 Min.</string>
+    <string name="focus_finish">Beenden und speichern</string>
+    <string name="focus_hint">Solange der Timer läuft, bleibt der Bildschirm an. Danach werden die Minuten für heute eingetragen.</string>
+    <string name="focus_nothing_logged">Weniger als eine Minute: nichts eingetragen</string>
+    <string name="reports_title">Berichte</string>
+    <string name="reports_open">Monatsbericht und Jahr in Pixeln</string>
+    <string name="reports_rate_label">der Tagesziele erreicht</string>
+    <string name="reports_vs_previous">%1$s gegenüber dem Vormonat</string>
+    <string name="reports_no_previous">Dein erster Monat mit Trackly</string>
+    <string name="reports_goals_done">Erreichte Ziele</string>
+    <string name="reports_perfect_days">Perfekte Tage</string>
+    <string name="reports_active_days">Aktive Tage</string>
+    <string name="reports_best_streak">Beste Serie, Tage</string>
+    <string name="reports_top_habits">Top-Gewohnheiten</string>
+    <string name="reports_needs_attention">Braucht Aufmerksamkeit</string>
+    <string name="reports_best_weekday">Dein bester Tag</string>
+    <string name="reports_best_weekday_value">%1$s · %2$d %% der Ziele erreicht</string>
+    <string name="reports_year_pixels">Jahr in Pixeln</string>
+    <string name="reports_less">Weniger</string>
+    <string name="reports_more">Mehr</string>
+    <string name="reports_empty">In diesem Monat war noch nichts fällig. Leg eine Gewohnheit an und schau bald wieder vorbei.</string>
+    <string name="reports_share_message">📈 %1$s in Trackly: %2$d %% der Ziele erreicht, %3$d perfekte Tage, beste Serie %4$d. %5$s</string>
+    <plurals name="summary_title">
+        <item quantity="one">Noch offen: %1$d von %2$d Gewohnheiten</item>
+        <item quantity="other">Noch offen: %1$d von %2$d Gewohnheiten</item>
+    </plurals>
+    <plurals name="focus_logged">
+        <item quantity="one">+%d Minute eingetragen</item>
+        <item quantity="other">+%d Minuten eingetragen</item>
+    </plurals>
+</resources>

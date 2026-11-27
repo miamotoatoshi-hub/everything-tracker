@@ -112,6 +112,7 @@ fun HabitDetailsScreen(
     onEdit: (Long) -> Unit,
     onHistory: (Long) -> Unit,
     onUpgrade: (PremiumFeature) -> Unit,
+    onFocus: (Long) -> Unit = {},
 ) {
     val viewModel = appViewModel(key = "habit_details_$habitId") {
         HabitDetailsViewModel(habitId, it.habitRepository, it.todayProvider, it.settingsRepository, it.premiumPolicy)
@@ -264,6 +265,7 @@ fun HabitDetailsScreen(
                                 onEdit = { onEdit(habitId) },
                                 onHistory = { onHistory(habitId) },
                                 onUpgrade = onUpgrade,
+                                onFocus = { onFocus(habitId) },
                             )
                         }
                     }
@@ -308,6 +310,7 @@ private fun DetailsBody(
     onEdit: () -> Unit,
     onHistory: () -> Unit,
     onUpgrade: (PremiumFeature) -> Unit,
+    onFocus: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -318,6 +321,17 @@ private fun DetailsBody(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         HeroCard(details, viewModel)
+        if (details.habit.type == HabitType.DURATION && !details.habit.isArchived) {
+            val unlocked = details.policy.isUnlocked(PremiumFeature.FOCUS_TIMER)
+            Button(
+                onClick = { if (unlocked) onFocus() else onUpgrade(PremiumFeature.FOCUS_TIMER) },
+                modifier = Modifier.fillMaxWidth().height(52.dp).testTag("open_focus"),
+                shape = RoundedCornerShape(16.dp),
+            ) {
+                Text("⏱  " + stringResource(R.string.focus_title))
+                if (!unlocked) Text("  · Premium")
+            }
+        }
         StatsGrid(details)
         CalendarCard(details, month, selected, viewModel)
         WeekCard(details)

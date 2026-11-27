@@ -5,6 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.MutablePreferences
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.longPreferencesKey
@@ -44,6 +45,11 @@ class SettingsRepositoryImpl(context: Context) : SettingsRepository {
         val FIRST_DAY = stringPreferencesKey("first_day_of_week")
         val UNITS = stringPreferencesKey("unit_system")
         val ONBOARDING = booleanPreferencesKey("onboarding_completed")
+        val PURE_BLACK = booleanPreferencesKey("pure_black")
+        val LOCK_PIN = stringPreferencesKey("app_lock_pin")
+        val LOCK_BIOMETRIC = booleanPreferencesKey("app_lock_biometric")
+        val SUMMARY = booleanPreferencesKey("daily_summary")
+        val SUMMARY_MINUTES = intPreferencesKey("daily_summary_minutes")
         val ENTITLEMENT_STATUS = stringPreferencesKey("entitlement_status")
         val ENTITLEMENT_PRODUCT = stringPreferencesKey("entitlement_product")
         val ENTITLEMENT_VERIFIED_AT = longPreferencesKey("entitlement_verified_at")
@@ -68,6 +74,22 @@ class SettingsRepositoryImpl(context: Context) : SettingsRepository {
     override suspend fun setFirstDayOfWeek(value: FirstDayOfWeekSetting) = write { it[Keys.FIRST_DAY] = value.name }
     override suspend fun setUnitSystem(value: UnitSystem) = write { it[Keys.UNITS] = value.name }
     override suspend fun setOnboardingCompleted(completed: Boolean) = write { it[Keys.ONBOARDING] = completed }
+    override suspend fun setPureBlack(enabled: Boolean) = write { it[Keys.PURE_BLACK] = enabled }
+
+    override suspend fun setAppLock(pinHash: String?, biometric: Boolean) = write { prefs ->
+        if (pinHash == null) {
+            prefs.remove(Keys.LOCK_PIN)
+            prefs[Keys.LOCK_BIOMETRIC] = false
+        } else {
+            prefs[Keys.LOCK_PIN] = pinHash
+            prefs[Keys.LOCK_BIOMETRIC] = biometric
+        }
+    }
+
+    override suspend fun setDailySummary(enabled: Boolean, minutesOfDay: Int) = write {
+        it[Keys.SUMMARY] = enabled
+        it[Keys.SUMMARY_MINUTES] = minutesOfDay.coerceIn(0, 24 * 60 - 1)
+    }
 
     override suspend fun loadCachedEntitlement(): PremiumEntitlement {
         val prefs = entitlementStore.safeData().first()
@@ -115,6 +137,11 @@ class SettingsRepositoryImpl(context: Context) : SettingsRepository {
             firstDayOfWeek = this[Keys.FIRST_DAY].toEnumOrDefault(defaults.firstDayOfWeek),
             unitSystem = this[Keys.UNITS].toEnumOrDefault(defaults.unitSystem),
             onboardingCompleted = this[Keys.ONBOARDING] ?: defaults.onboardingCompleted,
+            pureBlack = this[Keys.PURE_BLACK] ?: defaults.pureBlack,
+            appLockPinHash = this[Keys.LOCK_PIN],
+            appLockBiometric = this[Keys.LOCK_BIOMETRIC] ?: defaults.appLockBiometric,
+            dailySummaryEnabled = this[Keys.SUMMARY] ?: defaults.dailySummaryEnabled,
+            dailySummaryMinutes = this[Keys.SUMMARY_MINUTES] ?: defaults.dailySummaryMinutes,
         )
     }
 }

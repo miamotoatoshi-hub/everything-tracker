@@ -83,6 +83,30 @@ class SettingsViewModel(
         billing.connect()
     }
 
+    /** Premium "AMOLED" black backgrounds for the dark theme. */
+    fun setPureBlack(enabled: Boolean, isPremium: Boolean) {
+        if (enabled && !isPremium) {
+            _events.tryEmit(SettingsEvent.RequiresPremium(PremiumFeature.PREMIUM_THEMES))
+        } else {
+            save { settings.setPureBlack(enabled) }
+        }
+    }
+
+    fun enableAppLock(pinHash: String, biometric: Boolean) = save { settings.setAppLock(pinHash, biometric) }
+
+    fun disableAppLock() = save { settings.setAppLock(null, false) }
+
+    fun setLockBiometric(pinHash: String, enabled: Boolean) = save { settings.setAppLock(pinHash, enabled) }
+
+    /** Premium evening summary; the container (re)schedules it whenever these values change. */
+    fun setDailySummary(enabled: Boolean, minutesOfDay: Int, isPremium: Boolean) {
+        if (enabled && !isPremium) {
+            _events.tryEmit(SettingsEvent.RequiresPremium(PremiumFeature.DAILY_SUMMARY))
+        } else {
+            save { settings.setDailySummary(enabled, minutesOfDay) }
+        }
+    }
+
     private fun save(block: suspend () -> Unit) {
         launchSafely(onError = { _events.emit(SettingsEvent.Failed) }) { block() }
     }

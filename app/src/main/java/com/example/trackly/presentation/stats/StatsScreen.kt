@@ -25,6 +25,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowRight
 import androidx.compose.material.icons.rounded.AutoAwesome
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
@@ -73,6 +74,7 @@ fun StatsScreen(
     onOpenWeekly: () -> Unit,
     onUpgrade: (PremiumFeature) -> Unit,
     onOpenAchievements: () -> Unit = {},
+    onOpenReports: () -> Unit = {},
 ) {
     val viewModel = appViewModel {
         StatsViewModel(it.habitRepository, it.todayProvider, it.settingsRepository, it.premiumPolicy)
@@ -100,7 +102,7 @@ fun StatsScreen(
                     )
                 } else {
                     CenteredContent(maxWidth = 640.dp) {
-                        StatsBody(data, viewModel, onOpenWeekly, onOpenAchievements) { currentOnUpgrade(it) }
+                        StatsBody(data, viewModel, onOpenWeekly, onOpenAchievements, onOpenReports) { currentOnUpgrade(it) }
                     }
                 }
             }
@@ -114,6 +116,7 @@ private fun StatsBody(
     viewModel: StatsViewModel,
     onOpenWeekly: () -> Unit,
     onOpenAchievements: () -> Unit,
+    onOpenReports: () -> Unit,
     onUpgrade: (PremiumFeature) -> Unit,
 ) {
     val top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
@@ -183,6 +186,17 @@ private fun StatsBody(
             Text(stringResource(R.string.stats_weekly_overview))
             Spacer(Modifier.size(4.dp))
             Icon(Icons.AutoMirrored.Rounded.KeyboardArrowRight, contentDescription = null, modifier = Modifier.size(18.dp))
+        }
+
+        Button(
+            onClick = {
+                if (data.policy.isUnlocked(PremiumFeature.REPORTS)) onOpenReports() else onUpgrade(PremiumFeature.REPORTS)
+            },
+            modifier = Modifier.fillMaxWidth().height(52.dp).testTag("open_reports"),
+            shape = RoundedCornerShape(16.dp),
+        ) {
+            Text("📈  " + stringResource(R.string.reports_open))
+            if (!data.policy.isUnlocked(PremiumFeature.REPORTS)) Text("  · Premium")
         }
 
         OutlinedButton(
