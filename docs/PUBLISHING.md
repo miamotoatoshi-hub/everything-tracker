@@ -359,7 +359,7 @@ Play Console не даёт создавать подписки, пока не з
 ### Скриншоты — уже готовы
 В `store-assets/screenshots/` лежат готовые скриншоты телефона 1080×1920 с подписями:
 `en_*.png` — для английской страницы, `ru_*.png` — для русской. Загрузите их в *Phone screenshots*
-(порядок: home → details → calendar → stats → weekly → form).
+(порядок: home → details → calendar → stats → weekly → achievements → form).
 
 Они сняты на эмуляторе автоматически (CI, тест `ScreenshotTour`, демо-данные, «чистая» строка состояния 9:41)
 и оформлены скриптом `store-assets/tools/frame_screenshots.py`. Чтобы обновить их после изменений интерфейса:
