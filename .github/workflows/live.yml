@@ -1,7 +1,7 @@
 name: Live test session
 
-# Try the app without a phone: boots an Android emulator, installs the debug APK and shows the
-# emulator's screen in a browser for two hours (see .github/scripts/live-session.sh).
+# Try the app without an Android phone: boots an emulator, installs the debug APK and shows its screen
+# on a web page that works on any phone or computer, for two hours (see .github/scripts/live-session.sh).
 # It also publishes the debug APK as the "test-build" pre-release, so it can be installed on a phone
 # from https://github.com/<owner>/<repo>/releases/download/test-build/trackly-test.apk
 #
@@ -65,22 +65,8 @@ jobs:
             --title "Trackly test build" \
             --notes "Debug build for testing on an Android phone (Android 8.0+). Not the Google Play release."
 
-      - name: Install the display, VNC and noVNC
-        run: |
-          sudo apt-get update -q
-          sudo apt-get install -y -q --no-install-recommends xvfb x11vnc novnc websockify
-          # Libraries the emulator's window needs; names differ between Ubuntu releases, so each is optional.
-          for p in libxcb-cursor0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 \
-                   libxcb-shape0 libxcb-xfixes0 libxcb-xinerama0 libxcb-xkb1 libxkbcommon-x11-0 libxkbfile1 \
-                   libpulse0 libnss3 libgl1 libegl1 imagemagick; do
-            sudo apt-get install -y -q --no-install-recommends "$p" > /dev/null 2>&1 || echo "skipped $p"
-          done
-
-      - name: Start the virtual display
-        run: |
-          nohup Xvfb :99 -screen 0 720x1320x24 -nolisten tcp > /tmp/xvfb.log 2>&1 &
-          sleep 2
-          echo "DISPLAY=:99" >> "$GITHUB_ENV"
+      - name: Install Pillow (screen frames)
+        run: sudo apt-get update -q && sudo apt-get install -y -q --no-install-recommends python3-pil
 
       - name: Run the session
         uses: reactivecircus/android-emulator-runner@v2
@@ -90,7 +76,7 @@ jobs:
           target: google_apis
           profile: pixel_6
           force-avd-creation: false
-          # No -no-window: the emulator draws into the Xvfb display that the browser shows.
-          emulator-options: -gpu swiftshader_indirect -noaudio -no-boot-anim
-          disable-animations: false
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim
+          # The page shows a few frames per second: instant transitions read better than half-drawn ones.
+          disable-animations: true
           script: bash .github/scripts/live-session.sh
