@@ -1,0 +1,96 @@
+name: Live test session
+
+# Try the app without a phone: boots an Android emulator, installs the debug APK and shows the
+# emulator's screen in a browser for an hour (see .github/scripts/live-session.sh).
+# It also publishes the debug APK as the "test-build" pre-release, so it can be installed on a phone
+# from https://github.com/<owner>/<repo>/releases/download/test-build/trackly-test.apk
+#
+# Starts from Actions > Live test session > Run workflow, or on a push whose commit message contains [live].
+# The browser link is encrypted for the holder of the private key matching .github/live-session.pub.pem.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["**"]
+
+concurrency:
+  # Only a new session replaces a running one; ordinary pushes (skipped runs) get a group of their own.
+  group: ${{ (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[live]')) && 'live-session' || format('live-skip-{0}', github.run_id) }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  checks: write
+
+jobs:
+  live:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[live]')
+    name: Emulator in the browser
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      GH_TOKEN: ${{ github.token }}
+      LIVE_MINUTES: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle.kts', 'gradle/libs.versions.toml', 'gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: gradle-${{ runner.os }}-
+
+      - name: Build debug APK
+        run: ./gradlew --console=plain assembleDebug
+
+      - name: Publish the APK for phones (test-build pre-release)
+        run: |
+          cp app/build/outputs/apk/debug/app-debug.apk trackly-test.apk
+          gh release delete test-build --yes --cleanup-tag || true
+          gh release create test-build trackly-test.apk --prerelease --target "$GITHUB_SHA" \
+            --title "Trackly test build" \
+            --notes "Debug build for testing on an Android phone (Android 8.0+). Not the Google Play release."
+
+      - name: Install the display, VNC and noVNC
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q --no-install-recommends xvfb x11vnc novnc websockify
+          # Libraries the emulator's window needs; names differ between Ubuntu releases, so each is optional.
+          for p in libxcb-cursor0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 \
+                   libxcb-shape0 libxcb-xfixes0 libxcb-xinerama0 libxcb-xkb1 libxkbcommon-x11-0 libxkbfile1 \
+                   libpulse0 libnss3 libgl1 libegl1; do
+            sudo apt-get install -y -q --no-install-recommends "$p" > /dev/null 2>&1 || echo "skipped $p"
+          done
+
+      - name: Start the virtual display
+        run: |
+          nohup Xvfb :99 -screen 0 720x1320x24 -nolisten tcp > /tmp/xvfb.log 2>&1 &
+          sleep 2
+          echo "DISPLAY=:99" >> "$GITHUB_ENV"
+
+      - name: Run the session
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          arch: x86_64
+          target: google_apis
+          profile: pixel_6
+          force-avd-creation: false
+          # No -no-window: the emulator draws into the Xvfb display that the browser shows.
+          emulator-options: -gpu swiftshader_indirect -noaudio -no-boot-anim
+          disable-animations: false
+          script: bash .github/scripts/live-session.sh
