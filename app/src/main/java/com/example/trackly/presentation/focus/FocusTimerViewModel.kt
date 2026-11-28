@@ -37,6 +37,8 @@ class FocusTimerViewModel(
     private val habits: HabitRepository,
     private val todayProvider: TodayProvider,
     private val now: () -> Long = { SystemClock.elapsedRealtime() },
+    /** Called when a session ends; tells the user if the app was in the background at that moment. */
+    private val onSessionDone: suspend (habitLabel: String, minutes: Int) -> Unit = { _, _ -> },
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(FocusState())
@@ -105,6 +107,7 @@ class FocusTimerViewModel(
             habits.addToEntry(habitId, todayProvider.current(), FocusTimer.loggedValue(minutes, habit.unit))
         }
         _state.update { it.copy(running = false, loggedMinutes = minutes) }
+        if (habit != null) onSessionDone("${habit.icon} ${habit.name}".trim(), minutes)
     }
 
     private companion object {

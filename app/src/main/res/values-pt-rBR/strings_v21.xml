@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Version 2.1: habit ideas, Free vs Premium table, focus-session notification. -->
+<resources>
+    <string name="form_ideas">Ideias para começar</string>
+    <string name="premium_compare_title">Grátis vs Premium</string>
+    <string name="compare_free">Grátis</string>
+    <string name="compare_habits">Hábitos</string>
+    <string name="compare_reminders">Lembretes por hábito</string>
+    <string name="compare_history">Histórico</string>
+    <string name="focus_done_title">Sessão de foco concluída</string>
+    <string name="template_workout">Treino</string>
+    <string name="template_stretch">Alongamento</string>
+    <string name="template_early_rise">Acordar cedo</string>
+    <string name="template_journal">Diário</string>
+    <string name="template_gratitude">Gratidão</string>
+    <string name="template_language">Aprender um idioma</string>
+    <string name="template_study">Estudar</string>
+    <string name="template_music">Praticar música</string>
+    <string name="template_fruit">Frutas e verduras</string>
+    <string name="template_no_sugar">Sem açúcar</string>
+    <string name="template_cook">Cozinhar em casa</string>
+    <string name="template_cycling">Pedalar</string>
+    <string name="template_swim">Natação</string>
+    <string name="template_floss">Fio dental</string>
+    <string name="template_no_smoking">Sem fumar</string>
+    <string name="template_screen_free">Noite sem telas</string>
+    <string name="template_tidy">Arrumar</string>
+    <string name="template_save_money">Economizar</string>
+    <string name="template_call_family">Ligar para a família</string>
+    <string name="template_dog_walk">Passear com o cachorro</string>
+</resources>

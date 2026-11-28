@@ -373,7 +373,7 @@ private fun TemplatePage(selected: Set<String>, onToggle: (String) -> Unit) {
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            items(HabitTemplates.all, key = { it.key }) { template ->
+            items(HabitTemplates.onboarding, key = { it.key }) { template ->
                 TemplateCard(template, template.key in selected) { onToggle(template.key) }
             }
         }

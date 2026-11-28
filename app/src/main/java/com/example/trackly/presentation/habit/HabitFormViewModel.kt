@@ -1,5 +1,6 @@
 package com.example.trackly.presentation.habit
 
+import com.example.trackly.presentation.common.HabitTemplate
 import com.example.trackly.core.locale.weekLocale
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -154,6 +155,25 @@ class HabitFormViewModel(
     fun onNameChange(value: String) = update { it.copy(name = value.take(HABIT_NAME_LIMIT), errors = it.errors - HabitFormError.NAME_EMPTY - HabitFormError.NAME_TOO_LONG) }
 
     fun onIconChange(value: String) = update { it.copy(icon = value) }
+
+    /** "Ideas": fills a new habit from a ready-made template (an edited habit is left alone). */
+    fun applyTemplate(template: HabitTemplate, name: String) = update { current ->
+        if (current.isEdit) return@update current
+        val draft = template.toDraft(name, current.startDate, UnitSystem.METRIC)
+        current.copy(
+            name = draft.name.take(HABIT_NAME_LIMIT),
+            icon = draft.icon,
+            colorArgb = draft.colorArgb,
+            type = draft.type,
+            unit = draft.unit,
+            customUnit = "",
+            goalText = formatValue(draft.goalValue, Locale.US),
+            stepText = formatValue(draft.stepValue, Locale.US),
+            scheduleType = ScheduleType.EVERY_DAY,
+            timeOfDay = draft.timeOfDay,
+            errors = emptySet(),
+        )
+    }
 
     fun onColorChange(argb: Int) {
         if (!policy.value.isColorAllowed(argb)) {

@@ -2,6 +2,10 @@
 
 package com.example.trackly.presentation.habit
 
+import com.example.trackly.presentation.common.HabitTemplates
+import androidx.compose.material3.AssistChip
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -247,6 +251,7 @@ private fun FormBody(
             .padding(horizontal = 16.dp, vertical = 12.dp),
         verticalArrangement = Arrangement.spacedBy(20.dp),
     ) {
+        if (!state.isEdit) IdeasSection(viewModel)
         NameSection(state, viewModel)
         IconSection(state, viewModel)
         ColorSection(state, isPremium, viewModel)
@@ -279,6 +284,28 @@ private fun FormSection(
         }
     }
 }
+
+// region ideas
+
+/** A row of ready-made habits: one tap fills the whole form. */
+@Composable
+private fun IdeasSection(viewModel: HabitFormViewModel) {
+    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        SectionTitle(stringResource(R.string.form_ideas))
+        LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.testTag("habit_ideas")) {
+            items(HabitTemplates.all, key = { it.key }) { template ->
+                val name = stringResource(template.nameRes)
+                AssistChip(
+                    onClick = { viewModel.applyTemplate(template, name) },
+                    label = { Text("${template.icon} $name") },
+                    modifier = Modifier.testTag("idea_${template.key}"),
+                )
+            }
+        }
+    }
+}
+
+// endregion
 
 // region name + icon + colour
 

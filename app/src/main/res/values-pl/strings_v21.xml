@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Version 2.1: habit ideas, Free vs Premium table, focus-session notification. -->
+<resources>
+    <string name="form_ideas">Pomysły na start</string>
+    <string name="premium_compare_title">Darmowy a Premium</string>
+    <string name="compare_free">Za darmo</string>
+    <string name="compare_habits">Nawyki</string>
+    <string name="compare_reminders">Przypomnienia na nawyk</string>
+    <string name="compare_history">Historia</string>
+    <string name="focus_done_title">Sesja skupienia zakończona</string>
+    <string name="template_workout">Trening</string>
+    <string name="template_stretch">Rozciąganie</string>
+    <string name="template_early_rise">Wczesna pobudka</string>
+    <string name="template_journal">Dziennik</string>
+    <string name="template_gratitude">Wdzięczność</string>
+    <string name="template_language">Nauka języka</string>
+    <string name="template_study">Nauka</string>
+    <string name="template_music">Ćwicz muzykę</string>
+    <string name="template_fruit">Owoce i warzywa</string>
+    <string name="template_no_sugar">Bez cukru</string>
+    <string name="template_cook">Gotuj w domu</string>
+    <string name="template_cycling">Rower</string>
+    <string name="template_swim">Pływanie</string>
+    <string name="template_floss">Nić dentystyczna</string>
+    <string name="template_no_smoking">Bez papierosów</string>
+    <string name="template_screen_free">Wieczór bez ekranu</string>
+    <string name="template_tidy">Sprzątanie</string>
+    <string name="template_save_money">Oszczędzaj</string>
+    <string name="template_call_family">Telefon do bliskich</string>
+    <string name="template_dog_walk">Spacer z psem</string>
+</resources>

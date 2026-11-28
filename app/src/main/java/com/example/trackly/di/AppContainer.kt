@@ -1,5 +1,6 @@
 package com.example.trackly.di
 
+import com.example.trackly.notifications.FocusDoneNotifier
 import com.example.trackly.notifications.DailySummaryScheduler
 import android.app.Application
 import android.content.BroadcastReceiver
@@ -107,6 +108,8 @@ class AppContainer(
     val documentStore: DocumentStore by lazy { ContentResolverDocumentStore(app) }
 
     val reviewPrompter: ReviewPrompter by lazy { ReviewPrompter(app, clock) }
+
+    val focusDoneNotifier: FocusDoneNotifier by lazy { FocusDoneNotifier(app, settingsRepository) }
 
     /** Premium app lock: whether the PIN screen is up. */
     val appLock = AppLock()

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Version 2.1: habit ideas, Free vs Premium table, focus-session notification. -->
+<resources>
+    <string name="form_ideas">Başlamak için fikirler</string>
+    <string name="premium_compare_title">Ücretsiz ve Premium</string>
+    <string name="compare_free">Ücretsiz</string>
+    <string name="compare_habits">Alışkanlıklar</string>
+    <string name="compare_reminders">Alışkanlık başına hatırlatıcı</string>
+    <string name="compare_history">Geçmiş</string>
+    <string name="focus_done_title">Odak seansı tamamlandı</string>
+    <string name="template_workout">Antrenman</string>
+    <string name="template_stretch">Esneme</string>
+    <string name="template_early_rise">Erken kalk</string>
+    <string name="template_journal">Günlük yaz</string>
+    <string name="template_gratitude">Şükran</string>
+    <string name="template_language">Dil öğren</string>
+    <string name="template_study">Ders çalış</string>
+    <string name="template_music">Müzik çalış</string>
+    <string name="template_fruit">Meyve ve sebze</string>
+    <string name="template_no_sugar">Şekersiz</string>
+    <string name="template_cook">Evde yemek yap</string>
+    <string name="template_cycling">Bisiklet</string>
+    <string name="template_swim">Yüzme</string>
+    <string name="template_floss">Diş ipi</string>
+    <string name="template_no_smoking">Sigarasız gün</string>
+    <string name="template_screen_free">Ekransız akşam</string>
+    <string name="template_tidy">Toparlan</string>
+    <string name="template_save_money">Para biriktir</string>
+    <string name="template_call_family">Aileyi ara</string>
+    <string name="template_dog_walk">Köpeği gezdir</string>
+</resources>

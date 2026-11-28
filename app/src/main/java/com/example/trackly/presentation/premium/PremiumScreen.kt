@@ -2,6 +2,9 @@
 
 package com.example.trackly.presentation.premium
 
+import com.example.trackly.domain.model.FreeTier
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.scaleIn
@@ -128,7 +131,7 @@ fun PremiumScreen(
                 }
                 Hero(isPremium = isPremium)
                 if (reason != null && !isPremium) ReasonBanner(reason)
-                Features()
+                if (!isPremium) Highlights()
 
                 when {
                     isPremium -> ActiveCard(
@@ -146,6 +149,8 @@ fun PremiumScreen(
                         )
                     }
                 }
+
+                CompareTable()
 
                 TextButton(
                     onClick = viewModel::restore,
@@ -237,43 +242,99 @@ private fun reasonText(feature: PremiumFeature): Int = when (feature) {
     PremiumFeature.DAILY_SUMMARY -> R.string.premium_reason_summary
 }
 
+/** The four strongest reasons, right above the plans. */
 @Composable
-private fun Features() {
+private fun Highlights() {
     val items = listOf(
-        R.string.premium_feature_habits,
-        R.string.premium_feature_focus,
-        R.string.premium_feature_reports,
-        R.string.premium_feature_widget,
-        R.string.premium_feature_lock,
-        R.string.premium_feature_summary,
-        R.string.premium_feature_stats,
-        R.string.premium_feature_reminders,
-        R.string.premium_feature_themes,
-        R.string.premium_feature_history,
-        R.string.premium_feature_colors,
-        R.string.premium_feature_calendar,
-        R.string.premium_feature_insights,
-        R.string.premium_feature_export,
+        "♾️" to R.string.premium_feature_habits,
+        "⏱" to R.string.premium_feature_focus,
+        "📈" to R.string.premium_feature_reports,
+        "📱" to R.string.premium_feature_widget,
     )
-    Surface(shape = RoundedCornerShape(24.dp), color = MaterialTheme.colorScheme.surfaceContainerLowest) {
-        Column(modifier = Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
-            items.forEach { res ->
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Box(
-                        modifier = Modifier.size(24.dp).background(MaterialTheme.colorScheme.primaryContainer, CircleShape),
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        Icon(
-                            Icons.Rounded.Check,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary,
-                            modifier = Modifier.size(16.dp),
-                        )
-                    }
-                    Text(stringResource(res), style = MaterialTheme.typography.bodyLarge)
-                }
+    Column(verticalArrangement = Arrangement.spacedBy(10.dp), modifier = Modifier.testTag("premium_highlights")) {
+        items.forEach { (emoji, res) ->
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                Box(
+                    modifier = Modifier.size(36.dp).background(MaterialTheme.colorScheme.primaryContainer, CircleShape),
+                    contentAlignment = Alignment.Center,
+                ) { Text(emoji, fontSize = 18.sp) }
+                Text(stringResource(res), style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.Medium)
             }
         }
+    }
+}
+
+private const val YES = "✓"
+private const val NO = "—"
+private const val UNLIMITED = "∞"
+
+/** Free vs Premium, row by row: what the free plan already does and what Premium adds. */
+@Composable
+private fun CompareTable() {
+    val rows: List<Triple<String, String, String>> = listOf(
+        Triple(stringResource(R.string.compare_habits), FreeTier.MAX_ACTIVE_HABITS.toString(), UNLIMITED),
+        Triple(stringResource(R.string.compare_reminders), FreeTier.MAX_REMINDERS_PER_HABIT.toString(), UNLIMITED),
+        Triple(stringResource(R.string.compare_history), stringResource(R.string.period_days, FreeTier.HISTORY_DAYS), UNLIMITED),
+        Triple(stringResource(R.string.premium_feature_stats), stringResource(R.string.stats_week), YES),
+        Triple(stringResource(R.string.achievements_title), YES, YES),
+        Triple(stringResource(R.string.focus_title), NO, YES),
+        Triple(stringResource(R.string.reports_title), NO, YES),
+        Triple(stringResource(R.string.premium_feature_widget), NO, YES),
+        Triple(stringResource(R.string.settings_daily_summary), NO, YES),
+        Triple(stringResource(R.string.settings_app_lock), NO, YES),
+        Triple(stringResource(R.string.settings_export_csv), NO, YES),
+        Triple(stringResource(R.string.premium_feature_themes), "2", "8 + AMOLED"),
+    )
+    Surface(
+        shape = RoundedCornerShape(24.dp),
+        color = MaterialTheme.colorScheme.surfaceContainerLowest,
+        modifier = Modifier.fillMaxWidth().testTag("premium_compare"),
+    ) {
+        Column(modifier = Modifier.padding(vertical = 16.dp)) {
+            Text(
+                stringResource(R.string.premium_compare_title),
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.padding(horizontal = 20.dp, vertical = 4.dp),
+            )
+            CompareRow(
+                label = "",
+                free = stringResource(R.string.compare_free),
+                premium = "Premium",
+                header = true,
+            )
+            rows.forEach { (label, free, premium) -> CompareRow(label, free, premium) }
+        }
+    }
+}
+
+@Composable
+private fun CompareRow(label: String, free: String, premium: String, header: Boolean = false) {
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            label,
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.weight(1.6f),
+            color = MaterialTheme.colorScheme.onSurface,
+        )
+        Text(
+            free,
+            style = if (header) MaterialTheme.typography.labelLarge else MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.weight(1f),
+        )
+        Text(
+            premium,
+            style = if (header) MaterialTheme.typography.labelLarge else MaterialTheme.typography.bodyMedium,
+            fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.primary,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.weight(1f),
+        )
     }
 }
 

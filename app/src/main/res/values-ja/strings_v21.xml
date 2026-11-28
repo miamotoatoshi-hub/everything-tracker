@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Version 2.1: habit ideas, Free vs Premium table, focus-session notification. -->
+<resources>
+    <string name="form_ideas">おすすめの習慣</string>
+    <string name="premium_compare_title">無料版と Premium の比較</string>
+    <string name="compare_free">無料</string>
+    <string name="compare_habits">習慣の数</string>
+    <string name="compare_reminders">習慣ごとのリマインダー</string>
+    <string name="compare_history">履歴</string>
+    <string name="focus_done_title">集中セッション完了</string>
+    <string name="template_workout">筋トレ</string>
+    <string name="template_stretch">ストレッチ</string>
+    <string name="template_early_rise">早起き</string>
+    <string name="template_journal">日記を書く</string>
+    <string name="template_gratitude">感謝を書く</string>
+    <string name="template_language">語学学習</string>
+    <string name="template_study">勉強</string>
+    <string name="template_music">楽器の練習</string>
+    <string name="template_fruit">野菜と果物</string>
+    <string name="template_no_sugar">砂糖を控える</string>
+    <string name="template_cook">自炊する</string>
+    <string name="template_cycling">サイクリング</string>
+    <string name="template_swim">水泳</string>
+    <string name="template_floss">フロス</string>
+    <string name="template_no_smoking">禁煙</string>
+    <string name="template_screen_free">夜はスマホを置く</string>
+    <string name="template_tidy">片付け</string>
+    <string name="template_save_money">貯金する</string>
+    <string name="template_call_family">家族に電話</string>
+    <string name="template_dog_walk">犬の散歩</string>
+</resources>

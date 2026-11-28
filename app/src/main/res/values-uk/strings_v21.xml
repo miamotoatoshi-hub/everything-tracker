@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Version 2.1: habit ideas, Free vs Premium table, focus-session notification. -->
+<resources>
+    <string name="form_ideas">Ідеї для старту</string>
+    <string name="premium_compare_title">Безкоштовно і Premium</string>
+    <string name="compare_free">Безкоштовно</string>
+    <string name="compare_habits">Звички</string>
+    <string name="compare_reminders">Нагадувань на звичку</string>
+    <string name="compare_history">Історія</string>
+    <string name="focus_done_title">Фокус-сесію завершено</string>
+    <string name="template_workout">Тренування</string>
+    <string name="template_stretch">Розтяжка</string>
+    <string name="template_early_rise">Ранній підйом</string>
+    <string name="template_journal">Щоденник</string>
+    <string name="template_gratitude">Вдячність</string>
+    <string name="template_language">Вивчати мову</string>
+    <string name="template_study">Навчання</string>
+    <string name="template_music">Музика</string>
+    <string name="template_fruit">Фрукти й овочі</string>
+    <string name="template_no_sugar">Без цукру</string>
+    <string name="template_cook">Готувати вдома</string>
+    <string name="template_cycling">Велосипед</string>
+    <string name="template_swim">Плавання</string>
+    <string name="template_floss">Зубна нитка</string>
+    <string name="template_no_smoking">Не курити</string>
+    <string name="template_screen_free">Вечір без екрана</string>
+    <string name="template_tidy">Прибирання</string>
+    <string name="template_save_money">Заощаджувати</string>
+    <string name="template_call_family">Подзвонити рідним</string>
+    <string name="template_dog_walk">Вигуляти собаку</string>
+</resources>

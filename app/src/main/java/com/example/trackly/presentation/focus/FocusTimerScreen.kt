@@ -58,7 +58,9 @@ import com.example.trackly.presentation.common.appViewModel
 
 @Composable
 fun FocusTimerScreen(habitId: Long, onBack: () -> Unit) {
-    val viewModel = appViewModel(key = "focus_$habitId") { FocusTimerViewModel(habitId, it.habitRepository, it.todayProvider) }
+    val viewModel = appViewModel(key = "focus_$habitId") {
+        FocusTimerViewModel(habitId, it.habitRepository, it.todayProvider, onSessionDone = it.focusDoneNotifier::notifyIfInBackground)
+    }
     val state by viewModel.state.collectAsStateWithLifecycle()
     val haptic = LocalHapticFeedback.current
 

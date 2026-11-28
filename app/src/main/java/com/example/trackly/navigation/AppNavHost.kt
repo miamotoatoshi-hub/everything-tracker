@@ -32,6 +32,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.trackly.presentation.common.LocalAppContainer
 import com.example.trackly.presentation.focus.FocusTimerScreen
 import com.example.trackly.presentation.reports.ReportsScreen
 import com.example.trackly.presentation.achievements.AchievementsScreen
@@ -72,6 +73,7 @@ fun AppNavHost(
     onDeepLinkConsumed: () -> Unit,
 ) {
     val navController = rememberNavController()
+    val container = LocalAppContainer.current
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = backStackEntry?.destination?.route
     val showBottomBar = currentRoute in TopLevelDestination.routes
@@ -121,7 +123,11 @@ fun AppNavHost(
                             popUpTo(Routes.ONBOARDING) { inclusive = true }
                             launchSingleTop = true
                         }
-                        if (openCreate) navController.navigate(Routes.CREATE)
+                        when {
+                            openCreate -> navController.navigate(Routes.CREATE)
+                            // The moment people are most open to it: right after setting up. One close button away.
+                            !container.isPremium.value -> navController.navigate(Routes.premium())
+                        }
                     },
                 )
             }

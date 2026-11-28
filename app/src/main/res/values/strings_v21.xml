@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Version 2.1: habit ideas, Free vs Premium table, focus-session notification. -->
+<resources>
+    <string name="form_ideas">Ideas to start with</string>
+    <string name="premium_compare_title">Free vs Premium</string>
+    <string name="compare_free">Free</string>
+    <string name="compare_habits">Habits</string>
+    <string name="compare_reminders">Reminders per habit</string>
+    <string name="compare_history">History</string>
+    <string name="focus_done_title">Focus session complete</string>
+    <string name="template_workout">Workout</string>
+    <string name="template_stretch">Stretching</string>
+    <string name="template_early_rise">Wake up early</string>
+    <string name="template_journal">Journal</string>
+    <string name="template_gratitude">Gratitude</string>
+    <string name="template_language">Learn a language</string>
+    <string name="template_study">Study</string>
+    <string name="template_music">Practice music</string>
+    <string name="template_fruit">Fruit &amp; veggies</string>
+    <string name="template_no_sugar">No sugar</string>
+    <string name="template_cook">Cook at home</string>
+    <string name="template_cycling">Cycling</string>
+    <string name="template_swim">Swimming</string>
+    <string name="template_floss">Floss</string>
+    <string name="template_no_smoking">No smoking</string>
+    <string name="template_screen_free">Screen-free evening</string>
+    <string name="template_tidy">Tidy up</string>
+    <string name="template_save_money">Save money</string>
+    <string name="template_call_family">Call family</string>
+    <string name="template_dog_walk">Walk the dog</string>
+</resources>
