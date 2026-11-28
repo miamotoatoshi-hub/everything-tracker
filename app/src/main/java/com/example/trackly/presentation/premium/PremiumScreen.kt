@@ -247,7 +247,7 @@ private fun reasonText(feature: PremiumFeature): Int = when (feature) {
 private fun Highlights() {
     val items = listOf(
         "♾️" to R.string.premium_feature_habits,
-        "⏱" to R.string.premium_feature_focus,
+        "⏱️" to R.string.premium_feature_focus,
         "📈" to R.string.premium_feature_reports,
         "📱" to R.string.premium_feature_widget,
     )

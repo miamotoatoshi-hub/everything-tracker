@@ -46,5 +46,8 @@ Wybierz plan miesięczny, roczny (z darmowym okresem próbnym dla nowych użytko
 
 Zacznij od małych kroków. Codziennie. Trackly pilnuje serii.
 
+## Release notes 2.1.0
+Nowość: 20 nowych pomysłów na nawyki, czytelne porównanie wersji darmowej i Premium oraz powiadomienie po zakończeniu sesji skupienia.
+
 ## Release notes 2.0.0
 Trackly 2.0: minutnik skupienia, raporty miesięczne i rok w pikselach, wieczorne podsumowanie, blokada aplikacji PIN-em i odciskiem palca, czarny motyw i 5 nowych języków, w tym polski.

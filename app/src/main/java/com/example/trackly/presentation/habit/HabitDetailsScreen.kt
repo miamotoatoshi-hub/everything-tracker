@@ -328,7 +328,7 @@ private fun DetailsBody(
                 modifier = Modifier.fillMaxWidth().height(52.dp).testTag("open_focus"),
                 shape = RoundedCornerShape(16.dp),
             ) {
-                Text("⏱  " + stringResource(R.string.focus_title))
+                Text("⏱️  " + stringResource(R.string.focus_title))
                 if (!unlocked) Text("  · Premium")
             }
         }

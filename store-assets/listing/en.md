@@ -68,6 +68,9 @@ Productivity (alternative: Health & Fitness). Tags: Habit tracker, Productivity,
 7. Private & offline. No ads. No account.
 8. Dark mode included
 
+## Release notes 2.1.0
+New: 20 more habit ideas on the new-habit screen, a clear Free vs Premium comparison, and a notification when a focus session ends.
+
 ## Release notes 2.0.0
 Trackly 2.0: focus timer, monthly reports and year in pixels, evening summary, app lock with PIN and fingerprint, pure black theme, and 5 new languages.
 

@@ -46,5 +46,8 @@ Aylık, yıllık (yeni kullanıcılar için ücretsiz deneme) ya da tek seferlik
 
 Küçük başla. Her gün devam et. Trackly serini korur.
 
+## Release notes 2.1.0
+Yeni: 20 yeni alışkanlık fikri, Ücretsiz ve Premium'un net karşılaştırması ve odak seansı bitince bildirim.
+
 ## Release notes 2.0.0
 Trackly 2.0: odak zamanlayıcı, aylık raporlar ve piksellerle yıl, akşam özeti, PIN ve parmak iziyle uygulama kilidi, siyah tema ve Türkçe dahil 5 yeni dil.

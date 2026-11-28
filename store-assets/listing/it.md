@@ -46,5 +46,8 @@ Scegli mensile, annuale (con prova gratuita per i nuovi utenti) o paga una volta
 
 Inizia in piccolo. Fallo ogni giorno. Trackly tiene la serie.
 
+## Release notes 2.1.0
+Novità: altre 20 idee di abitudini, un confronto chiaro tra versione gratuita e Premium e una notifica a fine sessione di concentrazione.
+
 ## Release notes 2.0.0
 Trackly 2.0: timer di concentrazione, report mensili e anno in pixel, riepilogo serale, blocco dell'app con PIN e impronta, tema nero e 5 nuove lingue, incluso l'italiano.
